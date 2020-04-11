@@ -32,6 +32,9 @@ class TabContainer extends Taro.Component<{}, ITabContainerState> {
   render() {
     const tabList = [
       {
+        title: '今日题目',
+      },
+      {
         title: '今日榜单',
       },
       {
@@ -43,7 +46,10 @@ class TabContainer extends Taro.Component<{}, ITabContainerState> {
         <AtTabsPane current={this.state.current} index={0} >
           <Index />
         </AtTabsPane>
-        <AtTabsPane current={this.state.current} index={1}>
+        <AtTabsPane current={this.state.current} index={1} >
+          <Index />
+        </AtTabsPane>
+        <AtTabsPane current={this.state.current} index={2}>
           <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页二的内容</View>
         </AtTabsPane>
       </AtTabs>
