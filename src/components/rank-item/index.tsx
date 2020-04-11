@@ -118,11 +118,6 @@ class RankItem extends Taro.Component<IRankItemProps> {
               height: "50px"
             }}
           >
-            {/* <RankIconItem value={"21天"} icon={"day"} /> */}
-            {/* <View style={{ display: "flex", alignItems: "center" }}>
-              <IconFont size={50} name={"day"} />
-              <Text style={{ paddingLeft: "7px" }}>{"21天"}</Text>
-            </View> */}
             {this.rankIconItem({ value: "21天", icon: "day" })}
             {this.rankIconItem({ value: "12121", icon: "good", size: 36 })}
             {this.rankIconItem({ value: "8", icon: "daka", size: 36 })}

@@ -47,10 +47,10 @@ class TabContainer extends Taro.Component<{}, ITabContainerState> {
         onClick={this.handleClick.bind(this)}
       >
         <AtTabsPane current={this.state.current} index={0}>
-          <Rank />
+          <Index />
         </AtTabsPane>
         <AtTabsPane current={this.state.current} index={1}>
-          <Index />
+          <Rank />
         </AtTabsPane>
         <AtTabsPane current={this.state.current} index={2}>
           <View style="padding: 100px 50px;background-color: #FAFBFC;text-align: center;">
