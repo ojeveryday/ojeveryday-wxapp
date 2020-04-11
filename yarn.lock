@@ -1220,6 +1220,13 @@ aws4@^1.8.0:
   resolved "https://registry.npm.taobao.org/aws4/download/aws4-1.9.1.tgz#7e33d8f7d449b3f673cd72deb9abdc552dbe528e"
   integrity sha1-fjPY99RJs/ZzzXLeuavcVS2+Uo4=
 
+axios@^0.19.0:
+  version "0.19.2"
+  resolved "https://registry.npm.taobao.org/axios/download/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
+  integrity sha1-PqNsXYgY0NX4qKl6bTa4bNwAyyc=
+  dependencies:
+    follow-redirects "1.5.10"
+
 babel-code-frame@^6.26.0, babel-code-frame@^6.8.0:
   version "6.26.0"
   resolved "https://registry.npm.taobao.org/babel-code-frame/download/babel-code-frame-6.26.0.tgz#63fd43f7dc1e3bb7ce35947db8fe369a3f58c74b"
@@ -2703,6 +2710,11 @@ color-name@~1.1.4:
   resolved "https://registry.npm.taobao.org/color-name/download/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha1-wqCah6y95pVD3m9j+jmVyCbFNqI=
 
+colors@^1.3.3, colors@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npm.taobao.org/colors/download/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
+  integrity sha1-xQSRR51MG9rtLJztMs98fcI2D3g=
+
 combined-stream@^1.0.6, combined-stream@~1.0.6:
   version "1.0.8"
   resolved "https://registry.npm.taobao.org/combined-stream/download/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
@@ -3164,6 +3176,13 @@ debug@2.6.9, debug@^2.1.1, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.
   version "2.6.9"
   resolved "https://registry.npm.taobao.org/debug/download/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
   integrity sha1-XRKFFd8TT/Mn6QpMk/Tgd6U2NB8=
+  dependencies:
+    ms "2.0.0"
+
+debug@=3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npm.taobao.org/debug/download/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  integrity sha1-W7WgZyYotkFJVmuhaBnmFRjGcmE=
   dependencies:
     ms "2.0.0"
 
@@ -4242,6 +4261,13 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
+follow-redirects@1.5.10:
+  version "1.5.10"
+  resolved "https://registry.npm.taobao.org/follow-redirects/download/follow-redirects-1.5.10.tgz?cache=0&sync_timestamp=1585479417937&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffollow-redirects%2Fdownload%2Ffollow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
+  integrity sha1-e3qfmuov3/NnhqlP9kPtB/T/Xio=
+  dependencies:
+    debug "=3.1.0"
+
 follow-redirects@^1.0.0:
   version "1.11.0"
   resolved "https://registry.npm.taobao.org/follow-redirects/download/follow-redirects-1.11.0.tgz?cache=0&sync_timestamp=1585479417937&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffollow-redirects%2Fdownload%2Ffollow-redirects-1.11.0.tgz#afa14f08ba12a52963140fe43212658897bc0ecb"
@@ -4860,6 +4886,16 @@ https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/https-browserify/download/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
+
+iconfont-parser@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/iconfont-parser/download/iconfont-parser-1.0.0.tgz#1fa61be02677005a9a014653ef2eeb7503c3538a"
+  integrity sha1-H6Yb4CZ3AFqaAUZT7y7rdQPDU4o=
+  dependencies:
+    axios "^0.19.0"
+    colors "^1.4.0"
+    tslib "^1.10.0"
+    xml2js "^0.4.22"
 
 iconv-lite@0.4.24, iconv-lite@^0.4.24:
   version "0.4.24"
@@ -6202,6 +6238,20 @@ mini-css-extract-plugin@^0.7.0:
     normalize-url "1.9.1"
     schema-utils "^1.0.0"
     webpack-sources "^1.1.0"
+
+mini-program-iconfont-cli@0.5.5:
+  version "0.5.5"
+  resolved "https://registry.npm.taobao.org/mini-program-iconfont-cli/download/mini-program-iconfont-cli-0.5.5.tgz#6752c2efdf5a51d81ccb8868884c65dfd7231588"
+  integrity sha1-Z1LC799aUdgcy4hoiExl39cjFYg=
+  dependencies:
+    axios "^0.19.0"
+    colors "^1.3.3"
+    fs-extra "^8.1.0"
+    glob "^7.1.4"
+    minimist "^1.2.0"
+    mkdirp "^0.5.1"
+    tslib "^1.10.0"
+    xml2js "^0.4.19"
 
 minimalistic-assert@^1.0.0, minimalistic-assert@^1.0.1:
   version "1.0.1"
@@ -7639,10 +7689,36 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
+react-iconfont-cli@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/react-iconfont-cli/download/react-iconfont-cli-1.0.1.tgz#51bfa666838202dd7c8b0ea93345a070831c8308"
+  integrity sha1-Ub+mZoOCAt18iw6pM0WgcIMcgwg=
+  dependencies:
+    colors "^1.3.3"
+    glob "^7.1.4"
+    iconfont-parser "^1.0.0"
+    lodash "^4.17.15"
+    minimist "^1.2.0"
+    mkdirp "^0.5.1"
+    tslib "^1.10.0"
+
 react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.npm.taobao.org/react-is/download/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha1-eJcppNw23imZ3BVt1sHZwYzqVqQ=
+
+react-native-iconfont-cli@1.7.1:
+  version "1.7.1"
+  resolved "https://registry.npm.taobao.org/react-native-iconfont-cli/download/react-native-iconfont-cli-1.7.1.tgz#15aa5f84bbda6a21756dab0a3e9575478c20b165"
+  integrity sha1-FapfhLvaaiF1basKPpV1R4wgsWU=
+  dependencies:
+    colors "^1.3.3"
+    glob "^7.1.4"
+    iconfont-parser "^1.0.0"
+    lodash "^4.17.15"
+    minimist "^1.2.0"
+    mkdirp "^0.5.1"
+    tslib "^1.10.0"
 
 react-native-known-styling-properties@^1.0.4:
   version "1.0.5"
@@ -8230,7 +8306,7 @@ sax@0.5.x:
   resolved "https://registry.npm.taobao.org/sax/download/sax-0.5.8.tgz#d472db228eb331c2506b0e8c15524adb939d12c1"
   integrity sha1-1HLbIo6zMcJQaw6MFVJK25OdEsE=
 
-sax@^1.2.4:
+sax@>=0.6.0, sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.npm.taobao.org/sax/download/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha1-KBYjTiN4vdxOU1T6tcqold9xANk=
@@ -9112,6 +9188,20 @@ tar@^2.0.0:
     fstream "^1.0.12"
     inherits "2"
 
+taro-iconfont-cli@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npm.taobao.org/taro-iconfont-cli/download/taro-iconfont-cli-1.2.0.tgz#1dbf2f1b5715b7ce9b2287b2ba51b888b1d13e59"
+  integrity sha1-Hb8vG1cVt86bIoeyulG4iLHRPlk=
+  dependencies:
+    colors "^1.4.0"
+    fs-extra "^8.1.0"
+    iconfont-parser "^1.0.0"
+    mini-program-iconfont-cli "0.5.5"
+    minimist "^1.2.5"
+    mkdirp "^0.5.1"
+    react-iconfont-cli "1.0.1"
+    react-native-iconfont-cli "1.7.1"
+
 taro-ui@^2.3.2:
   version "2.3.2"
   resolved "https://registry.npm.taobao.org/taro-ui/download/taro-ui-2.3.2.tgz?cache=0&sync_timestamp=1586009804794&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftaro-ui%2Fdownload%2Ftaro-ui-2.3.2.tgz#56bf0f2ad09f1e65ce8a0c46cf68bbfbc24555ba"
@@ -9982,6 +10072,19 @@ x-is-string@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npm.taobao.org/x-is-string/download/x-is-string-0.1.0.tgz#474b50865af3a49a9c4657f05acd145458f77d82"
   integrity sha1-R0tQhlrzpJqcRlfwWs0UVFj3fYI=
+
+xml2js@^0.4.19, xml2js@^0.4.22:
+  version "0.4.23"
+  resolved "https://registry.npm.taobao.org/xml2js/download/xml2js-0.4.23.tgz?cache=0&sync_timestamp=1576776179444&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fxml2js%2Fdownload%2Fxml2js-0.4.23.tgz#a0c69516752421eb2ac758ee4d4ccf58843eac66"
+  integrity sha1-oMaVFnUkIesqx1juTUzPWIQ+rGY=
+  dependencies:
+    sax ">=0.6.0"
+    xmlbuilder "~11.0.0"
+
+xmlbuilder@~11.0.0:
+  version "11.0.1"
+  resolved "https://registry.npm.taobao.org/xmlbuilder/download/xmlbuilder-11.0.1.tgz?cache=0&sync_timestamp=1586386503877&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fxmlbuilder%2Fdownload%2Fxmlbuilder-11.0.1.tgz#be9bae1c8a046e76b31127726347d0ad7002beb3"
+  integrity sha1-vpuuHIoEbnazESdyY0fQrXACvrM=
 
 xregexp@4.0.0:
   version "4.0.0"

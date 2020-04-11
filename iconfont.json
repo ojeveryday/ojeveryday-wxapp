@@ -1,0 +1,10 @@
+{
+  "symbol_url": "//at.alicdn.com/t/font_1748584_hgy2uq703sf.js",
+  "save_dir": "./src/iconfont",
+  "use_typescript": true,
+  "platforms": ["weapp", "swan", "alipay", "rn", "h5", "tt", "qq"],
+  "use_rpx": true,
+  "trim_icon_prefix": "icon",
+  "default_icon_size": 18,
+  "component_name": "IconFont"
+}

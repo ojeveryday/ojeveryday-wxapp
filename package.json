@@ -72,6 +72,7 @@
     "stylelint": "9.3.0",
     "stylelint-config-taro-rn": "2.1.3",
     "stylelint-taro-rn": "2.1.3",
+    "taro-iconfont-cli": "^1.2.0",
     "typescript": "^3.0.1"
   }
 }
