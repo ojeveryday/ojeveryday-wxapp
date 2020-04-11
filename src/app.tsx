@@ -1,10 +1,10 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { Provider } from '@tarojs/mobx'
-import Index from './pages/index'
+import './app.scss'
 
+import TabContainer from './pages/tab-container'
 import counterStore from './store/counter'
 
-import './app.scss'
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -27,7 +27,8 @@ class App extends Component {
    */
   config: Config = {
     pages: [
-      'pages/index/index'
+      'pages/tab-container/index',
+      'pages/index/index',
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -73,7 +74,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Index />
+        <TabContainer />
       </Provider>
     )
   }
