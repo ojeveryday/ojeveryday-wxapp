@@ -3,7 +3,34 @@ import Taro from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import RankItem from "../../components/rank-item";
 
-class Rank extends Taro.Component {
+import { NetworkManager, RankItemModel } from "../../network/network";
+
+interface IRankProps {
+  date?: string;
+}
+
+interface IRankState {
+  items: RankItemModel[];
+}
+
+class Rank extends Taro.Component<IRankProps, IRankState> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: []
+    };
+
+    this.fetchDatas();
+  }
+
+  fetchDatas() {
+    const date: string = this.props.date ? this.props.date : "2020-04-13";
+    NetworkManager.getRank(date).then((items: RankItemModel[]) => {
+      this.setState({ items: items });
+      console.log(items);
+    });
+  }
+
   render() {
     return (
       <View
@@ -14,8 +41,10 @@ class Rank extends Taro.Component {
           flexDirection: "column"
         }}
       >
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item, index) => {
-          return <RankItem key={`${index}-${item}`} />;
+        {this.state.items.map((item, index) => {
+          return (
+            <RankItem key={`${index}-${item}`} rank={index + 1} model={item} />
+          );
         })}
       </View>
     );

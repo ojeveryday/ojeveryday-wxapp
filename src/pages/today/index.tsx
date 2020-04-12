@@ -1,38 +1,38 @@
-
-import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
-import './index.scss'
+import Taro, { Component } from "@tarojs/taro";
+import { View } from "@tarojs/components";
+import "./index.scss";
 import Statistical from "./statistical";
 
+import { NetworkManager } from "./../../network/network";
+
 interface ITodayProblem {
-  indexNum: string,
-  name: string,
-  questionTitleSlug: string,
-  date: string,
-  cnUrl: string,
-  enUrl: string,
+  indexNum: string;
+  name: string;
+  questionTitleSlug: string;
+  date: string;
+  cnUrl: string;
+  enUrl: string;
 }
 
 interface IStatistical {
-  checkedCount: number | string,
-  totalUserCount: number | string,
-  checkRatio: string,
+  checkedCount: number | string;
+  totalUserCount: number | string;
+  checkRatio: string;
 }
-
 
 class Day extends Component<ITodayProblem> {
   // 发送请求
-  statistical: IStatistical
+  statistical: IStatistical;
   constructor() {
-    super()
+    super();
     this.state = {
       todayProblem: {},
       statistical: {}
-    }
+    };
   }
   async componentDidShow() {
-    await this.getTodayProblem()
-    await this.getSummary()
+    await this.getTodayProblem();
+    await this.getSummary();
   }
 
   /**
@@ -40,8 +40,8 @@ class Day extends Component<ITodayProblem> {
    * @param outerUrl 打开力扣的地址
    */
   toLeetcode(outerUrl: string) {
-    const url = `/pages/leetcode/index?outerUrl=${outerUrl}`
-    Taro.navigateTo({ url })
+    const url = `/pages/leetcode/index?outerUrl=${outerUrl}`;
+    Taro.navigateTo({ url });
   }
 
   /**
@@ -49,30 +49,24 @@ class Day extends Component<ITodayProblem> {
    */
   async getTodayProblem() {
     const params = {
-      url: 'http://ojeveryday.com/problem/todayProblem'
-    }
-    const res = await Taro.request(params)
-    if (res.statusCode !== 200) return false
-    const data = res.data
+      url: "http://ojeveryday.com/problem/todayProblem"
+    };
+    const res = await Taro.request(params);
+    if (res.statusCode !== 200) return false;
+    const data = res.data;
     this.setState({
       todayProblem: data[0]
-    })
+    });
   }
 
   /**
    * 获取统计信息
    */
   async getSummary() {
-    const params = {
-      url: 'http://ojeveryday.com/checkDayInfo/summary'
-    }
-    const res = await Taro.request(params)
-    if (res.statusCode !== 200) return false
+    const res = await NetworkManager.getTodayProblem();
     this.setState({
       statistical: res.data
-    })
-
-
+    });
   }
   render() {
     return (
@@ -90,11 +84,14 @@ class Day extends Component<ITodayProblem> {
           </View>
         </View>
         <Statistical {...this.state.statistical} />
-        <View className="to_lc" onClick={() => this.toLeetcode(this.state.todayProblem.cnUrl)}>
+        <View
+          className="to_lc"
+          onClick={() => this.toLeetcode(this.state.todayProblem.cnUrl)}
+        >
           打开力扣,开始挑战 !
         </View>
       </View>
-    )
+    );
   }
 }
 export default Day;

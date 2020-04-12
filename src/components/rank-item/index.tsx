@@ -1,9 +1,8 @@
 import { View, Image, Text, Button } from "@tarojs/components";
-
 import styles from "./index.scss";
-
-import { AtIcon } from "taro-ui";
 import IconFont from "../../iconfont";
+
+import { RankItemModel } from "../../network/network";
 
 interface IRankIconItemProps {
   value: string;
@@ -11,9 +10,23 @@ interface IRankIconItemProps {
   size?: number;
 }
 
-interface IRankItemProps {}
+interface IRankItemProps {
+  model: RankItemModel;
+  rank: number;
+}
 
-class RankItem extends Taro.Component<IRankItemProps> {
+interface IRankItemState {
+  is_punched: boolean;
+}
+
+class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
+  constructor(props: IRankItemProps) {
+    super(props);
+    this.state = {
+      is_punched: false
+    };
+  }
+
   rankIconItem(props: IRankIconItemProps) {
     const { value, icon, size } = props;
     return (
@@ -27,6 +40,7 @@ class RankItem extends Taro.Component<IRankItemProps> {
   }
 
   render() {
+    const check: boolean = this.props.model.checked === 1;
     return (
       <View
         style={{
@@ -52,13 +66,13 @@ class RankItem extends Taro.Component<IRankItemProps> {
               borderRadius: "30px",
               flex: "0 0 auto"
             }}
-            src="https://avatars1.githubusercontent.com/u/7804535?s=460&u=3823da33cacc48fc3373859a81dfcda2437c730c&v=4"
+            src={this.props.model.avatar}
           />
           <View
             style={{
               width: "40px",
               height: "16px",
-              backgroundColor: "#EF4684",
+              backgroundColor: check ? "green" : "#EF4684",
               display: "flex",
               alignItems: "center",
               position: "relative",
@@ -78,11 +92,11 @@ class RankItem extends Taro.Component<IRankItemProps> {
                 color: "white"
               }}
             >
-              未打卡
+              {check ? "已打卡" : "未打卡"}
             </Text>
           </View>
           <Text style={{ fontSize: "14", position: "relative", top: "-10px" }}>
-            No.1
+            No.{this.props.rank}
           </Text>
         </View>
 
@@ -108,7 +122,7 @@ class RankItem extends Taro.Component<IRankItemProps> {
                 fontSize: "22px"
               }}
             >
-              ikaruga
+              {this.props.model.username}
             </Text>
           </View>
           <View

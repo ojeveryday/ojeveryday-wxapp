@@ -49,7 +49,7 @@ class TabContainer extends Taro.Component<{}, ITabContainerState> {
       >
         <AtTabsPane current={this.state.current} index={0}>
           <ToDay />
-          <Index />
+          {/* <Index /> */}
         </AtTabsPane>
         <AtTabsPane current={this.state.current} index={1}>
           <Rank />
