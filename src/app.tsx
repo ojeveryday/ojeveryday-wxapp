@@ -29,6 +29,7 @@ class App extends Component {
     pages: [
       'pages/tab-container/index',
       'pages/index/index',
+      'pages/leetcode/index',
     ],
     window: {
       backgroundTextStyle: 'light',
