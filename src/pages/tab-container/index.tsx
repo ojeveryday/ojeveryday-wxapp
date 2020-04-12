@@ -5,6 +5,7 @@ import { AtTabs, AtTabsPane } from "taro-ui";
 
 import Index from "../index";
 import Rank from "../rank";
+import ToDay from "../today";
 
 interface ITabContainerState {
   current: number;
@@ -47,6 +48,7 @@ class TabContainer extends Taro.Component<{}, ITabContainerState> {
         onClick={this.handleClick.bind(this)}
       >
         <AtTabsPane current={this.state.current} index={0}>
+          <ToDay />
           <Index />
         </AtTabsPane>
         <AtTabsPane current={this.state.current} index={1}>

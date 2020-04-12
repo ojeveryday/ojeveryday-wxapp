@@ -1,0 +1,108 @@
+page {
+  background-color: rgba(242, 242, 242, 0.4);
+
+}
+
+.today {
+  text-align: center;
+  padding: 30px;
+  color: #666;
+  font-weight: 600;
+  font-size: 40px;
+  padding-top: 50px;
+
+  view {
+    box-sizing: border-box;
+  }
+
+  .banner {
+    background: linear-gradient(180deg, rgba(112, 222, 247, 1) 0%, rgba(16, 106, 254, 0.8) 100%);
+    border-radius: 10px;
+    height: 334px;
+    color: #fff;
+    text-align: center;
+    font-family: PingFangSC-Medium, PingFang SC;
+
+    .back {
+      padding: 40px 30px 20px;
+      background-image: url(https://static.leetcode-cn.com/cn-assets/webpack_bundles/images/database_bg.f3bec933a.png);
+      background-size: 100% 100%;
+    }
+
+    .date {
+      font-size: 70px;
+      font-weight: 700;
+    }
+
+    .problem {
+      margin-top: 40px;
+      max-height: 2em;
+      font-size: 50px;
+      font-weight: 600;
+      line-height: 1.2em;
+    }
+  }
+
+  .statistical {
+    margin-top: 100px;
+    height: 186px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #fff;
+
+    .card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      font-family: STYuanti-SC-Bold,
+        STYuanti-SC;
+      font-weight: bold;
+      color: rgba(51, 51, 51, 1);
+      line-height: 33px;
+      height: 138px;
+
+      .number {
+        font-size: 46px;
+        font-family: STYuanti-SC-Bold, STYuanti-SC;
+        font-weight: bold;
+        line-height: 65px;
+        color: #1CC88A;
+      }
+
+    }
+
+    .over {
+      border-left: 1px solid rgba(238, 238, 238, 1);
+
+      .number {
+        color: #36B9CC;
+      }
+    }
+
+    .ratio {
+      border-left: 1px solid rgba(238, 238, 238, 1);
+
+      .number {
+        color: #F6C23E;
+      }
+    }
+  }
+
+  .to_lc {
+    margin: 100px 30px 0;
+    height: 130px;
+    line-height: 130px;
+    border-radius: 8px;
+    border: 2px solid rgba(22, 119, 255, 1);
+    font-size: 48px;
+    font-family: STYuanti-SC-Bold, STYuanti-SC;
+    font-weight: bold;
+    color: #1677FFBF;
+    background-color: #fff;
+  }
+}
