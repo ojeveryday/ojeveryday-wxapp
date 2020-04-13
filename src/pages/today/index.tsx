@@ -6,28 +6,37 @@ import Statistical from "./statistical";
 import { NetworkManager } from "./../../network/network";
 
 interface ITodayProblem {
-  indexNum: string;
-  name: string;
-  questionTitleSlug: string;
-  date: string;
-  cnUrl: string;
-  enUrl: string;
+  indexNum?: string,
+  name?: string,
+  questionTitleSlug?: string,
+  date?: string,
+  cnUrl?: string,
+  enUrl?: string,
 }
 
 interface IStatistical {
-  checkedCount: number | string;
-  totalUserCount: number | string;
-  checkRatio: string;
+  checkedCount?: number | string,
+  totalUserCount?: number | string,
+  checkRatio?: string,
 }
 
-class Day extends Component<ITodayProblem> {
+interface ITodayProblemState {
+  todayProblem: ITodayProblem,
+  statistical: IStatistical,
+}
+
+class Day extends Component<ITodayProblem, ITodayProblemState> {
   // 发送请求
   statistical: IStatistical;
   constructor() {
     super();
     this.state = {
       todayProblem: {},
-      statistical: {}
+      statistical: {
+        checkedCount: '',
+        totalUserCount: '',
+        checkRatio: '',
+      }
     };
   }
   async componentDidShow() {
@@ -39,7 +48,7 @@ class Day extends Component<ITodayProblem> {
    * 打开力扣webview
    * @param outerUrl 打开力扣的地址
    */
-  toLeetcode(outerUrl: string) {
+  toLeetcode(outerUrl?: string) {
     const url = `/pages/leetcode/index?outerUrl=${outerUrl}`;
     Taro.navigateTo({ url });
   }
@@ -48,14 +57,9 @@ class Day extends Component<ITodayProblem> {
    * 获取每日一题信息
    */
   async getTodayProblem() {
-    const params = {
-      url: "http://ojeveryday.com/problem/todayProblem"
-    };
-    const res = await Taro.request(params);
-    if (res.statusCode !== 200) return false;
-    const data = res.data;
+    const res = await NetworkManager.getTodayProblem();
     this.setState({
-      todayProblem: data[0]
+      todayProblem: res[0]
     });
   }
 
@@ -63,9 +67,9 @@ class Day extends Component<ITodayProblem> {
    * 获取统计信息
    */
   async getSummary() {
-    const res = await NetworkManager.getTodayProblem();
+    const res = await NetworkManager.getSummary();
     this.setState({
-      statistical: res.data
+      statistical: res
     });
   }
   render() {

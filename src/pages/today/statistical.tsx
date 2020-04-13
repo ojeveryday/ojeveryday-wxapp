@@ -4,9 +4,9 @@ import { View, Text } from '@tarojs/components'
 import './statistical.scss'
 
 interface IStatistical {
-  checkedCount: number | string,
-  totalUserCount: number | string,
-  checkRatio: string,
+  checkedCount?: number | string,
+  totalUserCount?: number | string,
+  checkRatio?: string,
 }
 
 class Statistical extends Component<IStatistical> {
