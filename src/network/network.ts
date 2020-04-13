@@ -2,6 +2,8 @@ import Taro from "@tarojs/taro";
 
 import { RankItemModel } from "./model";
 
+import { formatDate } from "../utils/date_helper";
+
 class NetworkManager {
   static host: string = "http://ojeveryday.com/";
 
@@ -18,6 +20,20 @@ class NetworkManager {
         throw new Error(`Error code ${statusCode}`);
       }
     });
+  }
+
+  static async getTodayRank(): Promise<RankItemModel[]> {
+    const today = new Date();
+    const dateFormat = formatDate(today);
+    return this.getRank(dateFormat);
+  }
+
+  static async getYesterdayRank(): Promise<RankItemModel[]> {
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    const dateFormat = formatDate(yesterday);
+    return this.getRank(dateFormat);
   }
 
   static async getRank(date: string): Promise<RankItemModel[]> {

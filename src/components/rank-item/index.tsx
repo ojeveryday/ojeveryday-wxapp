@@ -125,17 +125,30 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
               {this.props.model.username}
             </Text>
           </View>
-          <View
-            style={{
-              display: "flex",
-              marginLeft: "8px",
-              height: "50px"
-            }}
-          >
-            {this.rankIconItem({ value: "21天", icon: "day" })}
-            {this.rankIconItem({ value: "12121", icon: "good", size: 36 })}
-            {this.rankIconItem({ value: "8", icon: "daka", size: 36 })}
-          </View>
+          {check && (
+            <View
+              style={{
+                display: "flex",
+                marginLeft: "8px",
+                height: "50px"
+              }}
+            >
+              {this.rankIconItem({
+                value: `${this.props.model.totalChecked}天`,
+                icon: "day"
+              })}
+              {this.rankIconItem({
+                value: `${this.props.model.upvoteNumber}`,
+                icon: "good",
+                size: 36
+              })}
+              {this.rankIconItem({
+                value: this.props.model.checkedTime.slice(11),
+                icon: "daka",
+                size: 36
+              })}
+            </View>
+          )}
         </View>
       </View>
     );

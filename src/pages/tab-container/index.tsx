@@ -52,12 +52,10 @@ class TabContainer extends Taro.Component<{}, ITabContainerState> {
           {/* <Index /> */}
         </AtTabsPane>
         <AtTabsPane current={this.state.current} index={1}>
-          <Rank />
+          <Rank date={"today"} />
         </AtTabsPane>
         <AtTabsPane current={this.state.current} index={2}>
-          <View style="padding: 100px 50px;background-color: #FAFBFC;text-align: center;">
-            标签页二的内容
-          </View>
+          <Rank date={"yesterday"} />
         </AtTabsPane>
       </AtTabs>
     );

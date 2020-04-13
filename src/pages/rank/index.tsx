@@ -6,7 +6,7 @@ import RankItem from "../../components/rank-item";
 import { NetworkManager, RankItemModel } from "../../network/network";
 
 interface IRankProps {
-  date?: string;
+  date?: string | "today" | "yesterday";
 }
 
 interface IRankState {
@@ -24,11 +24,19 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   }
 
   fetchDatas() {
-    const date: string = this.props.date ? this.props.date : "2020-04-13";
-    NetworkManager.getRank(date).then((items: RankItemModel[]) => {
+    const date: string = this.props.date ? this.props.date : "today";
+    const callback: { (items: RankItemModel[]): void } = (
+      items: RankItemModel[]
+    ) => {
       this.setState({ items: items });
-      console.log(items);
-    });
+    };
+    if (date === "today") {
+      NetworkManager.getTodayRank().then(callback);
+    } else if (date === "yesterday") {
+      NetworkManager.getYesterdayRank().then(callback);
+    } else {
+      NetworkManager.getRank(date).then(callback);
+    }
   }
 
   render() {
@@ -51,4 +59,4 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   }
 }
 
-export default Rank as ComponentType;
+export default Rank;
