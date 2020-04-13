@@ -52,6 +52,13 @@ class NetworkManager {
     };
     return NetworkManager.resolveRequest(params);
   }
+
+  static async getSummary() {
+    const params = {
+      url: 'http://ojeveryday.com/checkDayInfo/summary'
+    };
+    return NetworkManager.resolveRequest(params);
+  }
 }
 
 export { NetworkManager, RankItemModel };
