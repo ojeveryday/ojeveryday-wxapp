@@ -2,7 +2,7 @@
 
 # Description
 
-这是每日一题官方微信小程序。改小程序致力于方便查看个人打卡情况及每日一题(http://ojeveryday.com/)榜单情况，也可以分享当日习题和当日本人打卡情况。
+这是每日一题官方微信小程序。改小程序致力于方便查看个人打卡情况及每日一题 (http://ojeveryday.com/) 榜单情况，也可以分享当日习题和当日本人打卡情况。
 
 技术选型：[Taro](https://github.com/NervJS/taro)、[React](https://github.com/facebook/react)、[TypeScript](https://github.com/microsoft/TypeScript)、[mobx](https://github.com/mobxjs/mobx)
 
