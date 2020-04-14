@@ -1,4 +1,4 @@
-import { View, Image, Text, Button } from "@tarojs/components";
+import { View, Image, Text } from "@tarojs/components";
 import styles from "./index.scss";
 import IconFont from "../../iconfont";
 

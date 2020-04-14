@@ -6,23 +6,23 @@ import Statistical from "./statistical";
 import { NetworkManager } from "./../../network/network";
 
 interface ITodayProblem {
-  indexNum?: string,
-  name?: string,
-  questionTitleSlug?: string,
-  date?: string,
-  cnUrl?: string,
-  enUrl?: string,
+  indexNum?: string;
+  name?: string;
+  questionTitleSlug?: string;
+  date?: string;
+  cnUrl?: string;
+  enUrl?: string;
 }
 
 interface IStatistical {
-  checkedCount?: number | string,
-  totalUserCount?: number | string,
-  checkRatio?: string,
+  checkedCount?: number | string;
+  totalUserCount?: number | string;
+  checkRatio?: string;
 }
 
 interface ITodayProblemState {
-  todayProblem: ITodayProblem,
-  statistical: IStatistical,
+  todayProblem: ITodayProblem;
+  statistical: IStatistical;
 }
 
 class Day extends Component<ITodayProblem, ITodayProblemState> {
@@ -33,9 +33,9 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
     this.state = {
       todayProblem: {},
       statistical: {
-        checkedCount: '',
-        totalUserCount: '',
-        checkRatio: '',
+        checkedCount: "",
+        totalUserCount: "",
+        checkRatio: ""
       }
     };
   }
@@ -92,7 +92,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
           className="to_lc"
           onClick={() => this.toLeetcode(this.state.todayProblem.cnUrl)}
         >
-          打开力扣,开始挑战 !
+          打开力扣，开始挑战 !
         </View>
       </View>
     );
