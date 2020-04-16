@@ -12,6 +12,9 @@ class NetworkManager {
   }
 
   static async resolveRequest(option) {
+    option.header = {
+      Authorization: "Basic YWRtaW46YWRtaW4="
+    };
     return Taro.request(option).then(res => {
       const { statusCode, data } = res;
       if (statusCode >= 200 && statusCode < 300) {
@@ -48,14 +51,14 @@ class NetworkManager {
 
   static async getTodayProblem() {
     const params = {
-      url: "http://ojeveryday.com/problem/todayProblem"
+      url: NetworkManager.makeUri("problem/todayProblem")
     };
     return NetworkManager.resolveRequest(params);
   }
 
   static async getSummary() {
     const params = {
-      url: 'http://ojeveryday.com/checkDayInfo/summary'
+      url: NetworkManager.makeUri("checkDayInfo/summary")
     };
     return NetworkManager.resolveRequest(params);
   }
