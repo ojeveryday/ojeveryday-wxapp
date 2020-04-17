@@ -5,7 +5,7 @@ import { RankItemModel } from "./model";
 import { formatDate } from "../utils/date_helper";
 
 class NetworkManager {
-  static host: string = "http://ojeveryday.com/";
+  static host: string = "https://ojeveryday.com/";
 
   static makeUri(path: string) {
     return `${NetworkManager.host}${path}`;
