@@ -1,10 +1,9 @@
-import Taro, { Component, Config } from '@tarojs/taro'
-import { Provider } from '@tarojs/mobx'
-import './app.scss'
+import Taro, { Component, Config } from "@tarojs/taro";
+import { Provider } from "@tarojs/mobx";
+import "./app.scss";
 
-import TabContainer from './pages/tab-container'
-import counterStore from './store/counter'
-
+import TabContainer from "./pages/tab-container";
+import counterStore from "./store/counter";
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -14,10 +13,9 @@ import counterStore from './store/counter'
 
 const store = {
   counterStore
-}
+};
 
 class App extends Component {
-
   /**
    * 指定config的类型声明为: Taro.Config
    *
@@ -27,48 +25,48 @@ class App extends Component {
    */
   config: Config = {
     pages: [
-      'pages/tab-container/index',
-      'pages/index/index',
-      'pages/leetcode/index',
+      "pages/tab-container/index",
+      "pages/index/index",
+      "pages/leetcode/index"
     ],
     window: {
-      backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
-    },
-    tabBar: {
-      custom: false,
-      color: 'rgba(0, 0, 0, 0.6)',
-      selectedColor: 'rgba(0, 162, 0, 1)',
-      backgroundColor: '#fff',
-      borderStyle: 'white',
-      // 这些配置无法省略 同时需要注意pagePath和图片路径的配置
-      // 如果这里图片路径没有配置或配置出错的话，图片icon不会显示
-      list: [
-        {
-          pagePath: 'pages/tab-container/index',
-          text: '首页',
-          iconPath: '',
-          selectedIconPath: '',
-        },
-        {
-          pagePath: 'pages/index/index',
-          text: '我的',
-          iconPath: '',
-          selectedIconPath: '',
-        },
-      ]
+      backgroundTextStyle: "light",
+      navigationBarBackgroundColor: "#fff",
+      navigationBarTitleText: "WeChat",
+      navigationBarTextStyle: "black"
     }
-  }
+    // tabBar: {
+    //   custom: false,
+    //   color: 'rgba(0, 0, 0, 0.6)',
+    //   selectedColor: 'rgba(0, 162, 0, 1)',
+    //   backgroundColor: '#fff',
+    //   borderStyle: 'white',
+    //   // 这些配置无法省略 同时需要注意pagePath和图片路径的配置
+    //   // 如果这里图片路径没有配置或配置出错的话，图片icon不会显示
+    //   list: [
+    //     {
+    //       pagePath: 'pages/tab-container/index',
+    //       text: '首页',
+    //       iconPath: '',
+    //       selectedIconPath: '',
+    //     },
+    //     {
+    //       pagePath: 'pages/index/index',
+    //       text: '我的',
+    //       iconPath: '',
+    //       selectedIconPath: '',
+    //     },
+    //   ]
+    // }
+  };
 
-  componentDidMount() { }
+  componentDidMount() {}
 
-  componentDidShow() { }
+  componentDidShow() {}
 
-  componentDidHide() { }
+  componentDidHide() {}
 
-  componentDidCatchError() { }
+  componentDidCatchError() {}
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
@@ -77,8 +75,8 @@ class App extends Component {
       <Provider store={store}>
         <TabContainer />
       </Provider>
-    )
+    );
   }
 }
 
-Taro.render(<App />, document.getElementById('app'))
+Taro.render(<App />, document.getElementById("app"));
