@@ -1,5 +1,5 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View } from "@tarojs/components";
+import { View, Button, Text } from "@tarojs/components";
 import "./index.scss";
 import Statistical from "./statistical";
 
@@ -81,9 +81,11 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
               {/* {4} / {11} */}
               {this.state.todayProblem.date}
             </View>
-            <View className="problem">
+            <View className="number">
               {this.state.todayProblem.indexNum}
-              <View> {this.state.todayProblem.name} </View>
+            </View>
+            <View className="problem">
+              {this.state.todayProblem.name}
             </View>
           </View>
         </View>
@@ -93,6 +95,12 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
           onClick={() => this.toLeetcode(this.state.todayProblem.cnUrl)}
         >
           打开力扣，开始挑战 !
+        </View>
+        <View className="share">
+          <Button open-type="share">
+            <View className='at-icon at-icon-share'></View>
+            <Text>分享</Text>
+          </Button>
         </View>
       </View>
     );
