@@ -31,17 +31,26 @@ page {
       background-image: url(https://static.leetcode-cn.com/cn-assets/webpack_bundles/images/database_bg.f3bec933a.png);
       background-size: 100% 100%;
       height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
     }
 
     .date {
-      font-size: 66px;
+      font-size: 56px;
       font-weight: 700;
     }
 
     .number {
       max-height: 2em;
-      font-size: 50px;
       font-weight: 600;
+      line-height: 1.5em;
+
+      text {
+        font-size: 60px;
+        color: rgb(220, 82, 82);
+      }
     }
 
     .problem {
@@ -125,7 +134,7 @@ page {
       padding: 0;
       background: transparent;
       border-radius: 50%;
-      border: 2px solid #ccc;
+      // border: 2px solid #ccc;
       line-height: 80px;
       color: #666;
       display: flex;

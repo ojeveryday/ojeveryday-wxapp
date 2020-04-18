@@ -73,6 +73,12 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
     });
   }
   render() {
+    const textStyle = {
+      display: '-webkit-box',
+      overflow: 'hidden',
+      '-webkit-line-clamp': 2,
+      '-webkit-box-orient': 'vertical',
+    }
     return (
       <View className="today">
         <View className="banner">
@@ -82,9 +88,9 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
               {this.state.todayProblem.date}
             </View>
             <View className="number">
-              {this.state.todayProblem.indexNum}
+              LeetCode-<Text>{this.state.todayProblem.indexNum}</Text>
             </View>
-            <View className="problem">
+            <View className="problem" style={textStyle}>
               {this.state.todayProblem.name}
             </View>
           </View>
