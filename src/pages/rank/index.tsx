@@ -28,6 +28,7 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   }
 
   refList = {};
+  pageIndex = 1;
 
   async componentDidMount() {
     this.fetchDatas();
@@ -42,9 +43,9 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   async fetchDatas(page: number = 1) {
     const date: string = this.props.date ? this.props.date : "today";
     if (date === "today") {
-      return NetworkManager.getTodayRank();
+      return NetworkManager.getTodayRank(page);
     } else if (date === "yesterday") {
-      return NetworkManager.getYesterdayRank();
+      return NetworkManager.getYesterdayRank(page);
     } else {
       return NetworkManager.getRank(date);
     }
@@ -55,6 +56,7 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   };
 
   pullDownRefresh = async _rest => {
+    this.pageIndex = 1;
     const items = await this.fetchDatas();
     this.setState({
       items: items,
@@ -64,17 +66,30 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
     _rest();
   };
 
+  onScrollToLower = async fn => {
+    const { items } = this.state;
+    const addItems = await this.fetchDatas(++this.pageIndex);
+    console.log(this.pageIndex);
+    this.setState({
+      items: items.concat(addItems)
+    });
+    fn();
+  };
+
   render() {
     const { items, isLoaded, hasMore, isEmpty } = this.state;
     return (
       <View className="lazy-view">
         <ListView
           lazy
+          style={{ height: "100vh" }}
           ref={node => this.insRef(node)}
+          hasMore={hasMore}
           onPullDownRefresh={fn => this.pullDownRefresh(fn)}
           footerLoadedText={"暂时只显示前 100 名"}
+          onScrollToLower={fn => this.onScrollToLower(fn)}
         >
-          {items.slice(0, 100).map((item, index) => {
+          {items.map((item, index) => {
             return (
               <RankItem
                 key={`${index}-${item}`}

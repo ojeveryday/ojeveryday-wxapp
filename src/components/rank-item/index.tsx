@@ -33,8 +33,8 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
       <View
         style={{ display: "flex", alignItems: "center", paddingRight: "20px" }}
       >
-        <IconFont size={size ? size : 50} name={icon} />
-        <Text style={{ paddingLeft: "7px" }}>{value}</Text>
+        <IconFont size={size ? size : 30} name={icon} />
+        <Text style={{ paddingLeft: "7px", fontSize: "13px" }}>{value}</Text>
       </View>
     );
   }
@@ -109,7 +109,7 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
         >
           <View
             style={{
-              marginTop: "20px",
+              marginTop: "10px",
               height: "35px",
               display: "flex",
               alignItems: "center",
@@ -119,7 +119,7 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
           >
             <Text
               style={{
-                fontSize: "22px"
+                fontSize: "18px"
               }}
             >
               {this.props.model.username}
@@ -140,12 +140,12 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
               {this.rankIconItem({
                 value: `${this.props.model.upvoteNumber}`,
                 icon: "good",
-                size: 36
+                size: 24
               })}
               {this.rankIconItem({
                 value: this.props.model.checkedTime.slice(11),
                 icon: "daka",
-                size: 36
+                size: 24
               })}
             </View>
           )}

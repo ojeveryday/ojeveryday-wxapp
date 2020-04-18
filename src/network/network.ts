@@ -5,7 +5,7 @@ import { RankItemModel } from "./model";
 import { formatDate } from "../utils/date_helper";
 
 class NetworkManager {
-  static host: string = "http://ojeveryday.com/";
+  static host: string = "https://ojeveryday.com/";
 
   static makeUri(path: string) {
     return `${NetworkManager.host}${path}`;
@@ -25,25 +25,29 @@ class NetworkManager {
     });
   }
 
-  static async getTodayRank(): Promise<RankItemModel[]> {
+  static async getTodayRank(page: number = 1): Promise<RankItemModel[]> {
     const today = new Date();
     const dateFormat = formatDate(today);
-    return this.getRank(dateFormat);
+    return this.getRank(dateFormat, page);
   }
 
-  static async getYesterdayRank(): Promise<RankItemModel[]> {
+  static async getYesterdayRank(page: number = 1): Promise<RankItemModel[]> {
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
     const dateFormat = formatDate(yesterday);
-    return this.getRank(dateFormat);
+    return this.getRank(dateFormat, page);
   }
 
-  static async getRank(date: string): Promise<RankItemModel[]> {
+  static async getRank(
+    date: string,
+    page: number = 1
+  ): Promise<RankItemModel[]> {
     const option = {
-      url: NetworkManager.makeUri("checkDayInfo/day"),
+      url: NetworkManager.makeUri("checkDayInfo/day/page"),
       data: {
-        date: date
+        date: date,
+        pageNum: page
       }
     };
     return NetworkManager.resolveRequest(option);
