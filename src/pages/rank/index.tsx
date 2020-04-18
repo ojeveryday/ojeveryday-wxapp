@@ -28,6 +28,7 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   }
 
   refList = {};
+  isUpdated = false;
   pageIndex = 1;
 
   async componentDidMount() {
@@ -56,20 +57,21 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   };
 
   pullDownRefresh = async _rest => {
-    this.pageIndex = 1;
+    if (this.isUpdated) return;
     const items = await this.fetchDatas();
+    this.isUpdated = false;
     this.setState({
       items: items,
-      isLoaded: false,
       isEmpty: false
     });
     _rest();
   };
 
   onScrollToLower = async fn => {
+    if (this.isUpdated) return;
     const { items } = this.state;
     const addItems = await this.fetchDatas(++this.pageIndex);
-    console.log(this.pageIndex);
+    this.isUpdated = false;
     this.setState({
       items: items.concat(addItems)
     });
