@@ -1,7 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View, Button, Text } from "@tarojs/components";
+import { View, Text } from "@tarojs/components";
 import "./index.scss";
-import Statistical from "./statistical";
+// import Statistical from "./statistical";
 
 import { NetworkManager } from "./../../network/network";
 
@@ -9,9 +9,13 @@ interface ITodayProblem {
   indexNum?: string;
   name?: string;
   questionTitleSlug?: string;
-  date?: string;
   cnUrl?: string;
   enUrl?: string;
+}
+interface IDate {
+  year?: string;
+  month?: string;
+  day?: string;
 }
 
 interface IStatistical {
@@ -23,6 +27,7 @@ interface IStatistical {
 interface ITodayProblemState {
   todayProblem: ITodayProblem;
   statistical: IStatistical;
+  date: IDate;
 }
 
 class Day extends Component<ITodayProblem, ITodayProblemState> {
@@ -32,10 +37,11 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
     super();
     this.state = {
       todayProblem: {},
+      date: {},
       statistical: {
-        checkedCount: "",
-        totalUserCount: "",
-        checkRatio: ""
+        checkedCount: "0",
+        totalUserCount: "0",
+        checkRatio: "0"
       }
     };
   }
@@ -57,9 +63,17 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
    * 获取每日一题信息
    */
   async getTodayProblem() {
-    const res = await NetworkManager.getTodayProblem();
+    let res = await NetworkManager.getTodayProblem();
+    res = res[0]
+    const date = {
+      year: new Date(res.date).getFullYear(),
+      month: String(new Date(res.date).getMonth() + 1),
+      day: new Date(res.date).getDate()
+    }
+    date.month = date.month.length === 2 ? date.month : '0' + date.month
+    res.date = date
     this.setState({
-      todayProblem: res[0]
+      todayProblem: res
     });
   }
 
@@ -72,6 +86,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
       statistical: res
     });
   }
+
   render() {
     const textStyle = {
       display: '-webkit-box',
@@ -84,30 +99,42 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
         <View className="banner">
           <View className="back">
             <View className="date">
-              {/* {4} / {11} */}
-              {this.state.todayProblem.date}
-            </View>
-            <View className="number">
-              LeetCode-<Text>{this.state.todayProblem.indexNum}</Text>
+              <View className="day">{this.state.date.day}</View>
+              <View className="datetime">
+                <Text className="month">{this.state.date.month}.</Text>
+                <Text className="year">{this.state.date.year}</Text>
+              </View>
+              {/* {this.state.todayProblem.date} */}
             </View>
             <View className="problem" style={textStyle}>
-              {this.state.todayProblem.name}
+              {this.state.todayProblem.indexNum}. {this.state.todayProblem.name}
+            </View>
+            <View className="problem zh" style={textStyle}>
+              {this.state.todayProblem.indexNum}. {this.state.todayProblem.name}
+            </View>
+            <View className="progress">
+              <View className="bar"></View>
+            </View>
+            <View className="footer">
+              <Text># 每日题目</Text>
+              <Text>已打卡:  {this.state.statistical.totalUserCount}/{this.state.statistical.checkedCount}
+                <Text className='at-icon at-icon-chevron-right'></Text>
+              </Text>
             </View>
           </View>
         </View>
-        <Statistical {...this.state.statistical} />
         <View
           className="to_lc"
           onClick={() => this.toLeetcode(this.state.todayProblem.cnUrl)}
         >
-          打开力扣，开始挑战 !
+          前往打卡
         </View>
-        <View className="share">
+        {/* <View className="share">
           <Button open-type="share">
             <View className='at-icon at-icon-share'></View>
             <Text>分享</Text>
           </Button>
-        </View>
+        </View> */}
       </View>
     );
   }
