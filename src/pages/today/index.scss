@@ -1,3 +1,5 @@
+@import "~taro-ui/dist/style/components/icon.scss";
+
 page {
   background-color: rgba(229, 234, 245, 1);
 
@@ -6,45 +8,103 @@ page {
 .today {
   text-align: center;
   padding: 30px;
-  color: #666;
+  color: #fff;
   font-weight: 600;
   font-size: 40px;
-  padding-top: 50px;
+  padding: 88px 44px;
 
   view {
     box-sizing: border-box;
   }
 
   .banner {
-    background: linear-gradient(180deg, rgba(112, 222, 247, 1) 0%, rgba(16, 106, 254, 0.8) 100%);
-    border-radius: 10px;
-    height: 334px;
-    color: #fff;
-    text-align: center;
-    font-family: PingFangSC-Medium, PingFang SC;
+    border-radius: 18px;
+    background-color: #fff;
+    padding: 10px;
 
     .back {
-      padding: 40px 30px 20px;
-      background-image: url(https://static.leetcode-cn.com/cn-assets/webpack_bundles/images/database_bg.f3bec933a.png);
-      background-size: 100% 100%;
-      height: 100%;
+      height: 884px;
+      border-radius: 18px;
+      padding: 40px;
+      padding-bottom: 50px;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(135deg, rgba(149, 183, 251, 1) 0%, rgba(102, 147, 255, 1) 49%, rgba(72, 120, 249, 1) 100%);
     }
 
     .date {
-      font-size: 70px;
-      font-weight: 700;
+      flex: 1;
+      text-align: right;
+
+      .day {
+        font-size: 98px;
+        font-family: PingFangSC-Semibold, PingFang SC;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 1);
+        line-height: 136px;
+      }
+
+      .datetime {
+
+        height: 40px;
+        font-size: 29px;
+        font-family: PingFangSC-Semibold, PingFang SC;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 40px;
+      }
     }
 
     .problem {
-      margin-top: 40px;
-      max-height: 2em;
-      font-size: 50px;
+      height: 60px;
+      font-size: 43px;
+      font-family: PingFangSC-Semibold, PingFang SC;
       font-weight: 600;
-      line-height: 1.2em;
+      color: rgba(255, 255, 255, 1);
+      line-height: 60px;
+      text-align: left;
+    }
+
+    .problem.zh {
+      height: 40px;
+      font-size: 29px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 40px;
+      text-align: left;
+    }
+
+    .progress {
+      height: 36px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 18px;
+      border: 0px solid rgba(151, 151, 151, 1);
+      margin-top: 36px;
+      margin-bottom: 46px;
+
+      .bar {
+        width: 50%;
+        height: 100%;
+        background: rgba(255, 255, 255, 1);
+        border-radius: 18px;
+        border: 0px solid rgba(151, 151, 151, 1);
+      }
+    }
+
+    .footer {
+      height: 36px;
+      font-size: 25px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.3);
+      line-height: 36px;
+      display: flex;
+      justify-content: space-between;
     }
   }
 
-  .statistical {
+  /*   .statistical {
     margin-top: 100px;
     height: 186px;
     padding: 24px;
@@ -92,18 +152,56 @@ page {
         color: #F6C23E;
       }
     }
-  }
+  } */
 
   .to_lc {
-    margin: 100px 30px 0;
-    height: 130px;
-    line-height: 130px;
-    border-radius: 8px;
-    border: 2px solid rgba(22, 119, 255, 1);
-    font-size: 48px;
-    font-family: STYuanti-SC-Bold, STYuanti-SC;
-    font-weight: bold;
-    color: #1677FFBF;
-    background-color: #fff;
+    height: 80px;
+    background: rgba(94, 130, 245, 1);
+    border-radius: 18px;
+    font-size: 25px;
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 1);
+    line-height: 36px;
+    line-height: 80px;
+    margin-top: 80px;
+  }
+
+  .share {
+    margin-top: 50px;
+    padding-bottom: 10px;
+    height: 120px;
+
+    // text-align: right;
+    button {
+      padding: 0;
+      background: transparent;
+      border-radius: 50%;
+      // border: 2px solid #ccc;
+      line-height: 80px;
+      color: #666;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100px;
+      height: 100px;
+      box-shadow: 0 0 10px rgb(179, 173, 173);
+      float: right;
+
+      &::after {
+        display: none;
+      }
+
+      .at-icon {
+        font-size: 40px;
+      }
+
+      text {
+        line-height: 1em;
+        margin-top: 10px;
+        font-size: 26px;
+      }
+    }
   }
 }
