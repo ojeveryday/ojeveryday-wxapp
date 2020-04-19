@@ -66,14 +66,14 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
     let res = await NetworkManager.getTodayProblem();
     res = res[0]
     const date = {
-      year: new Date(res.date).getFullYear(),
+      year: String(new Date(res.date).getFullYear()),
       month: String(new Date(res.date).getMonth() + 1),
-      day: new Date(res.date).getDate()
+      day: String(new Date(res.date).getDate())
     }
     date.month = date.month.length === 2 ? date.month : '0' + date.month
-    res.date = date
     this.setState({
-      todayProblem: res
+      todayProblem: res,
+      date
     });
   }
 
