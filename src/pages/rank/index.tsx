@@ -1,4 +1,4 @@
-import Taro from "@tarojs/taro";
+import Taro, { Config } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import RankItem from "../../components/rank-item";
 import ListView from "taro-listview";
@@ -26,6 +26,11 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
       isEmpty: false
     };
   }
+
+  config: Config = {
+    navigationBarTitleText: "每日榜单",
+    navigationBarBackgroundColor: "#E5EAF5"
+  };
 
   refList = {};
   isUpdated = false;
@@ -84,11 +89,11 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
       <View className="lazy-view">
         <ListView
           lazy
-          style={{ height: "100vh" }}
+          style={{ height: "100vh", backgroundColor: "#E5EAF5" }}
           ref={node => this.insRef(node)}
           hasMore={hasMore}
           onPullDownRefresh={fn => this.pullDownRefresh(fn)}
-          footerLoadedText={"暂时只显示前 100 名"}
+          footerLoadedText={"到底了"}
           onScrollToLower={fn => this.onScrollToLower(fn)}
         >
           {items.map((item, index) => {

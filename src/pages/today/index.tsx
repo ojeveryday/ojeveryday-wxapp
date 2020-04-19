@@ -1,4 +1,4 @@
-import Taro, { Component } from "@tarojs/taro";
+import Taro, { Component, Config } from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
 import "./index.scss";
 // import Statistical from "./statistical";
@@ -45,6 +45,12 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
       }
     };
   }
+
+  config: Config = {
+    navigationBarTitleText: "每日一题",
+    navigationBarBackgroundColor: "#E5EAF5"
+  };
+
   async componentDidShow() {
     await this.getTodayProblem();
     await this.getSummary();
@@ -64,13 +70,13 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
    */
   async getTodayProblem() {
     let res = await NetworkManager.getTodayProblem();
-    res = res[0]
+    res = res[0];
     const date = {
       year: String(new Date(res.date).getFullYear()),
       month: String(new Date(res.date).getMonth() + 1),
       day: String(new Date(res.date).getDate())
-    }
-    date.month = date.month.length === 2 ? date.month : '0' + date.month
+    };
+    date.month = date.month.length === 2 ? date.month : "0" + date.month;
     this.setState({
       todayProblem: res,
       date
@@ -89,11 +95,11 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
 
   render() {
     const textStyle = {
-      display: '-webkit-box',
-      overflow: 'hidden',
-      '-webkit-line-clamp': 2,
-      '-webkit-box-orient': 'vertical',
-    }
+      display: "-webkit-box",
+      overflow: "hidden",
+      "-webkit-line-clamp": 2,
+      "-webkit-box-orient": "vertical"
+    };
     return (
       <View className="today">
         <View className="banner">
@@ -117,8 +123,16 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
             </View>
             <View className="footer">
               <Text># 每日题目</Text>
-              <Text>已打卡:  {this.state.statistical.totalUserCount}/{this.state.statistical.checkedCount}
-                <Text className='at-icon at-icon-chevron-right'></Text>
+              <Text
+                onClick={() => {
+                  Taro.navigateTo({
+                    url: "/pages/rank/index"
+                  });
+                }}
+              >
+                已打卡: {this.state.statistical.totalUserCount}/
+                {this.state.statistical.checkedCount}
+                <Text className="at-icon at-icon-chevron-right"></Text>
               </Text>
             </View>
           </View>
