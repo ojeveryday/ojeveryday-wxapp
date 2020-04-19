@@ -27,14 +27,17 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
       <View
         style={{
           height: "66px",
-          margin: "10px",
+          margin: "10px 0 ",
           background: "rgba(255,255,255,1)",
           borderRadius: "4px",
           border: "0px solid rgba(151,151,151,1)",
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
-          justifyContent: "space-between"
+          justifyContent: "space-between",
+          boxSizing: "border-box",
+          paddingRight: "10px",
+          overflow: "hidden"
         }}
       >
         <View
@@ -70,10 +73,11 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
           />
           <View
             style={{
+              flex: "1",
               display: "flex",
               flexDirection: "column",
               marginLeft: "11px",
-              width: "150px"
+              marginRight: "10px"
             }}
           >
             <Text
@@ -81,7 +85,6 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
                 fontSize: "14px",
                 fontFamily: "PingFangSC-Semibold,PingFang SC",
                 color: "rgba(11,11,51,1)",
-                width: "150px",
                 overflow: "hidden",
                 whiteSpace: "nowrap",
                 textOverflow: "ellipsis"
@@ -103,9 +106,10 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
         </View>
         <View
           style={{
-            width: "100%",
+            flex: "1",
             display: "flex",
             flexDirection: "row-reverse",
+            justifyContent: "space-between",
             alignItems: "center"
           }}
         >
@@ -115,7 +119,6 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                marginRight: "13px"
               }}
             >
               <IconFont size={30} name={"good"} color="#5E82F5" />
@@ -132,38 +135,39 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
               </Text>
             </View>
           ) : (
-            <View
-              style={{
-                width: "50px",
-                height: "22px",
-                background: "rgba(13,14,54,0.3)",
-                borderRadius: "11px",
-                border: "0px solid rgba(151,151,151,1)",
-                display: "flex",
-                alignItems: "center",
-                marginRight: "5px"
-              }}
-            >
-              <Text
+              <View
                 style={{
-                  fontSize: "10px",
-                  width: "100%",
-                  fontFamily: "PingFangSC-Semibold,PingFang SC",
-                  color: "rgba(255,255,255,0.6)",
-                  textAlign: "center"
+                  width: "50px",
+                  height: "22px",
+                  background: "rgba(13,14,54,0.3)",
+                  borderRadius: "11px",
+                  border: "0px solid rgba(151,151,151,1)",
+                  display: "flex",
+                  alignItems: "center",
+                  marginRight: "5px"
                 }}
               >
-                未打卡
+                <Text
+                  style={{
+                    fontSize: "10px",
+                    width: "100%",
+                    fontFamily: "PingFangSC-Semibold,PingFang SC",
+                    color: "rgba(255,255,255,0.6)",
+                    textAlign: "center"
+                  }}
+                >
+                  未打卡
               </Text>
-            </View>
-          )}
+              </View>
+            )}
           <View
             style={{
+              flex: "1",
               display: "flex",
               flexDirection: "column",
+              justifyContent: "space-between",
               width: "44px",
               alignItems: "center",
-              marginRight: "40px"
             }}
           >
             <Text

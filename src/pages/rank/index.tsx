@@ -2,7 +2,7 @@ import Taro, { Config } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import RankItem from "../../components/rank-item";
 import ListView from "taro-listview";
-
+import './index.scss'
 import { NetworkManager, RankItemModel } from "../../network/network";
 
 interface IRankProps {
