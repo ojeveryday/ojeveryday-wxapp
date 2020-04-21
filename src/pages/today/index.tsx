@@ -56,6 +56,9 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
   };
 
   async componentDidShow() {
+    this.setState({
+      showShare: false
+    })
     await this.getTodayProblem();
     await this.getSummary();
   }
@@ -96,7 +99,13 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
       statistical: res
     });
   }
-
+  componentDidHide() {
+    setTimeout(() => {
+      this.setState({
+        showShare: false
+      })
+    }, 0);
+  }
   /**
    * 页面右上角转发
    */
