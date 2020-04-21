@@ -99,6 +99,11 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
       statistical: res
     });
   }
+  getProgressWidth() {
+    let width = Number(this.state.statistical.checkedCount) / Number(this.state.statistical.totalUserCount) * 100
+    width = width > 100 ? 100 : width
+    return (width + "%")
+  }
   componentDidHide() {
     setTimeout(() => {
       this.setState({
@@ -138,10 +143,10 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
               {this.state.todayProblem.indexNum}. {this.state.todayProblem.name}
             </View>
             <View className="progress">
-              <View className="bar"></View>
+              <View className="bar" style={this.getProgressWidth()}></View>
             </View>
             <View className="footer">
-              <Text># 每日题目</Text>
+              <Text># 每日LeetCode</Text>
               <Text
                 onClick={() => {
                   Taro.navigateTo({
@@ -149,8 +154,8 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
                   });
                 }}
               >
-                已打卡: {this.state.statistical.totalUserCount}/
-                {this.state.statistical.checkedCount}
+                已打卡: {this.state.statistical.checkedCount}/
+                {this.state.statistical.totalUserCount}
                 <Text className="at-icon at-icon-chevron-right"></Text>
               </Text>
             </View>
@@ -176,20 +181,12 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
             </View>
             <View className="share"
               onClick={() => {
-                Taro.setClipboardData({
-                  data: this.state.todayProblem.cnUrl,
-                  success: function () {
-                    Taro.hideToast()
-                    Taro.showToast({
-                      title: '题目链接已复制',
-                      icon: 'success',
-                      duration: 2000
-                    })
-                  }
+                this.setState({
+                  showShare: true
                 })
               }}
             >
-              <Button >
+              <Button openType="share">
                 <View className='at-icon at-icon-upload'></View>
                 <Text>分享</Text>
               </Button>
