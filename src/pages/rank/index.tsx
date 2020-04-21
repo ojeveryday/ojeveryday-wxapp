@@ -88,24 +88,6 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
     const { items, isLoaded, hasMore, isEmpty } = this.state;
     return (
       <View className="lazy-view">
-        <View
-          style={{
-            display: "flex",
-            alignItems: "center"
-          }}
-        >
-          <IconFont size={30} name={"rank"} color="rgba(11,11,51,1)" />
-          <View
-            style={{
-              fontSize: "16px",
-              fontFamily: "PingFangSC-Medium,PingFang SC",
-              color: "rgba(11,11,51,1)",
-              marginLeft: "4px"
-            }}
-          >
-            打卡排名
-          </View>
-        </View>
         <ListView
           lazy
           style={{ height: "100vh", backgroundColor: "#E5EAF5" }}
@@ -115,6 +97,24 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
           footerLoadedText={"到底了"}
           onScrollToLower={fn => this.onScrollToLower(fn)}
         >
+          <View
+            style={{
+              display: "flex",
+              alignItems: "center"
+            }}
+          >
+            <IconFont size={30} name={"rank"} color="rgba(11,11,51,1)" />
+            <View
+              style={{
+                fontSize: "16px",
+                fontFamily: "PingFangSC-Medium,PingFang SC",
+                color: "rgba(11,11,51,1)",
+                marginLeft: "4px"
+              }}
+            >
+              打卡排名
+            </View>
+          </View>
           {items.map((item, index) => {
             return (
               <RankItem
