@@ -9,7 +9,7 @@ interface ITodayProblem {
   indexNum?: string;
   name?: string;
   questionTitleSlug?: string;
-  cnUrl?: string;
+  cnUrl: string;
   enUrl?: string;
 }
 interface IDate {
@@ -28,6 +28,7 @@ interface ITodayProblemState {
   todayProblem: ITodayProblem;
   statistical: IStatistical;
   date: IDate;
+  showShare: boolean;
 }
 
 class Day extends Component<ITodayProblem, ITodayProblemState> {
@@ -36,13 +37,16 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
   constructor() {
     super();
     this.state = {
-      todayProblem: {},
+      todayProblem: {
+        cnUrl: ''
+      },
       date: {},
       statistical: {
         checkedCount: "0",
         totalUserCount: "0",
         checkRatio: "0"
-      }
+      },
+      showShare: false
     };
   }
 
@@ -93,15 +97,21 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
     });
   }
 
+  /**
+   * 页面右上角转发
+   */
+  onShareAppMessage() {
+    this.setState({
+      showShare: true
+    })
+    return {
+      title: '每日一题'
+    }
+  }
+
   render() {
-    const textStyle = {
-      display: "-webkit-box",
-      overflow: "hidden",
-      "-webkit-line-clamp": 2,
-      "-webkit-box-orient": "vertical"
-    };
     return (
-      <View className="today">
+      <View className={this.state.showShare ? "today show_share" : "today"}>
         <View className="banner">
           <View className="back">
             <View className="date">
@@ -112,10 +122,10 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
               </View>
               {/* {this.state.todayProblem.date} */}
             </View>
-            <View className="problem" style={textStyle}>
+            <View className="problem">
               {this.state.todayProblem.indexNum}. {this.state.todayProblem.name}
             </View>
-            <View className="problem zh" style={textStyle}>
+            <View className="problem zh">
               {this.state.todayProblem.indexNum}. {this.state.todayProblem.name}
             </View>
             <View className="progress">
@@ -155,8 +165,22 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
               <View className='at-icon at-icon-list'></View>
               <Text>打卡排名</Text>
             </View>
-            <View className="share">
-              <Button open-type="share">
+            <View className="share"
+              onClick={() => {
+                Taro.setClipboardData({
+                  data: this.state.todayProblem.cnUrl,
+                  success: function () {
+                    Taro.hideToast()
+                    Taro.showToast({
+                      title: '题目链接已复制',
+                      icon: 'success',
+                      duration: 2000
+                    })
+                  }
+                })
+              }}
+            >
+              <Button >
                 <View className='at-icon at-icon-upload'></View>
                 <Text>分享</Text>
               </Button>

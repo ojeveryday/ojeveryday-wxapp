@@ -2,5 +2,6 @@
     "editor.tabSize": 2,
     "editor.formatOnSave": true,
     "tslint.packageManager": "yarn",
-    "prettier.packageManager": "yarn"
+    "prettier.packageManager": "yarn",
+    "easysass.compileAfterSave": false
 }
