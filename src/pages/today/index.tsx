@@ -1,8 +1,8 @@
 import Taro, { Component, Config } from "@tarojs/taro";
-import { View, Text } from "@tarojs/components";
+import { View, Text, Button } from "@tarojs/components";
 import "./index.scss";
 // import Statistical from "./statistical";
-
+import "taro-ui/dist/style/components/icon.scss";
 import { NetworkManager } from "./../../network/network";
 
 interface ITodayProblem {
@@ -137,18 +137,32 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
             </View>
           </View>
         </View>
-        <View
-          className="to_lc"
-          onClick={() => this.toLeetcode(this.state.todayProblem.cnUrl)}
-        >
-          前往打卡
+        <View className="bottom_box">
+          <View
+            className="to_lc"
+            onClick={() => this.toLeetcode(this.state.todayProblem.cnUrl)}
+          >
+            前往打卡
+          </View>
+          <View className="bottom_r">
+            <View className="ranking"
+              onClick={() => {
+                Taro.navigateTo({
+                  url: "/pages/rank/index"
+                });
+              }}
+            >
+              <View className='at-icon at-icon-list'></View>
+              <Text>打卡排名</Text>
+            </View>
+            <View className="share">
+              <Button open-type="share">
+                <View className='at-icon at-icon-upload'></View>
+                <Text>分享</Text>
+              </Button>
+            </View>
+          </View>
         </View>
-        {/* <View className="share">
-          <Button open-type="share">
-            <View className='at-icon at-icon-share'></View>
-            <Text>分享</Text>
-          </Button>
-        </View> */}
       </View>
     );
   }

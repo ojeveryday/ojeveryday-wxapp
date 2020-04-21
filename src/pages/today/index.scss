@@ -1,5 +1,3 @@
-@import "~taro-ui/dist/style/components/icon.scss";
-
 page {
   background-color: rgba(229, 234, 245, 1);
 
@@ -154,54 +152,64 @@ page {
     }
   } */
 
-  .to_lc {
-    height: 80px;
-    background: rgba(94, 130, 245, 1);
-    border-radius: 18px;
-    font-size: 25px;
+  .bottom_box {
+    padding-top: 80px;
+    display: flex;
+    font-size: 22px;
     font-family: PingFangSC-Semibold, PingFang SC;
     font-weight: 600;
-    color: rgba(255, 255, 255, 1);
-    line-height: 36px;
-    line-height: 80px;
-    margin-top: 80px;
+    color: rgba(94, 130, 245, 1);
+    line-height: 31px;
+
+    .at-icon {
+      font-size: 25px;
+      margin-right: 4px;
+    }
+
+    .to_lc {
+      background: rgba(94, 130, 245, 1);
+      border-radius: 18px;
+      font-size: 22px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 1);
+      line-height: 36px;
+      line-height: 72px;
+      width: 260px;
+      height: 72px;
+      background: rgba(94, 130, 245, 1);
+      border-radius: 36px;
+      margin-right: 98px;
+    }
   }
 
-  .share {
-    margin-top: 50px;
-    padding-bottom: 10px;
-    height: 120px;
+  .bottom_r {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 43px;
 
-    // text-align: right;
-    button {
-      padding: 0;
-      background: transparent;
-      border-radius: 50%;
-      // border: 2px solid #ccc;
-      line-height: 80px;
-      color: #666;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100px;
-      height: 100px;
-      box-shadow: 0 0 10px rgb(179, 173, 173);
-      float: right;
+    .ranking {
+      line-height: 72px;
+    }
 
-      &::after {
-        display: none;
-      }
+    .share {
+      line-height: 72px;
 
-      .at-icon {
-        font-size: 40px;
-      }
+      button {
+        &::after {
+          display: none;
+        }
 
-      text {
-        line-height: 1em;
-        margin-top: 10px;
-        font-size: 26px;
+        line-height: 72px;
+        margin: 0;
+        padding: 0;
+        border: none;
+        background: transparent;
+        font-size: 22px;
+        color: rgba(94, 130, 245, 1);
       }
     }
   }
+
+
 }
