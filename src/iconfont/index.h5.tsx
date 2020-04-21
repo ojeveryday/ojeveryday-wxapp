@@ -5,7 +5,7 @@ import Taro, { FunctionComponent } from '@tarojs/taro';
 import Icon from './h5/H5Icon';
 
 interface Props {
-  name: 'good' | 'day' | 'daka';
+  name: 'rank' | 'good' | 'day' | 'daka';
   size?: number;
   color?: string | string[];
 }

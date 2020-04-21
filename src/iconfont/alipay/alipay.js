@@ -1,6 +1,6 @@
 Component({
   props: {
-    // good | day | daka
+    // rank | good | day | daka
     name: null,
     // string | string[]
     color: '',

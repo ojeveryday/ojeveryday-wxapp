@@ -1,6 +1,6 @@
 Component({
   properties: {
-    // good | day | daka
+    // rank | good | day | daka
     name: {
       type: String,
     },

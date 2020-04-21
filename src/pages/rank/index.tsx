@@ -2,8 +2,9 @@ import Taro, { Config } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import RankItem from "../../components/rank-item";
 import ListView from "taro-listview";
-import './index.scss'
+import "./index.scss";
 import { NetworkManager, RankItemModel } from "../../network/network";
+import IconFont from "../../iconfont";
 
 interface IRankProps {
   date?: string | "today" | "yesterday";
@@ -87,6 +88,24 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
     const { items, isLoaded, hasMore, isEmpty } = this.state;
     return (
       <View className="lazy-view">
+        <View
+          style={{
+            display: "flex",
+            alignItems: "center"
+          }}
+        >
+          <IconFont size={30} name={"rank"} color="rgba(11,11,51,1)" />
+          <View
+            style={{
+              fontSize: "16px",
+              fontFamily: "PingFangSC-Medium,PingFang SC",
+              color: "rgba(11,11,51,1)",
+              marginLeft: "4px"
+            }}
+          >
+            打卡排名
+          </View>
+        </View>
         <ListView
           lazy
           style={{ height: "100vh", backgroundColor: "#E5EAF5" }}

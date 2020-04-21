@@ -5,7 +5,7 @@ import Taro, { FunctionComponent } from '@tarojs/taro';
 import Icon from './rn/RNIcon';
 
 interface Props {
-  name: 'good' | 'day' | 'daka';
+  name: 'rank' | 'good' | 'day' | 'daka';
   size?: number;
   color?: string | string[];
 }

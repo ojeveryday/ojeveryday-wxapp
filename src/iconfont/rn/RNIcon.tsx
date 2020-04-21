@@ -4,11 +4,12 @@
 import { FunctionComponent } from 'react';
 import { ViewProps } from 'react-native';
 import { GProps } from 'react-native-svg/lib/commonjs';
+import Iconrank from './Iconrank';
 import Icongood from './Icongood';
 import Iconday from './Iconday';
 import Icondaka from './Icondaka';
 
-export type IconNames = 'good' | 'day' | 'daka';
+export type IconNames = 'rank' | 'good' | 'day' | 'daka';
 
 interface Props extends GProps, ViewProps {
   name: IconNames;
@@ -18,6 +19,8 @@ interface Props extends GProps, ViewProps {
 
 export const RNIcon: FunctionComponent<Props> = ({ name, ...rest }) => {
   switch (name) {
+    case 'rank':
+      return <Iconrank {...rest} />;
     case 'good':
       return <Icongood {...rest} />;
     case 'day':

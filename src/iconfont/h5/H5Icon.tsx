@@ -2,11 +2,12 @@
 /* eslint-disable */
 
 import { CSSProperties, DOMAttributes, FunctionComponent } from 'react';
+import Iconrank from './Iconrank';
 import Icongood from './Icongood';
 import Iconday from './Iconday';
 import Icondaka from './Icondaka';
 
-export type IconNames = 'good' | 'day' | 'daka';
+export type IconNames = 'rank' | 'good' | 'day' | 'daka';
 
 interface Props extends DOMAttributes<SVGElement> {
   name: IconNames;
@@ -18,6 +19,8 @@ interface Props extends DOMAttributes<SVGElement> {
 
 export const H5Icon: FunctionComponent<Props> = ({ name, ...rest }) => {
   switch (name) {
+    case 'rank':
+      return <Iconrank {...rest} />;
     case 'good':
       return <Icongood {...rest} />;
     case 'day':
