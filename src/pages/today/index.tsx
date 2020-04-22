@@ -133,12 +133,16 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
         <View className="banner">
           <View className="back">
             <View className="date">
-              <View className="day">{this.state.date.day}</View>
-              <View className="datetime">
-                <Text className="month">{this.state.date.month}.</Text>
-                <Text className="year">{this.state.date.year}</Text>
+              <View className="date_box">
+                <View className="day">
+                  {this.state.date.day}
+                </View>
+                <View className="datetime">
+                  <Text className="month">{this.state.date.month}.</Text>
+                  <Text className="year">{this.state.date.year}</Text>
+                </View>
               </View>
-              {/* {this.state.todayProblem.date} */}
+
             </View>
             <View className="problem">
               {this.state.todayProblem.indexNum}. {this.state.todayProblem.name}

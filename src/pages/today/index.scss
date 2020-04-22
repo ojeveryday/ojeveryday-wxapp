@@ -17,29 +17,39 @@ page {
 
   .banner {
     border-radius: 18px;
-    background-color: #fff;
-    padding: 10px;
+    // background-color: #fff;
+    // padding: 10px;
+    border: 10px solid #fff;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(149, 183, 251, 1) 0%, rgba(102, 147, 255, 1) 49%, rgba(72, 120, 249, 1) 100%);
 
     .back {
       height: 884px;
       border-radius: 18px;
       padding: 40px;
+      padding-right: 30px;
       padding-bottom: 50px;
       display: flex;
       flex-direction: column;
-      background: linear-gradient(135deg, rgba(149, 183, 251, 1) 0%, rgba(102, 147, 255, 1) 49%, rgba(72, 120, 249, 1) 100%);
+      background: url('../../assets/images/banner_bgc.png') 20px 30px no-repeat;
+      background-size: 506px, 596px;
     }
 
     .date {
       flex: 1;
       text-align: right;
 
+      .date_box {
+        display: inline-block;
+        text-align: center;
+      }
+
       .day {
         font-size: 98px;
         font-family: PingFangSC-Semibold, PingFang SC;
         font-weight: 600;
         color: rgba(255, 255, 255, 1);
-        line-height: 136px;
+        line-height: 1em;
       }
 
       .datetime {
@@ -53,20 +63,15 @@ page {
     }
 
     .problem {
-      height: 60px;
       font-size: 43px;
       font-family: PingFangSC-Semibold, PingFang SC;
       font-weight: 600;
       color: rgba(255, 255, 255, 1);
       line-height: 60px;
       text-align: left;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
 
     .problem.zh {
-      height: 40px;
       font-size: 29px;
       font-family: PingFangSC-Medium, PingFang SC;
       font-weight: 500;
@@ -171,7 +176,6 @@ page {
 
   .banner {
     padding: 0;
-    background: none;
     border: none;
     border-radius: 0;
   }
@@ -180,6 +184,8 @@ page {
     height: 600px;
     border: none;
     border-radius: 0;
+    background: url('../../assets/images/banner_bgc.png') 40px 40px no-repeat;
+    background-size: 320px, 377px;
 
     .day {
       font-size: 108px;
@@ -187,6 +193,9 @@ page {
 
     .problem {
       font-style: 48px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 
       &.zh {
         font-size: 32px;
