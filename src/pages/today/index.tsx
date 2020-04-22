@@ -36,6 +36,9 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
   statistical: IStatistical;
   constructor() {
     super();
+    Taro.showLoading({
+      title: '加载中...'
+    })
     this.state = {
       todayProblem: {
         cnUrl: ''
@@ -61,6 +64,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
     })
     await this.getTodayProblem();
     await this.getSummary();
+    Taro.hideLoading()
   }
 
   /**
