@@ -105,8 +105,8 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
   }
   getProgressWidth() {
     let width = Number(this.state.statistical.checkedCount) / Number(this.state.statistical.totalUserCount) * 100
-    width = width > 100 ? 100 : width
-    return (width + "%")
+    width = width > 100 ? 100 : Number(width.toFixed(2))
+    return ({ width: width + "%" })
   }
   componentDidHide() {
     setTimeout(() => {
