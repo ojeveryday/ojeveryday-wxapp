@@ -4,6 +4,8 @@ import "./index.scss";
 // import Statistical from "./statistical";
 import { NetworkManager } from "./../../network/network";
 import "taro-ui/dist/style/components/action-sheet.scss";
+import "taro-ui/dist/style/components/icon.scss";
+
 import { AtActionSheet, AtActionSheetItem } from "taro-ui"
 
 interface ITodayProblem {
