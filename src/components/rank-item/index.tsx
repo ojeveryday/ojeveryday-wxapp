@@ -87,8 +87,7 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
                 color: "rgba(11,11,51,1)",
                 overflow: "hidden",
                 whiteSpace: "nowrap",
-                textOverflow: "ellipsis",
-                maxWidth: "105px"
+                textOverflow: "ellipsis"
               }}
             >
               {this.props.model.username}
@@ -98,8 +97,7 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
                 fontSize: "10px",
                 fontFamily: "PingFangSC-Semibold,PingFang SC",
                 color: "rgba(11,11,51,0.3)",
-                lineHeight: "14px",
-                width: "105px"
+                lineHeight: "14px"
               }}
             >
               {this.props.model.checkedTime}
@@ -123,7 +121,7 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
                 alignItems: "center"
               }}
             >
-              <IconFont size={30} name={"good"} color="#5E82F5" />
+              <IconFont size={30} name={"icon_lc_like"} color="#5E82F5" />
               <Text
                 style={{
                   fontSize: "10px",
