@@ -93,6 +93,7 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
             >
               {this.props.model.username}
             </Text>
+
             <Text
               style={{
                 fontSize: "10px",
@@ -102,7 +103,7 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
                 width: "105px"
               }}
             >
-              {this.props.model.checkedTime}
+              {check ? this.props.model.checkedTime : ""}
             </Text>
           </View>
         </View>
@@ -123,14 +124,15 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
                 alignItems: "center"
               }}
             >
-              <IconFont size={30} name={"good"} color="#5E82F5" />
+              <IconFont size={30} name={"icon_lc_like"} color="#5E82F5" />
               <Text
                 style={{
                   fontSize: "10px",
                   fontFamily: "PingFangSC-Semibold,PingFang SC",
                   color: "rgba(11,11,51,0.3)",
                   lineHeight: "14px",
-                  width: "14px"
+                  width: "14px",
+                  marginLeft: "2px"
                 }}
               >
                 {this.props.model.upvoteNumber}
