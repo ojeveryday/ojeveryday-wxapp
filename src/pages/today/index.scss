@@ -3,6 +3,7 @@ page {
 
 }
 
+
 .today {
   text-align: center;
   padding: 30px;
@@ -168,7 +169,17 @@ page {
     }
   }
 
+  .at-action-sheet__header {
+    font-size: 24px;
+    line-height: 100px;
+  }
 
+  .at-action-sheet__container {
+    font-size: 29px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: rgba(11, 11, 51, 1);
+  }
 }
 
 .today.show_share {

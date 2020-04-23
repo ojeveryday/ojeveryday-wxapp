@@ -2,8 +2,9 @@ import Taro, { Component, Config } from "@tarojs/taro";
 import { View, Text, Button } from "@tarojs/components";
 import "./index.scss";
 // import Statistical from "./statistical";
-import "taro-ui/dist/style/components/icon.scss";
 import { NetworkManager } from "./../../network/network";
+import "taro-ui/dist/style/components/action-sheet.scss";
+import { AtActionSheet, AtActionSheetItem } from "taro-ui"
 
 interface ITodayProblem {
   indexNum?: string;
@@ -29,6 +30,7 @@ interface ITodayProblemState {
   statistical: IStatistical;
   date: IDate;
   showShare: boolean;
+  isOpened: boolean;
 }
 
 class Day extends Component<ITodayProblem, ITodayProblemState> {
@@ -41,8 +43,9 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
     })
     this.state = {
       todayProblem: {
-        cnUrl: ''
+        cnUrl: '',
       },
+      isOpened: false,
       date: {},
       statistical: {
         checkedCount: "0",
@@ -127,6 +130,12 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
     }
   }
 
+  setClipboardData(url) {
+    Taro.setClipboardData({
+      data: url
+    })
+  }
+
   render() {
     return (
       <View className={this.state.showShare ? "today show_share" : "today"}>
@@ -172,7 +181,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
         <View className="bottom_box">
           <View
             className="to_lc"
-            onClick={() => this.toLeetcode(this.state.todayProblem.cnUrl)}
+            onClick={() => this.setState({ isOpened: true })}
           >
             前往打卡
           </View>
@@ -201,6 +210,14 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
             </View>
           </View>
         </View>
+        <AtActionSheet isOpened={this.state.isOpened} cancelText='取消' title='点击下列按钮，会自动复制题目链接，前往浏览器粘贴打开即可'>
+          <AtActionSheetItem onClick={() => this.setClipboardData(this.state.todayProblem.cnUrl)}>
+            复制中文版力扣地址
+          </AtActionSheetItem>
+          <AtActionSheetItem onClick={() => this.setClipboardData(this.state.todayProblem.enUrl)}>
+            复制英文版 LeetCode 地址
+          </AtActionSheetItem>
+        </AtActionSheet>
       </View>
     );
   }
