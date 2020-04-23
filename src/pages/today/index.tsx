@@ -155,10 +155,10 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
               </View>
 
             </View>
+            {/* <View className="problem">
+              {this.state.todayProblem.indexNum}. {this.state.todayProblem.questionTitleSlug}
+            </View> */}
             <View className="problem">
-              {this.state.todayProblem.indexNum}. {this.state.todayProblem.name}
-            </View>
-            <View className="problem zh">
               {this.state.todayProblem.indexNum}. {this.state.todayProblem.name}
             </View>
             <View className="progress">
