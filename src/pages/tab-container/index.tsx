@@ -29,6 +29,12 @@ class TabContainer extends Taro.Component<{}, ITabContainerState> {
     });
   }
 
+  onShareAppMessage() {
+    return {
+      title: "力扣打卡",
+      imageUrl: '' // 图片路径
+    };
+  }
   render() {
     const tabList = [
       {

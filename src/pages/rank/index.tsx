@@ -1,9 +1,10 @@
-import Taro from "@tarojs/taro";
+import Taro, { Config } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import RankItem from "../../components/rank-item";
 import ListView from "taro-listview";
-
+import "./index.scss";
 import { NetworkManager, RankItemModel } from "../../network/network";
+import IconFont from "../../iconfont";
 
 interface IRankProps {
   date?: string | "today" | "yesterday";
@@ -26,6 +27,11 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
       isEmpty: false
     };
   }
+
+  config: Config = {
+    navigationBarTitleText: "每日榜单",
+    navigationBarBackgroundColor: "#E5EAF5"
+  };
 
   refList = {};
   isUpdated = false;
@@ -84,13 +90,36 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
       <View className="lazy-view">
         <ListView
           lazy
-          style={{ height: "100vh" }}
+          style={{ height: "100vh", backgroundColor: "#E5EAF5" }}
           ref={node => this.insRef(node)}
           hasMore={hasMore}
           onPullDownRefresh={fn => this.pullDownRefresh(fn)}
-          footerLoadedText={"暂时只显示前 100 名"}
+          footerLoadedText={"到底了"}
           onScrollToLower={fn => this.onScrollToLower(fn)}
         >
+          <View
+            style={{
+              display: "flex",
+              alignItems: "center"
+            }}
+          >
+            <IconFont
+              size={30}
+              name={"icon_lc_ranking"}
+              color="rgba(11,11,51,1)"
+            />
+            <View
+              style={{
+                fontSize: "16px",
+                fontFamily: "PingFangSC-Medium,PingFang SC",
+                color: "rgba(11,11,51,1)",
+                marginLeft: "4px"
+              }}
+            >
+              打卡排名
+            </View>
+          </View>
+
           {items.map((item, index) => {
             return (
               <RankItem

@@ -1,6 +1,6 @@
 Component({
   properties: {
-    // good | day | daka
+    // icon_lc_ranking | icon_lc_like | icon_lc_share | rank | good | day | daka
     name: {
       type: String,
     },

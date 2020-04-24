@@ -1,10 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { FunctionComponent } from "@tarojs/taro";
+import { FunctionComponent } from '@tarojs/taro';
 
 interface Props {
-  name: "good" | "day" | "daka" | string;
+  name: 'icon_lc_ranking' | 'icon_lc_like' | 'icon_lc_share' | 'rank' | 'good' | 'day' | 'daka';
   size?: number;
   color?: string | string[];
 }

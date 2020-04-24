@@ -4,12 +4,6 @@ import IconFont from "../../iconfont";
 
 import { RankItemModel } from "../../network/network";
 
-interface IRankIconItemProps {
-  value: string;
-  icon: string;
-  size?: number;
-}
-
 interface IRankItemProps {
   model: RankItemModel;
   rank: number;
@@ -27,128 +21,179 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
     };
   }
 
-  rankIconItem(props: IRankIconItemProps) {
-    const { value, icon, size } = props;
-    return (
-      <View
-        style={{ display: "flex", alignItems: "center", paddingRight: "20px" }}
-      >
-        <IconFont size={size ? size : 30} name={icon} />
-        <Text style={{ paddingLeft: "7px", fontSize: "13px" }}>{value}</Text>
-      </View>
-    );
-  }
-
   render() {
     const check: boolean = this.props.model.checked === 1;
     return (
       <View
         style={{
-          height: "100px",
-          margin: "1px",
+          height: "66px",
+          margin: "10px 0 ",
+          background: "rgba(255,255,255,1)",
+          borderRadius: "4px",
+          border: "0px solid rgba(151,151,151,1)",
           display: "flex",
-          justifyContent: "space-around"
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          boxSizing: "border-box",
+          paddingRight: "10px",
+          overflow: "hidden"
         }}
       >
         <View
           style={{
-            width: "96px",
             display: "flex",
-            flexDirection: "column",
-            alignItems: "center"
+            flexDirection: "row",
+            alignItems: "center",
+            flexShrink: 0,
+            justifyContent: "center"
           }}
         >
+          <View
+            style={{
+              fontSize: "15px",
+              fontFamily: "PingFangSC-Semibold,PingFang SC",
+              color: "rgba(94,130,245,1)",
+              lineHeight: "21px",
+              marginLeft: "10px",
+              width: "27px"
+            }}
+          >
+            {this.props.rank}
+          </View>
           <Image
             style={{
-              width: "60px",
-              height: "60px",
-              marginTop: "10px",
-              borderRadius: "30px",
-              flex: "0 0 auto"
+              width: "38px",
+              height: "38px",
+              borderRadius: "19px",
+              border: "0px solid rgba(151,151,151,1)",
+              marginLeft: "10px"
             }}
             src={this.props.model.avatar}
           />
           <View
             style={{
-              width: "40px",
-              height: "16px",
-              backgroundColor: check ? "green" : "#EF4684",
+              flex: "1",
               display: "flex",
-              alignItems: "center",
-              position: "relative",
-              top: "-10px",
-              right: "-14px",
-              borderRadius: "20px",
-              border: "2px solid #fff;",
-              flex: "0 0 auto"
-            }}
-          >
-            <Text
-              className={styles.avatar_state_label}
-              style={{
-                fontSize: "8px",
-                width: "100%",
-                textAlign: "center",
-                color: "white"
-              }}
-            >
-              {check ? "已打卡" : "未打卡"}
-            </Text>
-          </View>
-          <Text style={{ fontSize: "14", position: "relative", top: "-10px" }}>
-            No.{this.props.rank}
-          </Text>
-        </View>
-
-        <View
-          style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column"
-          }}
-        >
-          <View
-            style={{
-              marginTop: "10px",
-              height: "35px",
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "8px",
-              justifyContent: "space-between"
+              flexDirection: "column",
+              marginLeft: "11px",
+              marginRight: "10px"
             }}
           >
             <Text
               style={{
-                fontSize: "18px"
+                fontSize: "14px",
+                fontFamily: "PingFangSC-Semibold,PingFang SC",
+                color: "rgba(11,11,51,1)",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                maxWidth: "105px"
               }}
             >
               {this.props.model.username}
             </Text>
+
+            <Text
+              style={{
+                fontSize: "10px",
+                fontFamily: "PingFangSC-Semibold,PingFang SC",
+                color: "rgba(11,11,51,0.3)",
+                lineHeight: "14px",
+                width: "105px"
+              }}
+            >
+              {check ? this.props.model.checkedTime : ""}
+            </Text>
           </View>
-          {check && (
+        </View>
+        <View
+          style={{
+            flex: "1",
+            display: "flex",
+            flexDirection: "row-reverse",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}
+        >
+          {check ? (
             <View
               style={{
                 display: "flex",
-                marginLeft: "8px",
-                height: "50px"
+                flexDirection: "row",
+                alignItems: "center"
               }}
             >
-              {this.rankIconItem({
-                value: `${this.props.model.totalChecked}天`,
-                icon: "day"
-              })}
-              {this.rankIconItem({
-                value: `${this.props.model.upvoteNumber}`,
-                icon: "good",
-                size: 24
-              })}
-              {this.rankIconItem({
-                value: this.props.model.checkedTime.slice(11),
-                icon: "daka",
-                size: 24
-              })}
+              <IconFont size={30} name={"icon_lc_like"} color="#5E82F5" />
+              <Text
+                style={{
+                  fontSize: "10px",
+                  fontFamily: "PingFangSC-Semibold,PingFang SC",
+                  color: "rgba(11,11,51,0.3)",
+                  lineHeight: "14px",
+                  width: "14px",
+                  marginLeft: "2px"
+                }}
+              >
+                {this.props.model.upvoteNumber}
+              </Text>
+            </View>
+          ) : (
+            <View
+              style={{
+                width: "50px",
+                height: "22px",
+                background: "rgba(13,14,54,0.3)",
+                borderRadius: "11px",
+                border: "0px solid rgba(151,151,151,1)",
+                display: "flex",
+                alignItems: "center",
+                marginRight: "5px"
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: "10px",
+                  width: "100%",
+                  fontFamily: "PingFangSC-Semibold,PingFang SC",
+                  color: "rgba(255,255,255,0.6)",
+                  textAlign: "center"
+                }}
+              >
+                未打卡
+              </Text>
             </View>
           )}
+          <View
+            style={{
+              flex: "1",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              width: "44px",
+              alignItems: "center"
+            }}
+          >
+            <Text
+              style={{
+                fontSize: "12px",
+                fontFamily: "PingFangSC-Semibold,PingFang SC",
+                color: "rgba(11,11,51,1)"
+              }}
+            >
+              {this.props.model.totalChecked}天
+            </Text>
+            <Text
+              style={{
+                fontSize: "10px",
+                fontFamily: "PingFangSC-Semibold,PingFang SC",
+                color: "rgba(11,11,51,0.3)",
+                lineHeight: "14px"
+              }}
+            >
+              累计打卡
+            </Text>
+          </View>
         </View>
       </View>
     );
