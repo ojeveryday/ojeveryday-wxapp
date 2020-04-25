@@ -116,6 +116,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
   componentDidHide() {
     setTimeout(() => {
       this.setState({
+        isOpened: false,
         showShare: false
       })
     }, 0);
