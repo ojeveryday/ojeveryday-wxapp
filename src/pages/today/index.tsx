@@ -4,7 +4,7 @@ import "./index.scss";
 // import Statistical from "./statistical";
 import { NetworkManager } from "./../../network/network";
 import "taro-ui/dist/style/components/action-sheet.scss";
-import "taro-ui/dist/style/components/icon.scss";
+import IconFont from "../../iconfont";
 
 import { AtActionSheet, AtActionSheetItem } from "taro-ui"
 
@@ -196,7 +196,11 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
                 });
               }}
             >
-              <View className='at-icon at-icon-list'></View>
+              <IconFont
+                size={30}
+                name={"icon_lc_ranking"}
+                color="rgba(94, 130, 245, 1)"
+              />
               <Text>打卡排名</Text>
             </View>
             <View className="share"
@@ -207,7 +211,11 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
               }}
             >
               <Button openType="share">
-                <View className='at-icon at-icon-upload'></View>
+                <IconFont
+                  size={30}
+                  name={"icon_lc_share"}
+                  color="rgba(94, 130, 245, 1)"
+                />
                 <Text>分享</Text>
               </Button>
             </View>
