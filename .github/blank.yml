@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ develop ]
+
+jobs: 
+  build:
+    runs-on: ubuntu-lastest
+    - uses: actions/checkout@v2
+
+    - name: CI Hello World
+      run: echo 'Hello, world!'
+
+    - name: Configuration Yarn
+      run: yarn
+
+    - name: Build Package
+      run: yarn build:weapp
