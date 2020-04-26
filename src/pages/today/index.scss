@@ -18,8 +18,6 @@ page {
 
   .banner {
     border-radius: 18px;
-    // background-color: #fff;
-    // padding: 10px;
     border: 10px solid #fff;
     overflow: hidden;
     background: linear-gradient(135deg, rgba(149, 183, 251, 1) 0%, rgba(102, 147, 255, 1) 49%, rgba(72, 120, 249, 1) 100%);
@@ -32,7 +30,7 @@ page {
       padding-bottom: 50px;
       display: flex;
       flex-direction: column;
-      background: url('../../assets/images/banner_bgc.png') 20px 40px no-repeat;
+      background: url('../../assets/images/banner_bgc.png') 30px 56px no-repeat;
       background-size: 506px, 596px;
     }
 
@@ -148,23 +146,32 @@ page {
 
     .ranking {
       line-height: 72px;
+      display: flex;
+      align-items: center;
+
+      >text {
+        margin-left: 13px;
+      }
     }
 
-    .share {
+    .share button {
       line-height: 72px;
+      display: flex;
+      align-items: center;
 
-      button {
-        &::after {
-          display: none;
-        }
+      &::after {
+        display: none;
+      }
 
-        line-height: 72px;
-        margin: 0;
-        padding: 0;
-        border: none;
-        background: transparent;
-        font-size: 22px;
-        color: rgba(94, 130, 245, 1);
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+      font-size: 22px;
+      color: rgba(94, 130, 245, 1);
+
+      >text {
+        margin-left: 13px;
       }
     }
   }

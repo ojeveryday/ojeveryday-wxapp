@@ -4,7 +4,7 @@ import "./index.scss";
 // import Statistical from "./statistical";
 import { NetworkManager } from "./../../network/network";
 import "taro-ui/dist/style/components/action-sheet.scss";
-import "taro-ui/dist/style/components/icon.scss";
+import IconFont from "../../iconfont";
 
 import { AtActionSheet, AtActionSheetItem } from "taro-ui"
 
@@ -85,6 +85,20 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
    * 获取每日一题信息
    */
   async getTodayProblem() {
+    const MonthMap = {
+      '1': 'Jan',
+      '2': 'Feb',
+      '3': 'Mar',
+      '4': 'Apr',
+      '5': 'May',
+      '6': 'Jun',
+      '7': 'Jul',
+      '8': 'Aug',
+      '9': 'Sep',
+      '10': 'Oct',
+      '11': 'Nov',
+      '12': 'Dec',
+    }
     let res = await NetworkManager.getTodayProblem();
     res = res[0];
     const date = {
@@ -92,7 +106,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
       month: String(new Date(res.date).getMonth() + 1),
       day: String(new Date(res.date).getDate())
     };
-    date.month = date.month.length === 2 ? date.month : "0" + date.month;
+    date.month = MonthMap[date.month];
     this.setState({
       todayProblem: res,
       date
@@ -116,6 +130,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
   componentDidHide() {
     setTimeout(() => {
       this.setState({
+        isOpened: false,
         showShare: false
       })
     }, 0);
@@ -195,7 +210,11 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
                 });
               }}
             >
-              <View className='at-icon at-icon-list'></View>
+              <IconFont
+                size={30}
+                name={"icon_lc_ranking"}
+                color="rgba(94, 130, 245, 1)"
+              />
               <Text>打卡排名</Text>
             </View>
             <View className="share"
@@ -206,7 +225,11 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
               }}
             >
               <Button openType="share">
-                <View className='at-icon at-icon-upload'></View>
+                <IconFont
+                  size={30}
+                  name={"icon_lc_share"}
+                  color="rgba(94, 130, 245, 1)"
+                />
                 <Text>分享</Text>
               </Button>
             </View>
