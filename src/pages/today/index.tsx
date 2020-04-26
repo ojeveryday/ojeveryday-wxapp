@@ -85,6 +85,20 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
    * 获取每日一题信息
    */
   async getTodayProblem() {
+    const MonthMap = {
+      '1': 'Jan',
+      '2': 'Feb',
+      '3': 'Mar',
+      '4': 'Apr',
+      '5': 'May',
+      '6': 'Jun',
+      '7': 'Jul',
+      '8': 'Aug',
+      '9': 'Sep',
+      '10': 'Oct',
+      '11': 'Nov',
+      '12': 'Dec',
+    }
     let res = await NetworkManager.getTodayProblem();
     res = res[0];
     const date = {
@@ -92,7 +106,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
       month: String(new Date(res.date).getMonth() + 1),
       day: String(new Date(res.date).getDate())
     };
-    date.month = date.month.length === 2 ? date.month : "0" + date.month;
+    date.month = MonthMap[date.month];
     this.setState({
       todayProblem: res,
       date
