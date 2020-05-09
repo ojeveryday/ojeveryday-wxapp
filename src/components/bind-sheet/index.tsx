@@ -1,4 +1,4 @@
-import { AtActionSheet, AtActionSheetItem } from "taro-ui";
+import { AtActionSheet, AtActionSheetItem, AtInput } from "taro-ui";
 
 interface IBindingIdActionSheetProps {
   isOpened: boolean;
@@ -25,9 +25,17 @@ class BindingIdActionSheet extends Taro.Component<
 
   render() {
     return (
-      <AtActionSheet {...this.props} cancelText="取消" title="title">
-        <AtActionSheetItem>按钮一</AtActionSheetItem>
-        <AtActionSheetItem>按钮二</AtActionSheetItem>
+      <AtActionSheet {...this.props} cancelText="取消" title="">
+        <View>
+          <AtInput
+            name="value"
+            type="text"
+            placeholder="标准五个字"
+            onChange={() => {}}
+          />
+        </View>
+        <AtActionSheetItem>绑定</AtActionSheetItem>
+        <AtActionSheetItem>复制</AtActionSheetItem>
       </AtActionSheet>
     );
   }

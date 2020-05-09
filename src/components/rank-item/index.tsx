@@ -1,5 +1,4 @@
 import { View, Image, Text } from "@tarojs/components";
-import styles from "./index.scss";
 import IconFont from "../../iconfont";
 
 import { RankItemModel } from "../../network/network";

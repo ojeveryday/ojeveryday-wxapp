@@ -5,6 +5,8 @@ import ListView from "taro-listview";
 import "./index.scss";
 import { NetworkManager, RankItemModel } from "../../network/network";
 import IconFont from "../../iconfont";
+import BindingItem from "../../components/bind-item";
+import BindingIdActionSheet from "../../components/bind-sheet";
 
 interface IRankProps {
   date?: string | "today" | "yesterday";
@@ -15,6 +17,7 @@ interface IRankState {
   isLoaded: boolean;
   hasMore: boolean;
   isEmpty: boolean;
+  isOpenBindActionSheet: boolean;
 }
 
 class Rank extends Taro.Component<IRankProps, IRankState> {
@@ -24,7 +27,8 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
       items: [],
       isLoaded: false,
       hasMore: true,
-      isEmpty: false
+      isEmpty: false,
+      isOpenBindActionSheet: false
     };
   }
 
@@ -85,9 +89,16 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   };
 
   render() {
-    const { items, isLoaded, hasMore, isEmpty } = this.state;
+    const {
+      items,
+      isLoaded,
+      hasMore,
+      isEmpty,
+      isOpenBindActionSheet
+    } = this.state;
     return (
       <View className="lazy-view">
+        <BindingIdActionSheet isOpened={isOpenBindActionSheet} />
         <ListView
           lazy
           style={{ height: "100vh", backgroundColor: "#E5EAF5" }}
@@ -119,6 +130,12 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
               打卡排名
             </View>
           </View>
+
+          <BindingItem
+            onClick={() => {
+              this.setState({ isOpenBindActionSheet: true });
+            }}
+          />
 
           {items.map((item, index) => {
             return (
