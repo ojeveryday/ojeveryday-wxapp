@@ -17,7 +17,7 @@ class BindingItem extends Taro.Component<IBindingItemProps, IBindingItemState> {
     return (
       <View
         style={{
-          height: "70px",
+          height: "75px",
           margin: "10px 0 ",
           background: "#5E82F5",
           borderRadius: "4px",
