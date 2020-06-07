@@ -9,11 +9,6 @@ interface ProblemProps { }
 interface ProblemState {
   problemDetail: ProblemDetail
 }
-const diffMap = {
-  'Easy': { text: '简单', bg: 'easy' },
-  'Middle': { text: '中等', bg: 'mid' },
-  'Hard': { text: '困难', bg: 'hard' }
-}
 /**
  * 需要注意的是，在项目的 config/index.js 文件中，有 copy 模板与样式的操作
  */
@@ -49,11 +44,8 @@ export default class ParseRichTextPage extends Taro.Component<ProblemProps, Prob
     const { difficulty, translatedContent, translatedTitle, frontendId } = this.state.problemDetail
     return (
       <View>
-        <View className='name'>
+        <View className='name' data-diff={difficulty}>
           {frontendId}. {translatedTitle}
-        </View>
-        <View className={`difficulty ${difficulty && diffMap[difficulty].bg}`}>
-          {difficulty && diffMap[difficulty].text}
         </View>
         <View className='problemDetail'>
           <parser html={translatedContent}></parser>
