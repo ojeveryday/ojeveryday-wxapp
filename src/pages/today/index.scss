@@ -62,12 +62,30 @@ page {
     }
 
     .problem {
-      font-size: 43px;
+      font-size: 29px;
       font-family: PingFangSC-Semibold, PingFang SC;
       font-weight: 600;
       color: rgba(255, 255, 255, 1);
       line-height: 60px;
       text-align: left;
+
+      .problem_name {
+        padding-bottom:10px;
+      }
+      .problem_detail {
+        font-size: 20px;
+        color:rgba(255,255,255,0.6);
+        line-height: 40px;
+        display: -webkit-box;
+        /* autoprefixer: off */
+        -webkit-box-orient: vertical;
+        /* autoprefixer: on */
+        -webkit-line-clamp:3;
+        line-clamp:3;
+        word-break: break-all;
+        overflow: hidden;
+        overflow-wrap: break-word;
+      }
     }
 
     .problem.zh {
@@ -210,7 +228,6 @@ page {
     }
 
     .problem {
-      font-style: 48px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;

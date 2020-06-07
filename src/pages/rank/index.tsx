@@ -7,14 +7,14 @@ import { NetworkManager, RankItemModel } from "../../network/network";
 import IconFont from "../../iconfont";
 
 interface IRankProps {
-  date?: string | "today" | "yesterday";
+  date?: string | "today" | "yesterday"
 }
 
 interface IRankState {
-  items: RankItemModel[];
-  isLoaded: boolean;
-  hasMore: boolean;
-  isEmpty: boolean;
+  items: RankItemModel[]
+  isLoaded: boolean
+  hasMore: boolean
+  isEmpty: boolean
 }
 
 class Rank extends Taro.Component<IRankProps, IRankState> {
@@ -47,7 +47,7 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
     });
   }
 
-  async fetchDatas(page: number = 1) {
+  async fetchDatas(page = 1) {
     const date: string = this.props.date ? this.props.date : "today";
     if (date === "today") {
       return NetworkManager.getTodayRank(page);
@@ -87,14 +87,14 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   render() {
     const { items, isLoaded, hasMore, isEmpty } = this.state;
     return (
-      <View className="lazy-view">
+      <View className='lazy-view'>
         <ListView
           lazy
           style={{ height: "100vh", backgroundColor: "#E5EAF5" }}
           ref={node => this.insRef(node)}
           hasMore={hasMore}
           onPullDownRefresh={fn => this.pullDownRefresh(fn)}
-          footerLoadedText={"到底了"}
+          footerLoadedText='到底了'
           onScrollToLower={fn => this.onScrollToLower(fn)}
         >
           <View
@@ -105,8 +105,8 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
           >
             <IconFont
               size={30}
-              name={"icon_lc_ranking"}
-              color="rgba(11,11,51,1)"
+              name='icon_lc_ranking'
+              color='rgba(11,11,51,1)'
             />
             <View
               style={{

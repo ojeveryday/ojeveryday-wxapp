@@ -2,7 +2,7 @@
 	"miniprogramRoot": "dist/",
 	"projectname": "daily-punch",
 	"description": "LeetCode 每日打卡微信小程序",
-	"appid": "wxf084258756695ac7",
+	"appid": "touristappid",
 	"setting": {
 		"urlCheck": false,
 		"es6": false,

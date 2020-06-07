@@ -1,0 +1,33 @@
+@import "../../common/css/common-mixin.scss";
+
+page {
+  font-family: PingFang SC;
+  background-color: #E5EAF5;
+}
+page > view {
+  padding : 0 27px;
+}
+.problemDetail {
+  color:#0B0B33;
+  font-size: 29px;
+}
+.name {
+  font-family: PingFangSC-Medium;
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.difficulty {
+  color: rgba(255,255,255,0.8);
+  font-size:22px;
+  line-height: 36px;
+  width:80px;
+  height:36px;
+  text-align: center;
+  background:rgba(28,188,157,1);
+  border-radius:7px;
+  border:0px solid rgba(151,151,151,1);
+  margin-bottom: 25px;
+  padding:0;
+}

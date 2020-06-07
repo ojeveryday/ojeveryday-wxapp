@@ -7,32 +7,36 @@ import "taro-ui/dist/style/components/action-sheet.scss";
 import IconFont from "../../iconfont";
 
 import { AtActionSheet, AtActionSheetItem } from "taro-ui"
+import { ProblemDetail } from "src/network/model";
 
 interface ITodayProblem {
-  indexNum?: string;
-  name?: string;
-  questionTitleSlug?: string;
-  cnUrl: string;
-  enUrl?: string;
+  problemID: number
+  indexNum?: string
+  name?: string
+  questionTitleSlug: string
+  cnUrl: string
+  enUrl?: string
 }
 interface IDate {
-  year?: string;
-  month?: string;
-  day?: string;
+  year?: string
+  month?: string
+  day?: string
 }
 
 interface IStatistical {
-  checkedCount?: number | string;
-  totalUserCount?: number | string;
-  checkRatio?: string;
+  checkedCount?: number | string
+  totalUserCount?: number | string
+  checkRatio?: string
 }
 
 interface ITodayProblemState {
-  todayProblem: ITodayProblem;
-  statistical: IStatistical;
-  date: IDate;
-  showShare: boolean;
-  isOpened: boolean;
+  todayProblem: ITodayProblem
+  statistical: IStatistical
+  date: IDate
+  showShare: boolean
+  isOpened: boolean
+  detail: ProblemDetail
+  problemString: string
 }
 
 class Day extends Component<ITodayProblem, ITodayProblemState> {
@@ -45,8 +49,12 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
     })
     this.state = {
       todayProblem: {
+        problemID: 0,
         cnUrl: '',
+        questionTitleSlug: '',
       },
+      detail: {},
+      problemString: '',
       isOpened: false,
       date: {},
       statistical: {
@@ -54,7 +62,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
         totalUserCount: "0",
         checkRatio: "0"
       },
-      showShare: false
+      showShare: false,
     };
   }
 
@@ -67,7 +75,8 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
     this.setState({
       showShare: false
     })
-    await this.getTodayProblem();
+    const questinTitleSlug = await this.getTodayProblem();
+    await this.getProblemDetail(questinTitleSlug)
     await this.getSummary();
     Taro.hideLoading()
   }
@@ -111,8 +120,15 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
       todayProblem: res,
       date
     });
+    return res.questionTitleSlug
   }
-
+  /** 
+   * 获取题目详细信息
+   */
+  async getProblemDetail(slug: string) {
+    const problemDetail = await NetworkManager.getProblem(undefined, slug)
+    this.setState({ detail: problemDetail, problemString: problemDetail.translatedContent.replace(/\<\w+\>|\<\/\w+\>|\&\w+|/g, '').replace(/\s/g, '').replace(/\/|\\/, '') })
+  }
   /**
    * 获取统计信息
    */
@@ -154,18 +170,22 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
   }
 
   render() {
+
+    const { indexNum, questionTitleSlug } = this.state.todayProblem
+    const { translatedTitle } = this.state.detail
+    const { problemString } = this.state
     return (
       <View className={this.state.showShare ? "today show_share" : "today"}>
-        <View className="banner">
-          <View className="back">
-            <View className="date">
-              <View className="date_box">
-                <View className="day">
+        <View className='banner'>
+          <View className='back'>
+            <View className='date'>
+              <View className='date_box'>
+                <View className='day'>
                   {this.state.date.day}
                 </View>
-                <View className="datetime">
-                  <Text className="month">{this.state.date.month}.</Text>
-                  <Text className="year">{this.state.date.year}</Text>
+                <View className='datetime'>
+                  <Text className='month'>{this.state.date.month}.</Text>
+                  <Text className='year'>{this.state.date.year}</Text>
                 </View>
               </View>
 
@@ -173,13 +193,22 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
             {/* <View className="problem">
               {this.state.todayProblem.indexNum}. {this.state.todayProblem.questionTitleSlug}
             </View> */}
-            <View className="problem">
-              {this.state.todayProblem.indexNum}. {this.state.todayProblem.name}
+            <View className='problem'>
+              <View className='problem_name'>{indexNum}. {translatedTitle}</View>
+              <View className='problem_detail'>{problemString}</View>
+              <View className='showAll' onClick={() => {
+                if (questionTitleSlug) {
+                  Taro.navigateTo({
+                    url: `/pages/detail/index?slug=${questionTitleSlug}`
+                  });
+                }
+              }}
+              >全文</View>
             </View>
-            <View className="progress">
-              <View className="bar" style={this.getProgressWidth()}></View>
+            <View className='progress'>
+              <View className='bar' style={this.getProgressWidth()}></View>
             </View>
-            <View className="footer">
+            <View className='footer'>
               <Text># 每日LeetCode</Text>
               <Text
                 onClick={() => {
@@ -190,20 +219,20 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
               >
                 已打卡: {this.state.statistical.checkedCount}/
                 {this.state.statistical.totalUserCount}
-                <Text className="at-icon at-icon-chevron-right"></Text>
+                <Text className='at-icon at-icon-chevron-right'></Text>
               </Text>
             </View>
           </View>
         </View>
-        <View className="bottom_box">
+        <View className='bottom_box'>
           <View
-            className="to_lc"
+            className='to_lc'
             onClick={() => this.setState({ isOpened: true })}
           >
             前往打卡
           </View>
-          <View className="bottom_r">
-            <View className="ranking"
+          <View className='bottom_r'>
+            <View className='ranking'
               onClick={() => {
                 Taro.navigateTo({
                   url: "/pages/rank/index"
@@ -212,30 +241,30 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
             >
               <IconFont
                 size={30}
-                name={"icon_lc_ranking"}
-                color="rgba(94, 130, 245, 1)"
+                name='icon_lc_ranking'
+                color='rgba(94, 130, 245, 1)'
               />
               <Text>打卡排名</Text>
             </View>
-            <View className="share"
+            <View className='share'
               onClick={() => {
                 this.setState({
                   showShare: true
                 })
               }}
             >
-              <Button openType="share">
+              <Button openType='share'>
                 <IconFont
                   size={30}
-                  name={"icon_lc_share"}
-                  color="rgba(94, 130, 245, 1)"
+                  name='icon_lc_share'
+                  color='rgba(94, 130, 245, 1)'
                 />
                 <Text>分享</Text>
               </Button>
             </View>
           </View>
         </View>
-        <AtActionSheet isOpened={this.state.isOpened} cancelText='取消' title='点击下列按钮，会自动复制题目链接，前往浏览器粘贴打开即可'>
+        <AtActionSheet isOpened={this.state.isOpened} cancelText='取消' title='点击下列按钮，会自动复制题目链接，前往浏览器粘贴打开即可' onClose={() => this.setState({ isOpened: false })}>
           <AtActionSheetItem onClick={() => this.setClipboardData(this.state.todayProblem.cnUrl)}>
             复制中文版力扣地址
           </AtActionSheetItem>
