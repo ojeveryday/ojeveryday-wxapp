@@ -28,14 +28,17 @@ export default class ParseRichTextPage extends Taro.Component<ProblemProps, Prob
       }
     }
   }
-  async componentDidMount() {
-
+  componentDidMount() {
+    this.getData()
+  }
+  async getData() {
     const { id, slug } = this.$router.params
     const problemDetail = await NetworkManager.getProblem(id, slug)
     this.setState({ problemDetail });
   }
   config: Config = {
     navigationBarBackgroundColor: '#E5EAF5',
+    backgroundColor: '#E5EAF5',
     navigationBarTextStyle: 'black',
     navigationBarTitleText: '题目详情',
     usingComponents: {
