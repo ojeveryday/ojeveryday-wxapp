@@ -22,7 +22,7 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
   }
 
   render() {
-    const check: boolean = this.props.model.checked === 1;
+    const check: boolean = this.props.model && this.props.model.checked === 1;
     return (
       <View
         style={{
@@ -124,7 +124,7 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
                 alignItems: "center"
               }}
             >
-              <IconFont size={30} name='icon_lc_like' color='#5E82F5' />
+              <IconFont size={30} name={"icon_lc_like"} color="#5E82F5" />
               <Text
                 style={{
                   fontSize: "10px",
