@@ -69,6 +69,26 @@ page {
       line-height: 60px;
       text-align: left;
 
+      .problem_diff {
+        width:80px;
+        height:36px;
+        font-size: 22px;
+        border-radius:7px;
+        border:0px solid rgba(151,151,151,1);
+        margin-bottom:10px;
+        line-height: 36px;
+        vertical-align: middle;
+        text-align: center;
+        &.easy{
+          background-color:rgba(28,188,157,1)
+        }
+        &.mid{
+          background-color:rgba(232,188,15,1)
+        }
+        &.hard{
+          background-color:rgba(231,75,61,1)
+        }
+      }
       .problem_name {
         padding-bottom:10px;
       }

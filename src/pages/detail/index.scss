@@ -28,4 +28,13 @@ page > view {
   border:0px solid rgba(151,151,151,1);
   margin-bottom: 25px;
   padding:0;
+  &.easy{
+    background-color:rgba(28,188,157,1)
+  }
+  &.mid{
+    background-color:rgba(232,188,15,1)
+  }
+  &.hard{
+    background-color:rgba(231,75,61,1)
+  }
 }

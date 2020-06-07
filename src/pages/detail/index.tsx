@@ -10,9 +10,9 @@ interface ProblemState {
   problemDetail: ProblemDetail
 }
 const diffMap = {
-  'Easy': { text: '简单', bg: 'rgba(28,188,157,1)' },
-  'Middle': { text: '中等', bg: 'rgba(232,188,15,1)' },
-  'Hard': { text: '困难', bg: 'rgba(231,75,61,1)' }
+  'Easy': { text: '简单', bg: 'easy' },
+  'Middle': { text: '中等', bg: 'mid' },
+  'Hard': { text: '困难', bg: 'hard' }
 }
 /**
  * 需要注意的是，在项目的 config/index.js 文件中，有 copy 模板与样式的操作
@@ -49,7 +49,7 @@ export default class ParseRichTextPage extends Taro.Component<ProblemProps, Prob
         <View className='name'>
           {frontendId}. {translatedTitle}
         </View>
-        <View className='difficulty' style={{ backgroundColor: difficulty && diffMap[difficulty].bg }}>
+        <View className={`difficulty ${difficulty && diffMap[difficulty].bg}`}>
           {difficulty && diffMap[difficulty].text}
         </View>
         <View className='problemDetail'>

@@ -39,6 +39,11 @@ interface ITodayProblemState {
   problemString: string
 }
 
+const diffMap = {
+  'Easy': { text: '简单', bg: 'easy' },
+  'Middle': { text: '中等', bg: 'mid' },
+  'Hard': { text: '困难', bg: 'hard' }
+}
 class Day extends Component<ITodayProblem, ITodayProblemState> {
   // 发送请求
   statistical: IStatistical;
@@ -172,7 +177,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
   render() {
 
     const { indexNum, questionTitleSlug } = this.state.todayProblem
-    const { translatedTitle } = this.state.detail
+    const { translatedTitle, difficulty } = this.state.detail
     const { problemString } = this.state
     return (
       <View className={this.state.showShare ? "today show_share" : "today"}>
@@ -194,6 +199,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
               {this.state.todayProblem.indexNum}. {this.state.todayProblem.questionTitleSlug}
             </View> */}
             <View className='problem'>
+              <View className={'problem_diff ' + (difficulty && diffMap[difficulty].bg)} >{difficulty && diffMap[difficulty].text}</View>
               <View className='problem_name'>{indexNum}. {translatedTitle}</View>
               <View className='problem_detail'>{problemString}</View>
               <View className='showAll' onClick={() => {
