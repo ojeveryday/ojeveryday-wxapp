@@ -29,7 +29,8 @@ class App extends Component {
       "pages/today/index",
       "pages/leetcode/index",
       "pages/index/index",
-      "pages/rank/index"
+      "pages/rank/index",
+      "pages/detail/index"
     ],
     window: {
       backgroundTextStyle: "light",
@@ -62,13 +63,13 @@ class App extends Component {
     // }
   };
 
-  componentDidMount() {}
+  componentDidMount() { }
 
-  componentDidShow() {}
+  componentDidShow() { }
 
-  componentDidHide() {}
+  componentDidHide() { }
 
-  componentDidCatchError() {}
+  componentDidCatchError() { }
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数

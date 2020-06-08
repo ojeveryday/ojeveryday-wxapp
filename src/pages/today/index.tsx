@@ -7,6 +7,7 @@ import "taro-ui/dist/style/components/action-sheet.scss";
 import IconFont from "../../iconfont";
 
 import { AtActionSheet, AtActionSheetItem } from "taro-ui";
+import { ProblemDetail } from "src/network/model";
 
 interface ITodayProblem {
   indexNum?: string;
@@ -33,8 +34,9 @@ interface ITodayProblemState {
   date: IDate;
   showShare: boolean;
   isOpened: boolean;
+  detail: ProblemDetail;
+  problemString: string;
 }
-
 class Day extends Component<ITodayProblem, ITodayProblemState> {
   // 发送请求
   statistical: IStatistical;
@@ -47,6 +49,11 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
       todayProblem: {
         cnUrl: ""
       },
+      detail: {
+        content: "",
+        translatedContent: ""
+      },
+      problemString: "",
       isOpened: false,
       date: {},
       statistical: {
@@ -111,8 +118,22 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
       todayProblem: res,
       date
     });
+    return res.questionTitleSlug;
   }
-
+  /**
+   * 获取题目详细信息
+   */
+  async getProblemDetail(slug: string) {
+    const problemDetail = await NetworkManager.getProblem(undefined, slug);
+    const content = problemDetail.translatedContent || problemDetail.content;
+    this.setState({
+      detail: problemDetail,
+      problemString: problemDetail.translatedContent.replace(
+        /\<\w+\>|\<\/\w+\>|\&\w+|\s|\;/g,
+        ""
+      )
+    });
+  }
   /**
    * 获取统计信息
    */
@@ -157,6 +178,9 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
   }
 
   render() {
+    const { indexNum, questionTitleSlug } = this.state.todayProblem;
+    const { translatedTitle, difficulty } = this.state.detail;
+    const { problemString } = this.state;
     return (
       <View className={this.state.showShare ? "today show_share" : "today"}>
         <View className="banner">
@@ -174,7 +198,22 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
               {this.state.todayProblem.indexNum}. {this.state.todayProblem.questionTitleSlug}
             </View> */}
             <View className="problem">
-              {this.state.todayProblem.indexNum}. {this.state.todayProblem.name}
+              <View className="problem_name" data-diff={difficulty}>
+                {indexNum}. {translatedTitle}
+              </View>
+              <View className="problem_detail">{problemString}</View>
+              <View
+                className="showAll"
+                onClick={() => {
+                  if (questionTitleSlug) {
+                    Taro.navigateTo({
+                      url: `/pages/detail/index?slug=${questionTitleSlug}`
+                    });
+                  }
+                }}
+              >
+                全文
+              </View>
             </View>
             <View className="progress">
               <View className="bar" style={this.getProgressWidth()}></View>
@@ -213,7 +252,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
             >
               <IconFont
                 size={30}
-                name={"icon_lc_ranking"}
+                name="icon_lc_ranking"
                 color="rgba(94, 130, 245, 1)"
               />
               <Text>打卡排名</Text>
@@ -229,7 +268,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
               <Button openType="share">
                 <IconFont
                   size={30}
-                  name={"icon_lc_share"}
+                  name="icon_lc_share"
                   color="rgba(94, 130, 245, 1)"
                 />
                 <Text>分享</Text>

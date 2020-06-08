@@ -62,12 +62,62 @@ page {
     }
 
     .problem {
-      font-size: 43px;
-      font-family: PingFangSC-Semibold, PingFang SC;
-      font-weight: 600;
+      position:relative;
+      font-size: 29px;
+      font-family:PingFang SC;
+      font-weight:400;
       color: rgba(255, 255, 255, 1);
       line-height: 60px;
       text-align: left;
+      .problem_name {
+        padding-bottom:10px;
+        font-family: PingFangSC;
+        font-weight: 600;
+        &::before {
+          width:80px;
+          height:36px;
+          font-size: 22px;
+          font-weight:500;
+          font-family: PingFang SC;
+          border-radius:7px;
+          border:0px solid rgba(151,151,151,1);
+          margin-bottom:10px;
+          line-height: 36px;
+          vertical-align: middle;
+          text-align: center;
+          position: absolute;
+          left:0px;
+          top:-45px;
+        }
+        &[data-diff=Easy]::before{
+          background-color:rgba(28,188,157,1);
+          content:'简单';
+        }
+        &[data-diff=Medium]::before{
+          background-color:rgba(232,188,15,1);
+          content:'中等';
+        }
+        &[data-diff=Hard]::before{
+          background-color:rgba(231,75,61,1);
+          content:'困难';
+        }
+      }
+      .problem_detail {
+        color:rgba(255,255,255,0.6);
+        line-height: 40px;
+        display: -webkit-box;
+        /* autoprefixer: off */
+        -webkit-box-orient: vertical;
+        /* autoprefixer: on */
+        -webkit-line-clamp:4;
+        line-clamp:4;
+        word-break: break-all;
+        overflow: hidden;
+        overflow-wrap: break-word;
+      }
+      .showAll{
+        line-height: 40px;
+      }
     }
 
     .problem.zh {
@@ -210,7 +260,6 @@ page {
     }
 
     .problem {
-      font-style: 48px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;

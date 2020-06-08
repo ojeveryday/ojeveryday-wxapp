@@ -67,7 +67,7 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
     }
   }
 
-  async fetchDatas(page: number = 1) {
+  async fetchDatas(page = 1) {
     const date: string = this.props.date ? this.props.date : "today";
     if (date === "today") {
       return NetworkManager.getTodayRank(page);
@@ -115,14 +115,7 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   };
 
   render() {
-    const {
-      items,
-      bindUser,
-      isLoaded,
-      hasMore,
-      isEmpty,
-      isOpenBindActionSheet
-    } = this.state;
+    const { items, bindUser, hasMore, isOpenBindActionSheet } = this.state;
     return (
       <View className="lazy-view">
         <BindingIdActionSheet isOpened={isOpenBindActionSheet} />
@@ -132,7 +125,7 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
           ref={node => this.insRef(node)}
           hasMore={hasMore}
           onPullDownRefresh={fn => this.pullDownRefresh(fn)}
-          footerLoadedText={"到底了"}
+          footerLoadedText="到底了"
           onScrollToLower={fn => this.onScrollToLower(fn)}
         >
           <View
@@ -143,7 +136,7 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
           >
             <IconFont
               size={30}
-              name={"icon_lc_ranking"}
+              name="icon_lc_ranking"
               color="rgba(11,11,51,1)"
             />
             <View
