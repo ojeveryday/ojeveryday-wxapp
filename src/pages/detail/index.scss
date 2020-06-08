@@ -17,9 +17,11 @@ page > view {
   font-weight: 600;
   margin-bottom: 30px;
   &::after {
+    color: rgba(255,255,255,0.8);
     width:80px;
     height:36px;
     font-size: 22px;
+    font-weight:500;
     border-radius:7px;
     border:0px solid rgba(151,151,151,1);
     margin-bottom:10px;
