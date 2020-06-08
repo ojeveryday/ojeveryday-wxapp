@@ -66,6 +66,7 @@ class NetworkManager {
     };
     return NetworkManager.resolveRequest(params);
   }
+
   static async getProblemByFrontendID(id: string) {
     const params = {
       url: NetworkManager.makeUri("api/AllProblem/getProblemByFrontendId"),
@@ -75,6 +76,7 @@ class NetworkManager {
     };
     return NetworkManager.resolveRequest(params);
   }
+
   static async getProblemByTitleSlug(slug: string) {
     const params = {
       url: NetworkManager.makeUri("api/AllProblem/getProblemByTitleSlug"),
@@ -84,6 +86,7 @@ class NetworkManager {
     };
     return NetworkManager.resolveRequest(params);
   }
+
   static async getProblem(
     id: string | undefined,
     slug?: string
@@ -117,6 +120,25 @@ class NetworkManager {
     }
     problemDetail = result;
     return problemDetail;
+  }
+
+  // 获取指定 id 的 Rank 信息
+  static async getUserRank(
+    user_id: string,
+    date: string = ""
+  ): Promise<RankItemModel[]> {
+    if (date === "") {
+      const today = new Date();
+      date = formatDate(today);
+    }
+    console.log(date);
+    const option: Taro.request.Option<any> = {
+      url: NetworkManager.makeUri(
+        `checkDayInfo/userInfoLike?date=${date}&usernamelike=${user_id}`
+      ),
+      method: "POST"
+    };
+    return NetworkManager.resolveRequest(option);
   }
 }
 
