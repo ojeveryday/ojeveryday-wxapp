@@ -1,9 +1,7 @@
 # ojeveryday-wxapp
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # Description
@@ -49,15 +47,15 @@ $ yarn dev:weapp
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://www.desgard.com/"><img src="https://avatars3.githubusercontent.com/u/7804535?v=4" width="100px;" alt=""/><br /><sub><b>Gua</b></sub></a><br /><a href="https://github.com/Desgard/ojeveryday-wxapp/commits?author=Desgard" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/bifjhh"><img src="https://avatars0.githubusercontent.com/u/29394439?v=4" width="100px;" alt=""/><br /><sub><b> 茧</b></sub></a><br /><a href="https://github.com/Desgard/ojeveryday-wxapp/commits?author=bifjhh" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.desgard.com/"><img src="https://avatars3.githubusercontent.com/u/7804535?v=4" width="100px;" alt=""/><br /><sub><b>Gua</b></sub></a><br /><a href="https://github.com/ojeveryday/ojeveryday-wxapp/commits?author=Desgard" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/bifjhh"><img src="https://avatars0.githubusercontent.com/u/29394439?v=4" width="100px;" alt=""/><br /><sub><b> 茧</b></sub></a><br /><a href="https://github.com/ojeveryday/ojeveryday-wxapp/commits?author=bifjhh" title="Code">💻</a></td>
     <td align="center"><a href="https://www.jonyfang.com/"><img src="https://avatars3.githubusercontent.com/u/12381169?v=4" width="100px;" alt=""/><br /><sub><b>Jony Fang</b></sub></a><br /><a href="#design-JonyFang" title="Design">🎨</a></td>
+    <td align="center"><a href="https://github.com/nick950222"><img src="https://avatars1.githubusercontent.com/u/24955297?v=4" width="100px;" alt=""/><br /><sub><b>nick950222</b></sub></a><br /><a href="https://github.com/ojeveryday/ojeveryday-wxapp/commits?author=nick950222" title="Code">💻</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 # MIT License

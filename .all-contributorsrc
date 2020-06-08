@@ -1,6 +1,6 @@
 {
   "projectName": "ojeveryday-wxapp",
-  "projectOwner": "Desgard",
+  "projectOwner": "ojeveryday",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -36,7 +36,17 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "nick950222",
+      "name": "nick950222",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/24955297?v=4",
+      "profile": "https://github.com/nick950222",
+      "contributions": [
+        "code"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "skipCi": true
 }
