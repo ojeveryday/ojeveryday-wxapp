@@ -27,6 +27,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "JonyFang",
+      "name": "Jony Fang",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/12381169?v=4",
+      "profile": "https://www.jonyfang.com/",
+      "contributions": [
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7
