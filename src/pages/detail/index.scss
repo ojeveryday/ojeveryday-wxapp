@@ -1,0 +1,48 @@
+page {
+  font-family: PingFang SC;
+  background-color: #E5EAF5;
+}
+page > view {
+  padding : 0 27px;
+}
+.problemDetail {
+  margin-top:87px;
+  color:#0B0B33;
+  font-size: 29px;
+}
+.name {
+  position: relative;
+  font-family: PingFangSC-Medium;
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  &::after {
+    color: rgba(255,255,255,0.8);
+    width:80px;
+    height:36px;
+    font-size: 22px;
+    font-weight:500;
+    border-radius:7px;
+    border:0px solid rgba(151,151,151,1);
+    margin-bottom:10px;
+    line-height: 36px;
+    vertical-align: middle;
+    text-align: center;
+    position: absolute;
+    left:0px;
+    top:67px;
+  }
+  &[data-diff=Easy]::after{
+    background-color:rgba(28,188,157,1);
+    content:'简单';
+  }
+  &[data-diff=Medium]::after{
+    background-color:rgba(232,188,15,1);
+    content:'中等';
+  }
+  &[data-diff=Hard]::after{
+    background-color:rgba(231,75,61,1);
+    content:'困难';
+  }
+
+}
