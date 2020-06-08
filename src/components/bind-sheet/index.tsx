@@ -25,7 +25,7 @@ interface IBindingIdActionSheetState {
 class BindingIdActionSheet extends Taro.Component<
   IBindingIdActionSheetProps,
   IBindingIdActionSheetState
-> {
+  > {
   constructor(props: IBindingIdActionSheetProps) {
     super(props);
     this.state = {
@@ -36,6 +36,29 @@ class BindingIdActionSheet extends Taro.Component<
       isSearchedUser: false,
       respUser: null
     };
+  }
+
+  handleChange = async (value: string) => {
+    this.setState({ searchId: value });
+  }
+
+  getUserRank = async () => {
+    this.setState({ isSearchingUser: true });
+    try {
+      const resp: RankItemModel[] = await NetworkManager.getUserRank(this.state.searchId)
+      console.log(resp);
+      if (!resp.length) {
+        console.log("没有搜到");
+      } else {
+        this.setState({
+          isSearchedUser: true,
+          respUser: resp[0]
+        });
+        this.setState({ isSearchingUser: false });
+      }
+    } catch (error) {
+      console.log("网络错误");
+    }
   }
 
   render() {
@@ -66,31 +89,13 @@ class BindingIdActionSheet extends Taro.Component<
               name="value"
               type="text"
               placeholder="请输入力扣ID"
-              onChange={value => {
-                this.setState({ searchId: value as string });
-              }}
+              value={searchId}
+              onChange={this.handleChange}
+              confirmType="search"
+              onConfirm={this.getUserRank}
             >
               <Text
-                onClick={() => {
-                  this.setState({ isSearchingUser: true });
-                  NetworkManager.getUserRank(this.state.searchId)
-                    .then((resp: RankItemModel[]) => {
-                      if (resp.length === 0) {
-                        console.log("没有搜到");
-                      } else {
-                        this.setState({
-                          isSearchedUser: true,
-                          respUser: resp[0]
-                        });
-                      }
-                    })
-                    .catch(() => {
-                      console.log("网络错误");
-                    })
-                    .finally(() => {
-                      this.setState({ isSearchingUser: false });
-                    });
-                }}
+                onClick={this.getUserRank}
               >
                 搜索
               </Text>
@@ -156,8 +161,8 @@ class BindingIdActionSheet extends Taro.Component<
               {respUser && ")"}
             </View>
           ) : (
-            <View>复制</View>
-          )}
+                <View>复制</View>
+              )}
         </AtActionSheetItem>
       </AtActionSheet>
     );
