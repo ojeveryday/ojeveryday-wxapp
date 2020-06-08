@@ -1,5 +1,9 @@
 # ojeveryday-wxapp
 
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 # Description
 
 这是每日一题官方微信小程序。改小程序致力于方便查看个人打卡情况及每日一题 (http://ojeveryday.com/) 榜单情况，也可以分享当日习题和当日本人打卡情况。
@@ -47,3 +51,20 @@ furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
+
+# Contributors ✨
+
+感谢以下同学对于项目的贡献：
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://www.desgard.com/"><img src="https://avatars3.githubusercontent.com/u/7804535?v=4" width="100px;" alt=""/><br /><sub><b>Gua</b></sub></a><br /><a href="https://github.com/Desgard/ojeveryday-wxapp/commits?author=Desgard" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
