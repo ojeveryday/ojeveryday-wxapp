@@ -21,8 +21,10 @@ class RankMeItem extends Taro.Component<IRankMeItemProps, IRankMeItemState> {
   }
 
   render() {
-    const check: boolean =
-      this.props.model.checked !== undefined && this.props.model.checked === 1;
+    let check: boolean = false;
+    if (this.props.model.checked && this.props.model.checked === 1) {
+      check = true;
+    }
     return (
       <View
         style={{

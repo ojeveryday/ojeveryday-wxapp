@@ -10,10 +10,11 @@ import { AtActionSheet, AtActionSheetItem } from "taro-ui";
 import { ProblemDetail } from "src/network/model";
 
 interface ITodayProblem {
+  problemID: number;
   indexNum?: string;
   name?: string;
-  questionTitleSlug?: string;
-  cnUrl?: string;
+  questionTitleSlug: string;
+  cnUrl: string;
   enUrl?: string;
 }
 interface IDate {
@@ -47,7 +48,9 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
     });
     this.state = {
       todayProblem: {
-        cnUrl: ""
+        problemID: 0,
+        cnUrl: "",
+        questionTitleSlug: ""
       },
       detail: {
         content: "",
@@ -74,7 +77,8 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
     this.setState({
       showShare: false
     });
-    await this.getTodayProblem();
+    const questinTitleSlug = await this.getTodayProblem();
+    await this.getProblemDetail(questinTitleSlug);
     await this.getSummary();
     Taro.hideLoading();
   }
@@ -125,7 +129,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
    */
   async getProblemDetail(slug: string) {
     const problemDetail = await NetworkManager.getProblem(undefined, slug);
-    const content = problemDetail.translatedContent || problemDetail.content;
+    // const content = problemDetail.translatedContent || problemDetail.content;
     this.setState({
       detail: problemDetail,
       problemString: problemDetail.translatedContent.replace(
@@ -280,6 +284,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
           isOpened={this.state.isOpened}
           cancelText="取消"
           title="点击下列按钮，会自动复制题目链接，前往浏览器粘贴打开即可"
+          onClose={() => this.setState({ isOpened: false })}
         >
           <AtActionSheetItem
             onClick={() => this.setClipboardData(this.state.todayProblem.cnUrl)}
