@@ -2,17 +2,16 @@ import Taro from "@tarojs/taro";
 
 import { RankItemModel, ProblemDetail } from "./model";
 
-
 import { formatDate } from "../utils/date_helper";
 
 class NetworkManager {
-  static host = "https://ojeveryday.com/";
+  static host: string = "https://ojeveryday.com/";
 
   static makeUri(path: string) {
     return `${NetworkManager.host}${path}`;
   }
 
-  static async resolveRequest(option) {
+  static async resolveRequest(option: Taro.request.Option<any>) {
     option.header = {
       Authorization: "Basic YWRtaW46YWRtaW4="
     };
@@ -40,10 +39,7 @@ class NetworkManager {
     return this.getRank(dateFormat, page);
   }
 
-  static async getRank(
-    date: string,
-    page = 1
-  ): Promise<RankItemModel[]> {
+  static async getRank(date: string, page = 1): Promise<RankItemModel[]> {
     const option = {
       url: NetworkManager.makeUri("checkDayInfo/day/page"),
       data: {
@@ -73,7 +69,7 @@ class NetworkManager {
       data: {
         frontendId: id
       }
-    }
+    };
     return NetworkManager.resolveRequest(params);
   }
   static async getProblemByTitleSlug(slug: string) {
@@ -82,39 +78,39 @@ class NetworkManager {
       data: {
         titleSlug: slug
       }
-    }
+    };
     return NetworkManager.resolveRequest(params);
   }
   static async getProblem(id, slug?): Promise<ProblemDetail> {
     let problemDetail: ProblemDetail = {
-      content: '',
-      translatedContent: ''
-    }
-    let result
+      content: "",
+      translatedContent: ""
+    };
+    let result;
     if (id) {
-      result = await this.getProblemByFrontendID(id).catch((error) => {
-        console.log(error)
+      result = await this.getProblemByFrontendID(id).catch(error => {
+        console.log(error);
         return {
-          content: 'network error, please retry',
-          translatedContent: '网络错误请重试'
-        }
-      })
+          content: "network error, please retry",
+          translatedContent: "网络错误请重试"
+        };
+      });
     } else if (slug) {
-      result = await this.getProblemByTitleSlug(slug).catch((error) => {
-        console.log(error)
+      result = await this.getProblemByTitleSlug(slug).catch(error => {
+        console.log(error);
         return {
-          content: 'network error, please retry',
-          translatedContent: '网络错误请重试'
-        }
-      })
+          content: "network error, please retry",
+          translatedContent: "网络错误请重试"
+        };
+      });
     } else {
       result = {
-        content: 'network error, please retry',
-        translatedContent: '网络错误请重试'
-      }
+        content: "network error, please retry",
+        translatedContent: "网络错误请重试"
+      };
     }
-    problemDetail = result
-    return problemDetail
+    problemDetail = result;
+    return problemDetail;
   }
 }
 
