@@ -126,7 +126,7 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
    */
   async getProblemDetail(slug: string) {
     const problemDetail = await NetworkManager.getProblem(undefined, slug)
-    this.setState({ detail: problemDetail, problemString: problemDetail.translatedContent.replace(/\<\w+\>|\<\/\w+\>|\&\w+|/g, '').replace(/\s/g, '') })
+    this.setState({ detail: problemDetail, problemString: problemDetail.translatedContent.replace(/\<\w+\>|\<\/\w+\>|\&\w+|\s|\;/g, '') })
   }
   /**
    * 获取统计信息

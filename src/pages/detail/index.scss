@@ -34,7 +34,7 @@ page > view {
     background-color:rgba(28,188,157,1);
     content:'简单';
   }
-  &[data-diff=Mid]::after{
+  &[data-diff=Medium]::after{
     background-color:rgba(232,188,15,1);
     content:'中等';
   }
