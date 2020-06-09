@@ -182,7 +182,7 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
           })}
         </ListView>
         <AtFloatLayout isOpened={this.state.showDate} title='请选择日期' onClose={this.handleClose.bind(this)}>
-          <AtCalendar onSelectDate={(SelectDate) => this.setState({ dateState: SelectDate.value.start })} />
+          <AtCalendar maxDate={new Date()} onSelectDate={(SelectDate) => this.setState({ dateState: SelectDate.value.start })} />
           <View className="rank">
             <View
               className="sel_date"
