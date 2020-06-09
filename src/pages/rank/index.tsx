@@ -1,5 +1,6 @@
 import Taro, { Config } from "@tarojs/taro";
 import { View } from "@tarojs/components";
+import { AtCalendar, AtFloatLayout } from "taro-ui"
 import RankItem from "../../components/rank-item";
 import ListView from "taro-listview";
 import "./index.scss";
@@ -15,6 +16,8 @@ interface IRankState {
   isLoaded: boolean
   hasMore: boolean
   isEmpty: boolean
+  showDate: boolean
+  dateState: string
 }
 
 class Rank extends Taro.Component<IRankProps, IRankState> {
@@ -24,7 +27,9 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
       items: [],
       isLoaded: false,
       hasMore: true,
-      isEmpty: false
+      isEmpty: false,
+      showDate: false,
+      dateState: "today"
     };
   }
 
@@ -38,7 +43,7 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   pageIndex = 1;
 
   async componentDidMount() {
-    this.fetchDatas();
+    // this.fetchDatas();
     const items = await this.fetchDatas();
     this.setState({
       items: items,
@@ -61,6 +66,31 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   insRef = node => {
     this.refList = node;
   };
+
+  /**
+    * @author fzyt
+    * @desc AtFloatLayout 关闭触发方法
+    * @param 无
+    **/
+  handleClose() {
+    this.setState({
+      showDate: false
+    })
+  }
+
+  /**
+    * @author fzyt
+    * @desc selectDate 选择日期方法
+    * @param 无
+    **/
+  selectDate = async () => {
+    const date: string = this.state.dateState;
+    const items = await NetworkManager.getRank(date);
+    this.setState({
+      items: items,
+      showDate: false
+    });
+  }
 
   pullDownRefresh = async _rest => {
     if (this.isUpdated) return;
@@ -100,26 +130,47 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
           <View
             style={{
               display: "flex",
-              alignItems: "center"
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingRight: "26px"
             }}
           >
-            <IconFont
-              size={30}
-              name='icon_lc_ranking'
-              color='rgba(11,11,51,1)'
-            />
             <View
               style={{
-                fontSize: "16px",
-                fontFamily: "PingFangSC-Medium,PingFang SC",
-                color: "rgba(11,11,51,1)",
-                marginLeft: "4px"
+                display: "flex",
+                alignItems: "center"
               }}
             >
-              打卡排名
+              <IconFont
+                size={30}
+                name='icon_lc_ranking'
+                color='rgba(11,11,51,1)'
+              />
+              <View
+                style={{
+                  fontSize: "16px",
+                  fontFamily: "PingFangSC-Medium,PingFang SC",
+                  color: "rgba(11,11,51,1)",
+                  marginLeft: "4px"
+                }}
+              >
+                打卡排名
+            </View>
+            </View>
+            <View
+              onClick={() => {
+                this.setState({
+                  showDate: true
+                })
+              }}
+            >
+              <IconFont
+                size={30}
+                name={"daka"}
+                color="rgba(11,11,51,1)"
+              />
             </View>
           </View>
-
           {items.map((item, index) => {
             return (
               <RankItem
@@ -130,6 +181,17 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
             );
           })}
         </ListView>
+        <AtFloatLayout isOpened={this.state.showDate} title='请选择日期' onClose={this.handleClose.bind(this)}>
+          <AtCalendar onSelectDate={(SelectDate) => this.setState({ dateState: SelectDate.value.start })} />
+          <View className="rank">
+            <View
+              className="sel_date"
+              onClick={() => this.selectDate()}
+            >
+              查看此日排名
+            </View>
+          </View>
+        </AtFloatLayout>
       </View>
     );
   }
