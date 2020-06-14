@@ -32,7 +32,8 @@ class RankMeItem extends Taro.Component<IRankMeItemProps, IRankMeItemState> {
           background: "rgba(229,234,245,1)",
           borderRadius: "4px",
           border: "2px solid rgba(255,255,255,1)",
-          position: "relative"
+          position: "relative",
+          marginTop: '10px'
         }}
       >
         <View
@@ -45,7 +46,7 @@ class RankMeItem extends Taro.Component<IRankMeItemProps, IRankMeItemState> {
             paddingRight: "10px",
             overflow: "hidden",
             width: "100%",
-            height: "100%"
+            height: "100%",
           }}
         >
           <View

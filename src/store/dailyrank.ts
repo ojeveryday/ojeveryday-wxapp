@@ -24,6 +24,7 @@ class DailyRankStore {
   saveLeetCodeUserId(user_id: string) {
     try {
       Taro.setStorageSync("bind_user_id", user_id);
+      this.setBindUserId(user_id)
       console.log("save => ", user_id);
       return true;
     } catch (e) {

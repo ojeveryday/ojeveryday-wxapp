@@ -37,12 +37,19 @@ class BindingIdActionSheet extends Taro.Component<
       respUser: null
     };
   }
-  setClipboardData(url) {
+  toast(title: string, duration: number) {
+    Taro.showToast({
+      title,
+      icon: 'none',
+      duration
+    })
+  }
+  setClipboardData(url: string) {
     Taro.setClipboardData({
       data: url
     });
   }
-  handleChange = async (value: string) => {
+  handleChange = (value: string) => {
     this.setState({ searchId: value });
   }
 
@@ -50,9 +57,9 @@ class BindingIdActionSheet extends Taro.Component<
     this.setState({ isSearchingUser: true });
     try {
       const resp: RankItemModel[] = await NetworkManager.getUserRank(this.state.searchId)
-      console.log(resp);
       if (!resp.length) {
-        console.log("没有搜到");
+        this.setState({ respUser: null })
+        this.toast('没有搜到，请点击下方复制按钮，前往浏览器粘贴打开加入', 1600);
       } else {
         this.setState({
           isSearchedUser: true,
@@ -61,7 +68,8 @@ class BindingIdActionSheet extends Taro.Component<
         this.setState({ isSearchingUser: false });
       }
     } catch (error) {
-      console.log("网络错误");
+      this.setState({ isSearchingUser: false, respUser: null });
+      this.toast('没有搜到，请点击下方复制按钮，前往浏览器粘贴打开加入', 1600);
     }
   }
 
@@ -124,9 +132,16 @@ class BindingIdActionSheet extends Taro.Component<
             // 绑定成功
             if (isSearchedUser && respUser && respUser.username) {
               dailyRankStore.saveLeetCodeUserId(respUser.username);
+              this.toast('绑定成功', 1200);
+              setTimeout(() => {
+                Taro.redirectTo({
+                  url: "/pages/rank/index"
+                });
+              }, 1200);
             }
             // 复制
             else if (!isSearchedUser) {
+              this.toast('绑定失败，请点击下方复制按钮，前往浏览器粘贴打开加入再重新搜索绑定', 1600);
             }
           }}
         >

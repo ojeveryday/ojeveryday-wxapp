@@ -13,8 +13,8 @@ import { observer } from "@tarojs/mobx";
 
 interface IRankProps {
   date?: string | "today" | "yesterday";
+  dailyRankStore
 }
-
 interface IRankState {
   items: RankItemModel[];
   bindUser: RankItemModel | null;
@@ -154,12 +154,12 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
           {bindUser ? (
             <RankMeItem key={`bind-user`} rank={-1} model={bindUser} />
           ) : (
-            <BindingItem
-              onClick={() => {
-                this.setState({ isOpenBindActionSheet: true });
-              }}
-            />
-          )}
+              <BindingItem
+                onClick={() => {
+                  this.setState({ isOpenBindActionSheet: true });
+                }}
+              />
+            )}
 
           {items.map((item, index) => {
             return (
