@@ -37,7 +37,11 @@ class BindingIdActionSheet extends Taro.Component<
       respUser: null
     };
   }
-
+  setClipboardData(url) {
+    Taro.setClipboardData({
+      data: url
+    });
+  }
   handleChange = async (value: string) => {
     this.setState({ searchId: value });
   }
@@ -161,7 +165,9 @@ class BindingIdActionSheet extends Taro.Component<
               {respUser && ")"}
             </View>
           ) : (
-                <View>复制</View>
+                <View onClick={() => {
+                  this.setClipboardData('https://ojeveryday.com/#/submit')
+                }}>复制</View>
               )}
         </AtActionSheetItem>
       </AtActionSheet>
