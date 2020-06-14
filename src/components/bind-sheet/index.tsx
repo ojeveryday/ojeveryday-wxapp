@@ -133,7 +133,8 @@ class BindingIdActionSheet extends Taro.Component<
             }
             // 复制
             else if (!isSearchedUser) {
-              this.toast('绑定失败，请点击下方复制按钮，前往浏览器粘贴打开加入再重新搜索绑定', 1600);
+              // this.toast('绑定失败，请点击下方复制按钮，前往浏览器粘贴打开加入再重新搜索绑定', 1600);
+              // 走到这里应该是设置storage错了
             }
           }}
         >
