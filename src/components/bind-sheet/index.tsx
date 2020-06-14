@@ -3,11 +3,10 @@ import {
   AtActionSheetItem,
   AtInput,
   AtLoadMore,
-  AtToast
 } from "taro-ui";
-import { View, Text, Button, Image } from "@tarojs/components";
+import { View, Text, Image } from "@tarojs/components";
 import { NetworkManager, RankItemModel } from "../../network/network";
-import { dailyRankStore } from "../../store/dailyrank";
+import dailyRankStore from "../../store/dailyrank";
 
 interface IBindingIdActionSheetProps {
   isOpened: boolean;
@@ -75,9 +74,7 @@ class BindingIdActionSheet extends Taro.Component<
 
   render() {
     const {
-      isOpened,
       searchId,
-      resultId,
       isSearchingUser,
       isSearchedUser,
       respUser
@@ -133,11 +130,6 @@ class BindingIdActionSheet extends Taro.Component<
             if (isSearchedUser && respUser && respUser.username) {
               dailyRankStore.saveLeetCodeUserId(respUser.username);
               this.toast('绑定成功', 1200);
-              setTimeout(() => {
-                Taro.redirectTo({
-                  url: "/pages/rank/index"
-                });
-              }, 1200);
             }
             // 复制
             else if (!isSearchedUser) {

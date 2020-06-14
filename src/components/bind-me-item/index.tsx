@@ -1,17 +1,24 @@
 import { View, Image, Text } from "@tarojs/components";
 import IconFont from "../../iconfont";
 
+import { observer, inject } from "@tarojs/mobx";
 import { RankItemModel } from "../../network/network";
 
 interface IRankMeItemProps {
-  model: RankItemModel;
   rank: number;
+  rankStore: {
+    bindUserId: string | null
+    bindUserInfo: RankItemModel
+  }
 }
 
 interface IRankMeItemState {
   is_punched: boolean;
 }
-
+@inject((store) => {
+  return { rankStore: store.rankStore }
+})
+@observer
 class RankMeItem extends Taro.Component<IRankMeItemProps, IRankMeItemState> {
   constructor(props: IRankMeItemProps) {
     super(props);
@@ -22,7 +29,9 @@ class RankMeItem extends Taro.Component<IRankMeItemProps, IRankMeItemState> {
 
   render() {
     let check: boolean = false;
-    if (this.props.model && this.props.model.checked && this.props.model.checked === 1) {
+    const { rankStore: { bindUserInfo: model, bindUserId } } = this.props
+    if (!bindUserId) return <View></View>;
+    if (model && model.checked && model.checked === 1) {
       check = true;
     }
     return (
@@ -78,7 +87,7 @@ class RankMeItem extends Taro.Component<IRankMeItemProps, IRankMeItemState> {
                 border: "0px solid rgba(151,151,151,1)",
                 marginLeft: "10px"
               }}
-              src={this.props.model.avatar}
+              src={model.avatar}
             />
             <View
               style={{
@@ -100,7 +109,7 @@ class RankMeItem extends Taro.Component<IRankMeItemProps, IRankMeItemState> {
                   maxWidth: "105px"
                 }}
               >
-                {this.props.model.username}
+                {model.username}
               </Text>
 
               <Text
@@ -112,7 +121,7 @@ class RankMeItem extends Taro.Component<IRankMeItemProps, IRankMeItemState> {
                   width: "105px"
                 }}
               >
-                {check ? this.props.model.checkedTime : ""}
+                {check ? model.checkedTime : ""}
               </Text>
             </View>
           </View>
@@ -144,7 +153,7 @@ class RankMeItem extends Taro.Component<IRankMeItemProps, IRankMeItemState> {
                     marginLeft: "2px"
                   }}
                 >
-                  {this.props.model.upvoteNumber}
+                  {model.upvoteNumber}
                 </Text>
               </View>
             ) : (
@@ -190,7 +199,7 @@ class RankMeItem extends Taro.Component<IRankMeItemProps, IRankMeItemState> {
                   color: "rgba(11,11,51,1)"
                 }}
               >
-                {this.props.model.totalChecked}天
+                {model.totalChecked}天
               </Text>
               <Text
                 style={{

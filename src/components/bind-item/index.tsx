@@ -6,7 +6,7 @@ import "./index.scss";
 interface IBindingItemProps {
   onClick: { (): void };
 }
-interface IBindingItemState {}
+interface IBindingItemState { }
 
 class BindingItem extends Taro.Component<IBindingItemProps, IBindingItemState> {
   constructor(props: IBindingItemProps) {

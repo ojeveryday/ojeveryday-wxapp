@@ -2,8 +2,8 @@ import Taro, { Component, Config } from "@tarojs/taro";
 import { Provider } from "@tarojs/mobx";
 import "./app.scss";
 
-import TabContainer from "./pages/tab-container";
 import counterStore from "./store/counter";
+import rankStore from "./store/dailyrank";
 import Day from "./pages/today";
 
 // 如果需要在 h5 环境中开启 React Devtools
@@ -13,7 +13,8 @@ import Day from "./pages/today";
 // }
 
 const store = {
-  counterStore
+  counterStore,
+  rankStore
 };
 
 class App extends Component {

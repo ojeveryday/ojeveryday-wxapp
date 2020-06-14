@@ -1,16 +1,25 @@
 import { observable, action } from "mobx";
 import Taro from "@tarojs/taro";
-
+import { NetworkManager, RankItemModel } from "../network/network"
 class DailyRankStore {
   @observable bindUserId: string | null = null;
-
-  constructor() {
-    this.bindUserId = this.getLeetCodeUserId();
+  @observable bindUserInfo: RankItemModel = {
+    sortId: "",
+    username: "",
+    address: "",
+    avatar: "",
+    totalChecked: 0,
+    checked: 0,
+    checkedTime: "null",
+    upvoteNumber: 0
   }
-
+  constructor() {
+    this.getLeetCodeUserId();
+  }
   getLeetCodeUserId() {
     try {
       const saveUserId = Taro.getStorageSync("bind_user_id");
+      this.setBindUserId(saveUserId);
       if (saveUserId) {
         return saveUserId;
       } else {
@@ -38,10 +47,20 @@ class DailyRankStore {
   }
 
   @action.bound
-  setBindUserId(one: string) {
+  async setBindUserId(one: string) {
     this.bindUserId = one;
+    if (one) {
+      const result = await NetworkManager.getUserRank(one);
+      if (result && result.length) {
+        this.setBindUserInfo(result[0])
+      }
+    }
+  }
+  @action.bound
+  setBindUserInfo(one: RankItemModel) {
+    this.bindUserInfo = one;
   }
 }
 
 const dailyRankStore = new DailyRankStore();
-export { dailyRankStore };
+export default dailyRankStore;

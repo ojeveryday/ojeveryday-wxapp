@@ -38,7 +38,7 @@ interface ITodayProblemState {
   detail: ProblemDetail;
   problemString: string;
 }
-class Day extends Component<ITodayProblem, ITodayProblemState> {
+class Day extends Component<{}, ITodayProblemState> {
   // 发送请求
   statistical: IStatistical;
   constructor() {

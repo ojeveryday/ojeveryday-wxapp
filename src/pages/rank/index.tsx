@@ -8,29 +8,31 @@ import { NetworkManager, RankItemModel } from "../../network/network";
 import IconFont from "../../iconfont";
 import BindingItem from "../../components/bind-item";
 import BindingIdActionSheet from "../../components/bind-sheet";
-import { dailyRankStore } from "../../store/dailyrank";
-import { observer } from "@tarojs/mobx";
+import { observer, inject } from "@tarojs/mobx";
+
 
 interface IRankProps {
   date?: string | "today" | "yesterday";
-  dailyRankStore
+  rankStore: {
+    bindUserId: string | null;
+  }
 }
 interface IRankState {
   items: RankItemModel[];
-  bindUser: RankItemModel | null;
   isLoaded: boolean;
   hasMore: boolean;
   isEmpty: boolean;
   isOpenBindActionSheet: boolean;
 }
-
+@inject((store) => {
+  return { rankStore: store.rankStore }
+})
 @observer
 class Rank extends Taro.Component<IRankProps, IRankState> {
   constructor(props) {
     super(props);
     this.state = {
       items: [],
-      bindUser: null,
       isLoaded: false,
       hasMore: true,
       isEmpty: false,
@@ -58,13 +60,6 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
     });
 
     // 获取个人数据
-    console.log("storeid: ", dailyRankStore.bindUserId);
-    if (dailyRankStore.bindUserId) {
-      const items = await this.fetchBindUserData();
-      if (items && items.length > 0) {
-        this.setState({ bindUser: items[0] });
-      }
-    }
   }
 
   async fetchDatas(page = 1) {
@@ -75,16 +70,6 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
       return NetworkManager.getYesterdayRank(page);
     } else {
       return NetworkManager.getRank(date);
-    }
-  }
-
-  async fetchBindUserData() {
-    const userId = dailyRankStore.bindUserId;
-    console.log(userId);
-    if (userId) {
-      return NetworkManager.getUserRank(userId);
-    } else {
-      return null;
     }
   }
 
@@ -115,7 +100,8 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   };
 
   render() {
-    const { items, bindUser, hasMore, isOpenBindActionSheet } = this.state;
+    const { items, hasMore, isOpenBindActionSheet } = this.state;
+    const { rankStore: { bindUserId } } = this.props
     return (
       <View className="lazy-view">
         <BindingIdActionSheet isOpened={isOpenBindActionSheet} />
@@ -151,8 +137,8 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
             </View>
           </View>
 
-          {bindUser ? (
-            <RankMeItem key={`bind-user`} rank={-1} model={bindUser} />
+          {bindUserId ? (
+            <RankMeItem key={`bind-user`} rank={-1} />
           ) : (
               <BindingItem
                 onClick={() => {
