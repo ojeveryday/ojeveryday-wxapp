@@ -31,7 +31,7 @@ class NetworkManager {
     return this.getRank(dateFormat, page);
   }
 
-  static async getYesterdayRank(page = 1): Promise<RankItemModel[]> {
+  static async getYesterdayRank(page: number = 1): Promise<RankItemModel[]> {
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
@@ -39,7 +39,10 @@ class NetworkManager {
     return this.getRank(dateFormat, page);
   }
 
-  static async getRank(date: string, page = 1): Promise<RankItemModel[]> {
+  static async getRank(
+    date: string,
+    page: number = 1
+  ): Promise<RankItemModel[]> {
     const option = {
       url: NetworkManager.makeUri("checkDayInfo/day/page"),
       data: {
@@ -63,6 +66,7 @@ class NetworkManager {
     };
     return NetworkManager.resolveRequest(params);
   }
+
   static async getProblemByFrontendID(id: string) {
     const params = {
       url: NetworkManager.makeUri("api/AllProblem/getProblemByFrontendId"),
@@ -72,6 +76,7 @@ class NetworkManager {
     };
     return NetworkManager.resolveRequest(params);
   }
+
   static async getProblemByTitleSlug(slug: string) {
     const params = {
       url: NetworkManager.makeUri("api/AllProblem/getProblemByTitleSlug"),
@@ -81,7 +86,11 @@ class NetworkManager {
     };
     return NetworkManager.resolveRequest(params);
   }
-  static async getProblem(id, slug?): Promise<ProblemDetail> {
+
+  static async getProblem(
+    id: string | undefined,
+    slug?: string
+  ): Promise<ProblemDetail> {
     let problemDetail: ProblemDetail = {
       content: "",
       translatedContent: ""
@@ -111,6 +120,25 @@ class NetworkManager {
     }
     problemDetail = result;
     return problemDetail;
+  }
+
+  // 获取指定 id 的 Rank 信息
+  static async getUserRank(
+    user_id: string,
+    date: string = ""
+  ): Promise<RankItemModel[]> {
+    if (date === "") {
+      const today = new Date();
+      date = formatDate(today);
+    }
+    console.log(date);
+    const option: Taro.request.Option<any> = {
+      url: NetworkManager.makeUri(
+        `checkDayInfo/userInfoLike?date=${date}&usernamelike=${user_id}`
+      ),
+      method: "POST"
+    };
+    return NetworkManager.resolveRequest(option);
   }
 }
 

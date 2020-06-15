@@ -2,24 +2,35 @@ import Taro, { Config } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { AtCalendar, AtFloatLayout } from "taro-ui"
 import RankItem from "../../components/rank-item";
+import RankMeItem from "../../components/bind-me-item";
 import ListView from "taro-listview";
 import "./index.scss";
 import { NetworkManager, RankItemModel } from "../../network/network";
 import IconFont from "../../iconfont";
+import BindingItem from "../../components/bind-item";
+import BindingIdActionSheet from "../../components/bind-sheet";
+import { observer, inject } from "@tarojs/mobx";
+
 
 interface IRankProps {
-  date?: string | "today" | "yesterday"
+  date?: string | "today" | "yesterday";
+  rankStore: {
+    bindUserId: string | null;
+  }
 }
-
 interface IRankState {
-  items: RankItemModel[]
-  isLoaded: boolean
-  hasMore: boolean
-  isEmpty: boolean
+  items: RankItemModel[];
+  isLoaded: boolean;
+  hasMore: boolean;
+  isEmpty: boolean;
+  isOpenBindActionSheet: boolean;
   showDate: boolean
   dateState: string
 }
-
+@inject((store) => {
+  return { rankStore: store.rankStore }
+})
+@observer
 class Rank extends Taro.Component<IRankProps, IRankState> {
   constructor(props) {
     super(props);
@@ -30,6 +41,7 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
       isEmpty: false,
       showDate: false,
       dateState: "today"
+      isOpenBindActionSheet: false
     };
   }
 
@@ -43,13 +55,16 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   pageIndex = 1;
 
   async componentDidMount() {
-    // this.fetchDatas();
+    // 获取全 rank 数据
+    this.fetchDatas();
     const items = await this.fetchDatas();
     this.setState({
       items: items,
       isLoaded: false,
       isEmpty: false
     });
+
+    // 获取个人数据
   }
 
   async fetchDatas(page = 1) {
@@ -115,16 +130,18 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   };
 
   render() {
-    const { items, isLoaded, hasMore, isEmpty } = this.state;
+    const { items, hasMore, isOpenBindActionSheet } = this.state;
+    const { rankStore: { bindUserId } } = this.props
     return (
-      <View className='lazy-view'>
+      <View className="lazy-view">
+        <BindingIdActionSheet isOpened={isOpenBindActionSheet} />
         <ListView
           lazy
           style={{ height: "100vh", backgroundColor: "#E5EAF5" }}
           ref={node => this.insRef(node)}
           hasMore={hasMore}
           onPullDownRefresh={fn => this.pullDownRefresh(fn)}
-          footerLoadedText='到底了'
+          footerLoadedText="到底了"
           onScrollToLower={fn => this.onScrollToLower(fn)}
         >
           <View
@@ -135,6 +152,11 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
               paddingRight: "26px"
             }}
           >
+            <IconFont
+              size={30}
+              name="icon_lc_ranking"
+              color="rgba(11,11,51,1)"
+            />
             <View
               style={{
                 display: "flex",
@@ -171,6 +193,17 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
               />
             </View>
           </View>
+
+          {bindUserId ? (
+            <RankMeItem key={`bind-user`} rank={-1} />
+          ) : (
+              <BindingItem
+                onClick={() => {
+                  this.setState({ isOpenBindActionSheet: true });
+                }}
+              />
+            )}
+
           {items.map((item, index) => {
             return (
               <RankItem
