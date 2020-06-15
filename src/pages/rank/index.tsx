@@ -1,5 +1,6 @@
 import Taro, { Config } from "@tarojs/taro";
 import { View } from "@tarojs/components";
+import { AtCalendar, AtFloatLayout } from "taro-ui"
 import RankItem from "../../components/rank-item";
 import RankMeItem from "../../components/bind-me-item";
 import ListView from "taro-listview";
@@ -23,6 +24,8 @@ interface IRankState {
   hasMore: boolean;
   isEmpty: boolean;
   isOpenBindActionSheet: boolean;
+  showDate: boolean
+  dateState: string
 }
 @inject((store) => {
   return { rankStore: store.rankStore }
@@ -36,6 +39,8 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
       isLoaded: false,
       hasMore: true,
       isEmpty: false,
+      showDate: false,
+      dateState: "today"
       isOpenBindActionSheet: false
     };
   }
@@ -77,6 +82,31 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
     this.refList = node;
   };
 
+  /**
+    * @author fzyt
+    * @desc AtFloatLayout 关闭触发方法
+    * @param 无
+    **/
+  handleClose() {
+    this.setState({
+      showDate: false
+    })
+  }
+
+  /**
+    * @author fzyt
+    * @desc selectDate 选择日期方法
+    * @param 无
+    **/
+  selectDate = async () => {
+    const date: string = this.state.dateState;
+    const items = await NetworkManager.getRank(date);
+    this.setState({
+      items: items,
+      showDate: false
+    });
+  }
+
   pullDownRefresh = async _rest => {
     if (this.isUpdated) return;
     const items = await this.fetchDatas();
@@ -117,7 +147,9 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
           <View
             style={{
               display: "flex",
-              alignItems: "center"
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingRight: "26px"
             }}
           >
             <IconFont
@@ -127,13 +159,38 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
             />
             <View
               style={{
-                fontSize: "16px",
-                fontFamily: "PingFangSC-Medium,PingFang SC",
-                color: "rgba(11,11,51,1)",
-                marginLeft: "4px"
+                display: "flex",
+                alignItems: "center"
               }}
             >
-              打卡排名
+              <IconFont
+                size={30}
+                name='icon_lc_ranking'
+                color='rgba(11,11,51,1)'
+              />
+              <View
+                style={{
+                  fontSize: "16px",
+                  fontFamily: "PingFangSC-Medium,PingFang SC",
+                  color: "rgba(11,11,51,1)",
+                  marginLeft: "4px"
+                }}
+              >
+                打卡排名
+            </View>
+            </View>
+            <View
+              onClick={() => {
+                this.setState({
+                  showDate: true
+                })
+              }}
+            >
+              <IconFont
+                size={30}
+                name={"daka"}
+                color="rgba(11,11,51,1)"
+              />
             </View>
           </View>
 
@@ -157,6 +214,17 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
             );
           })}
         </ListView>
+        <AtFloatLayout isOpened={this.state.showDate} title='请选择日期' onClose={this.handleClose.bind(this)}>
+          <AtCalendar maxDate={new Date()} onSelectDate={(SelectDate) => this.setState({ dateState: SelectDate.value.start })} />
+          <View className="rank">
+            <View
+              className="sel_date"
+              onClick={() => this.selectDate()}
+            >
+              查看此日排名
+            </View>
+          </View>
+        </AtFloatLayout>
       </View>
     );
   }
