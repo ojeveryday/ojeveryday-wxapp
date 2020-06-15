@@ -137,7 +137,7 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
         <BindingIdActionSheet isOpened={isOpenBindActionSheet} />
         <ListView
           lazy
-          style={{ height: "100vh", backgroundColor: "#E5EAF5" }}
+          style={{ height: "100vh", backgroundColor: "#E5EAF5", marginTop: '5px' }}
           ref={node => this.insRef(node)}
           hasMore={hasMore}
           onPullDownRefresh={fn => this.pullDownRefresh(fn)}
@@ -149,7 +149,7 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              paddingRight: "26px"
+              padding: "0 10px"
             }}
           >
             <IconFont
