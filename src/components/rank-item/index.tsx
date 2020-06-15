@@ -1,5 +1,4 @@
 import { View, Image, Text } from "@tarojs/components";
-import styles from "./index.scss";
 import IconFont from "../../iconfont";
 
 import { RankItemModel } from "../../network/network";
@@ -22,7 +21,12 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
   }
 
   render() {
-    const check: boolean = this.props.model && this.props.model.checked === 1;
+    let check: boolean = false;
+    if (this.props.model) {
+      check =
+        this.props.model.checked !== undefined &&
+        this.props.model.checked === 1;
+    }
     return (
       <View
         style={{
