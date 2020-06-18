@@ -56,9 +56,9 @@ class DailyRankStore {
         checkedTime: "null",
         upvoteNumber: 0
       });
-      return '解绑成功'
+      return true
     } catch (e) {
-      return '解绑失败'
+      return false
     }
 
   }
