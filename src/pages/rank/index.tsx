@@ -1,6 +1,6 @@
 import Taro, { Config } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtCalendar, AtFloatLayout } from "taro-ui"
+import { AtCalendar, AtFloatLayout, AtActionSheet } from "taro-ui"
 import RankItem from "../../components/rank-item";
 import RankMeItem from "../../components/bind-me-item";
 import ListView from "taro-listview";
@@ -9,6 +9,7 @@ import { NetworkManager, RankItemModel } from "../../network/network";
 import IconFont from "../../iconfont";
 import BindingItem from "../../components/bind-item";
 import BindingIdActionSheet from "../../components/bind-sheet";
+import UnbindActionSheet from "../../components/unbind-sheet";
 import { observer, inject } from "@tarojs/mobx";
 
 
@@ -24,6 +25,7 @@ interface IRankState {
   hasMore: boolean;
   isEmpty: boolean;
   isOpenBindActionSheet: boolean;
+  isOpenUnBindActionSheet: boolean;
   showDate: boolean
   dateState: string
 }
@@ -40,8 +42,9 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
       hasMore: true,
       isEmpty: false,
       showDate: false,
-      dateState: "today"
-      isOpenBindActionSheet: false
+      dateState: "today",
+      isOpenBindActionSheet: false,
+      isOpenUnBindActionSheet: false,
     };
   }
 
@@ -130,11 +133,16 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   };
 
   render() {
-    const { items, hasMore, isOpenBindActionSheet } = this.state;
+    const { items, hasMore, isOpenBindActionSheet, isOpenUnBindActionSheet } = this.state;
     const { rankStore: { bindUserId } } = this.props
     return (
       <View className="lazy-view">
-        <BindingIdActionSheet isOpened={isOpenBindActionSheet} />
+        <BindingIdActionSheet isOpened={isOpenBindActionSheet} close={() => {
+          this.setState({ isOpenBindActionSheet: false })
+        }} />
+        <UnbindActionSheet isOpened={isOpenUnBindActionSheet} close={() => {
+          this.setState({ isOpenUnBindActionSheet: false })
+        }} />
         <ListView
           lazy
           style={{ height: "100vh", backgroundColor: "#E5EAF5", marginTop: '5px' }}
@@ -195,7 +203,9 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
           </View>
 
           {bindUserId ? (
-            <RankMeItem key={`bind-user`} rank={-1} />
+            <RankMeItem key={`bind-user`} rank={-1} onClick={() => {
+              this.setState({ isOpenUnBindActionSheet: true });
+            }} />
           ) : (
               <BindingItem
                 onClick={() => {

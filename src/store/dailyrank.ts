@@ -43,7 +43,24 @@ class DailyRankStore {
   }
 
   clear() {
-    Taro.clearStorageSync();
+    try {
+      Taro.clearStorageSync();
+      this.setBindUserId('');
+      this.setBindUserInfo({
+        sortId: "",
+        username: "",
+        address: "",
+        avatar: "",
+        totalChecked: 0,
+        checked: 0,
+        checkedTime: "null",
+        upvoteNumber: 0
+      });
+      return '解绑成功'
+    } catch (e) {
+      return '解绑失败'
+    }
+
   }
 
   @action.bound

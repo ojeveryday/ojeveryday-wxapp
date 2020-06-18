@@ -9,6 +9,7 @@ import { NetworkManager, RankItemModel } from "../../network/network";
 import dailyRankStore from "../../store/dailyrank";
 
 interface IBindingIdActionSheetProps {
+  close: { (): void }
   isOpened: boolean;
 }
 
@@ -128,8 +129,13 @@ class BindingIdActionSheet extends Taro.Component<
           onClick={() => {
             // 绑定成功
             if (isSearchedUser && respUser && respUser.username) {
-              dailyRankStore.saveLeetCodeUserId(respUser.username);
-              this.toast('绑定成功', 1200);
+              if (dailyRankStore.saveLeetCodeUserId(respUser.username)) {
+                this.toast('绑定成功', 1000);
+              } else {
+                this.toast('绑定失败', 1000);
+              }
+              this.props.close();
+
             }
             // 复制
             else if (!isSearchedUser) {
