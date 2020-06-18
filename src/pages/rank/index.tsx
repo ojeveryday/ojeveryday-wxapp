@@ -52,7 +52,11 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
     navigationBarTitleText: "每日榜单",
     navigationBarBackgroundColor: "#E5EAF5"
   };
-
+  onShareAppMessage() {
+    return {
+      title: "我在每日一题打卡，快来一起每日刷题吧"
+    };
+  }
   refList = {};
   isUpdated = false;
   pageIndex = 1;

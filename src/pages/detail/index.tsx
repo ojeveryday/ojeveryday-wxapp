@@ -5,7 +5,7 @@ import { NetworkManager } from "./../../network/network";
 import { ProblemDetail } from "../../network/model";
 import "./index.scss";
 
-interface IProblemProps {}
+interface IProblemProps { }
 interface IProblemState {
   problemDetail: ProblemDetail;
 }
@@ -15,7 +15,7 @@ interface IProblemState {
 export default class ParseRichTextPage extends Taro.Component<
   IProblemProps,
   IProblemState
-> {
+  > {
   constructor(args) {
     super(args);
     this.state = {
@@ -28,7 +28,6 @@ export default class ParseRichTextPage extends Taro.Component<
   componentDidMount() {
     this.getData();
   }
-
   async getData() {
     const { id, slug } = this.$router.params;
     const problemDetail = await NetworkManager.getProblem(id, slug);
@@ -44,6 +43,11 @@ export default class ParseRichTextPage extends Taro.Component<
       parser: "../../components/parser/parser" // 引入插件包
     }
   };
+  onShareAppMessage() {
+    return {
+      title: "快来看看今天的每日一题难不难"
+    };
+  }
 
   render() {
     const {
