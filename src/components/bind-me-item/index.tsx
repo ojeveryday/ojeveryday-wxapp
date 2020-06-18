@@ -1,10 +1,10 @@
 import { View, Image, Text } from "@tarojs/components";
 import IconFont from "../../iconfont";
-
 import { observer, inject } from "@tarojs/mobx";
 import { RankItemModel } from "../../network/network";
 
 interface IRankMeItemProps {
+  onClick: { (): void };
   rank: number;
   rankStore: {
     bindUserId: string | null
@@ -44,6 +44,7 @@ class RankMeItem extends Taro.Component<IRankMeItemProps, IRankMeItemState> {
           position: "relative",
           marginTop: '10px'
         }}
+        onClick={this.props.onClick}
       >
         <View
           style={{

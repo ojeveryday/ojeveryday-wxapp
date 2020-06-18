@@ -6,7 +6,7 @@ import { NetworkManager } from "./../../network/network";
 import "taro-ui/dist/style/components/action-sheet.scss";
 import IconFont from "../../iconfont";
 
-import { AtActionSheet, AtActionSheetItem } from "taro-ui";
+import { AtActionSheet, AtActionSheetItem, AtNoticebar } from "taro-ui";
 import { ProblemDetail } from "src/network/model";
 
 interface ITodayProblem {
@@ -133,7 +133,7 @@ class Day extends Component<{}, ITodayProblemState> {
     this.setState({
       detail: problemDetail,
       problemString: problemDetail.translatedContent.replace(
-        /\<\w+\>|\<\/\w+\>|\&\w+|\s|\;/g,
+        /\<\w+\>|\<\/\w+\>|\&\w+|\s|\;|\<img.*\/*>/g,
         ""
       )
     });
@@ -187,6 +187,9 @@ class Day extends Component<{}, ITodayProblemState> {
     const { problemString } = this.state;
     return (
       <View className={this.state.showShare ? "today show_share" : "today"}>
+        {/* <AtNoticebar marquee={true} speed={80} customStyle={{ borderRadius: "18px", top: "0px" }}>
+          欢迎使用每日一题最新版，支持了题目详情查看和打卡用户绑定功能，详情中的图片因为力扣官网的限制不能使用后续会进行优化，敬请期待！
+        </AtNoticebar> */}
         <View className="banner">
           <View className="back">
             <View className="date">

@@ -9,6 +9,7 @@ import { NetworkManager, RankItemModel } from "../../network/network";
 import dailyRankStore from "../../store/dailyrank";
 
 interface IBindingIdActionSheetProps {
+  close: { (): void }
   isOpened: boolean;
 }
 
@@ -128,8 +129,13 @@ class BindingIdActionSheet extends Taro.Component<
           onClick={() => {
             // 绑定成功
             if (isSearchedUser && respUser && respUser.username) {
-              dailyRankStore.saveLeetCodeUserId(respUser.username);
-              this.toast('绑定成功', 1200);
+              if (dailyRankStore.saveLeetCodeUserId(respUser.username)) {
+                this.toast('绑定成功', 1000);
+              } else {
+                this.toast('绑定失败', 1000);
+              }
+              this.props.close();
+
             }
             // 复制
             else if (!isSearchedUser) {
@@ -149,7 +155,7 @@ class BindingIdActionSheet extends Taro.Component<
                 justifyContent: "center"
               }}
             >
-              <Image
+              {respUser && respUser.avatar && <Image
                 style={{
                   width: "28px",
                   height: "28px",
@@ -157,10 +163,10 @@ class BindingIdActionSheet extends Taro.Component<
                   border: "0px solid rgba(151,151,151,1)",
                   marginRight: "10px"
                 }}
-                src={respUser && respUser.avatar !== "" ? respUser.avatar : ""}
-              />
+                src={respUser.avatar}
+              />}
               绑定
-              {respUser && "("}
+              {respUser && "(" || ""}
               <Text
                 style={{
                   maxWidth: "180px",
@@ -170,7 +176,7 @@ class BindingIdActionSheet extends Taro.Component<
               >
                 {respUser ? `${(respUser as RankItemModel).username}` : ""}
               </Text>
-              {respUser && ")"}
+              {respUser && ")" || ""}
             </View>
           ) : (
                 <View onClick={() => {
