@@ -1,22 +1,38 @@
 import Taro, { Config } from "@tarojs/taro";
 import { View } from "@tarojs/components";
+import { AtCalendar, AtFloatLayout, AtActionSheet } from "taro-ui"
 import RankItem from "../../components/rank-item";
+import RankMeItem from "../../components/bind-me-item";
 import ListView from "taro-listview";
 import "./index.scss";
 import { NetworkManager, RankItemModel } from "../../network/network";
 import IconFont from "../../iconfont";
+import BindingItem from "../../components/bind-item";
+import BindingIdActionSheet from "../../components/bind-sheet";
+import UnbindActionSheet from "../../components/unbind-sheet";
+import { observer, inject } from "@tarojs/mobx";
+
 
 interface IRankProps {
   date?: string | "today" | "yesterday";
+  rankStore: {
+    bindUserId: string | null;
+  }
 }
-
 interface IRankState {
   items: RankItemModel[];
   isLoaded: boolean;
   hasMore: boolean;
   isEmpty: boolean;
+  isOpenBindActionSheet: boolean;
+  isOpenUnBindActionSheet: boolean;
+  showDate: boolean
+  dateState: string
 }
-
+@inject((store) => {
+  return { rankStore: store.rankStore }
+})
+@observer
 class Rank extends Taro.Component<IRankProps, IRankState> {
   constructor(props) {
     super(props);
@@ -24,7 +40,11 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
       items: [],
       isLoaded: false,
       hasMore: true,
-      isEmpty: false
+      isEmpty: false,
+      showDate: false,
+      dateState: "today",
+      isOpenBindActionSheet: false,
+      isOpenUnBindActionSheet: false,
     };
   }
 
@@ -32,12 +52,17 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
     navigationBarTitleText: "每日榜单",
     navigationBarBackgroundColor: "#E5EAF5"
   };
-
+  onShareAppMessage() {
+    return {
+      title: "我在每日一题打卡，快来一起每日刷题吧"
+    };
+  }
   refList = {};
   isUpdated = false;
   pageIndex = 1;
 
   async componentDidMount() {
+    // 获取全 rank 数据
     this.fetchDatas();
     const items = await this.fetchDatas();
     this.setState({
@@ -45,9 +70,11 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
       isLoaded: false,
       isEmpty: false
     });
+
+    // 获取个人数据
   }
 
-  async fetchDatas(page: number = 1) {
+  async fetchDatas(page = 1) {
     const date: string = this.props.date ? this.props.date : "today";
     if (date === "today") {
       return NetworkManager.getTodayRank(page);
@@ -61,6 +88,31 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   insRef = node => {
     this.refList = node;
   };
+
+  /**
+    * @author fzyt
+    * @desc AtFloatLayout 关闭触发方法
+    * @param 无
+    **/
+  handleClose() {
+    this.setState({
+      showDate: false
+    })
+  }
+
+  /**
+    * @author fzyt
+    * @desc selectDate 选择日期方法
+    * @param 无
+    **/
+  selectDate = async () => {
+    const date: string = this.state.dateState;
+    const items = await NetworkManager.getRank(date);
+    this.setState({
+      items: items,
+      showDate: false
+    });
+  }
 
   pullDownRefresh = async _rest => {
     if (this.isUpdated) return;
@@ -85,40 +137,86 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
   };
 
   render() {
-    const { items, isLoaded, hasMore, isEmpty } = this.state;
+    const { items, hasMore, isOpenBindActionSheet, isOpenUnBindActionSheet } = this.state;
+    const { rankStore: { bindUserId } } = this.props
     return (
       <View className="lazy-view">
+        <BindingIdActionSheet isOpened={isOpenBindActionSheet} close={() => {
+          this.setState({ isOpenBindActionSheet: false })
+        }} />
+        <UnbindActionSheet isOpened={isOpenUnBindActionSheet} close={() => {
+          this.setState({ isOpenUnBindActionSheet: false })
+        }} />
         <ListView
           lazy
-          style={{ height: "100vh", backgroundColor: "#E5EAF5" }}
+          style={{ height: "100vh", backgroundColor: "#E5EAF5", marginTop: '5px' }}
           ref={node => this.insRef(node)}
           hasMore={hasMore}
           onPullDownRefresh={fn => this.pullDownRefresh(fn)}
-          footerLoadedText={"到底了"}
+          footerLoadedText="到底了"
           onScrollToLower={fn => this.onScrollToLower(fn)}
         >
           <View
             style={{
               display: "flex",
-              alignItems: "center"
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "0 10px"
             }}
           >
             <IconFont
               size={30}
-              name={"icon_lc_ranking"}
+              name="icon_lc_ranking"
               color="rgba(11,11,51,1)"
             />
             <View
               style={{
-                fontSize: "16px",
-                fontFamily: "PingFangSC-Medium,PingFang SC",
-                color: "rgba(11,11,51,1)",
-                marginLeft: "4px"
+                display: "flex",
+                alignItems: "center"
               }}
             >
-              打卡排名
+              <IconFont
+                size={30}
+                name='icon_lc_ranking'
+                color='rgba(11,11,51,1)'
+              />
+              <View
+                style={{
+                  fontSize: "16px",
+                  fontFamily: "PingFangSC-Medium,PingFang SC",
+                  color: "rgba(11,11,51,1)",
+                  marginLeft: "4px"
+                }}
+              >
+                打卡排名
+            </View>
+            </View>
+            <View
+              onClick={() => {
+                this.setState({
+                  showDate: true
+                })
+              }}
+            >
+              <IconFont
+                size={30}
+                name={"daka"}
+                color="rgba(11,11,51,1)"
+              />
             </View>
           </View>
+
+          {bindUserId ? (
+            <RankMeItem key={`bind-user`} rank={-1} onClick={() => {
+              this.setState({ isOpenUnBindActionSheet: true });
+            }} />
+          ) : (
+              <BindingItem
+                onClick={() => {
+                  this.setState({ isOpenBindActionSheet: true });
+                }}
+              />
+            )}
 
           {items.map((item, index) => {
             return (
@@ -130,6 +228,17 @@ class Rank extends Taro.Component<IRankProps, IRankState> {
             );
           })}
         </ListView>
+        <AtFloatLayout isOpened={this.state.showDate} title='请选择日期' onClose={this.handleClose.bind(this)}>
+          <AtCalendar maxDate={new Date()} onSelectDate={(SelectDate) => this.setState({ dateState: SelectDate.value.start })} />
+          <View className="rank">
+            <View
+              className="sel_date"
+              onClick={() => this.selectDate()}
+            >
+              查看此日排名
+            </View>
+          </View>
+        </AtFloatLayout>
       </View>
     );
   }

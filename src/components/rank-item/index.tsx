@@ -1,5 +1,4 @@
 import { View, Image, Text } from "@tarojs/components";
-import styles from "./index.scss";
 import IconFont from "../../iconfont";
 
 import { RankItemModel } from "../../network/network";
@@ -22,7 +21,12 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
   }
 
   render() {
-    const check: boolean = this.props.model.checked === 1;
+    let check: boolean = false;
+    if (this.props.model) {
+      check =
+        this.props.model.checked !== undefined &&
+        this.props.model.checked === 1;
+    }
     return (
       <View
         style={{
@@ -139,31 +143,31 @@ class RankItem extends Taro.Component<IRankItemProps, IRankItemState> {
               </Text>
             </View>
           ) : (
-            <View
-              style={{
-                width: "50px",
-                height: "22px",
-                background: "rgba(13,14,54,0.3)",
-                borderRadius: "11px",
-                border: "0px solid rgba(151,151,151,1)",
-                display: "flex",
-                alignItems: "center",
-                marginRight: "5px"
-              }}
-            >
-              <Text
+              <View
                 style={{
-                  fontSize: "10px",
-                  width: "100%",
-                  fontFamily: "PingFangSC-Semibold,PingFang SC",
-                  color: "rgba(255,255,255,0.6)",
-                  textAlign: "center"
+                  width: "50px",
+                  height: "22px",
+                  background: "rgba(13,14,54,0.3)",
+                  borderRadius: "11px",
+                  border: "0px solid rgba(151,151,151,1)",
+                  display: "flex",
+                  alignItems: "center",
+                  marginRight: "5px"
                 }}
               >
-                未打卡
+                <Text
+                  style={{
+                    fontSize: "10px",
+                    width: "100%",
+                    fontFamily: "PingFangSC-Semibold,PingFang SC",
+                    color: "rgba(255,255,255,0.6)",
+                    textAlign: "center"
+                  }}
+                >
+                  未打卡
               </Text>
-            </View>
-          )}
+              </View>
+            )}
           <View
             style={{
               flex: "1",

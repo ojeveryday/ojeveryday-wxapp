@@ -1,5 +1,9 @@
 # ojeveryday-wxapp
 
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 # Description
 
 这是每日一题官方微信小程序。改小程序致力于方便查看个人打卡情况及每日一题 (http://ojeveryday.com/) 榜单情况，也可以分享当日习题和当日本人打卡情况。
@@ -33,6 +37,26 @@ $ yarn dev:weapp
 下载[微信小程序开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)，选择『导入已有项目』，目录选择本地 Repo 根目录即可看到预览。
 
 ![](./help/screenshot.png)
+
+# Contributors ✨
+
+感谢以下同学对于项目的贡献：
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://www.desgard.com/"><img src="https://avatars3.githubusercontent.com/u/7804535?v=4" width="100px;" alt=""/><br /><sub><b>Gua</b></sub></a><br /><a href="https://github.com/ojeveryday/ojeveryday-wxapp/commits?author=Desgard" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/bifjhh"><img src="https://avatars0.githubusercontent.com/u/29394439?v=4" width="100px;" alt=""/><br /><sub><b> 茧</b></sub></a><br /><a href="https://github.com/ojeveryday/ojeveryday-wxapp/commits?author=bifjhh" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.jonyfang.com/"><img src="https://avatars3.githubusercontent.com/u/12381169?v=4" width="100px;" alt=""/><br /><sub><b>Jony Fang</b></sub></a><br /><a href="#design-JonyFang" title="Design">🎨</a></td>
+    <td align="center"><a href="https://github.com/nick950222"><img src="https://avatars1.githubusercontent.com/u/24955297?v=4" width="100px;" alt=""/><br /><sub><b>nick950222</b></sub></a><br /><a href="https://github.com/ojeveryday/ojeveryday-wxapp/commits?author=nick950222" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 # MIT License
 

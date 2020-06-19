@@ -3,3 +3,23 @@ page {
   background: #e4eaf5;
   box-sizing: border-box;
 }
+
+.rank {
+  display: flex;
+  padding-top: 40px;
+  justify-content: space-around;
+  .sel_date {
+    text-align: center;
+    background: rgba(94, 130, 245, 1);
+    border-radius: 18px;
+    font-size: 22px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 1);
+    line-height: 36px;
+    line-height: 72px;
+    width: 260px;
+    height: 72px;
+    background: rgba(94, 130, 245, 1);
+    border-radius: 36px;
+  }
+}

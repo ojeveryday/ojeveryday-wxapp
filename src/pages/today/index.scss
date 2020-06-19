@@ -18,8 +18,6 @@ page {
 
   .banner {
     border-radius: 18px;
-    // background-color: #fff;
-    // padding: 10px;
     border: 10px solid #fff;
     overflow: hidden;
     background: linear-gradient(135deg, rgba(149, 183, 251, 1) 0%, rgba(102, 147, 255, 1) 49%, rgba(72, 120, 249, 1) 100%);
@@ -32,7 +30,7 @@ page {
       padding-bottom: 50px;
       display: flex;
       flex-direction: column;
-      background: url('../../assets/images/banner_bgc.png') 20px 40px no-repeat;
+      background: url('../../assets/images/banner_bgc.png') 30px 56px no-repeat;
       background-size: 506px, 596px;
     }
 
@@ -64,12 +62,64 @@ page {
     }
 
     .problem {
-      font-size: 43px;
-      font-family: PingFangSC-Semibold, PingFang SC;
-      font-weight: 600;
+      position:relative;
+      font-size: 29px;
+      font-family:PingFang SC;
+      font-weight:400;
       color: rgba(255, 255, 255, 1);
       line-height: 60px;
       text-align: left;
+      .problem_name {
+        padding-bottom:10px;
+        font-family: PingFangSC;
+        font-weight: 600;
+        &::before {
+          width:80px;
+          height:36px;
+          font-size: 22px;
+          font-weight:500;
+          font-family: PingFang SC;
+          border-radius:7px;
+          border:0px solid rgba(151,151,151,1);
+          margin-bottom:10px;
+          line-height: 36px;
+          vertical-align: middle;
+          text-align: center;
+          position: absolute;
+          left:0px;
+          top:-45px;
+        }
+        &[data-diff=Easy]::before{
+          background-color:rgba(28,188,157,1);
+          content:'简单';
+        }
+        &[data-diff=Medium]::before{
+          background-color:rgba(232,188,15,1);
+          content:'中等';
+        }
+        &[data-diff=Hard]::before{
+          background-color:rgba(231,75,61,1);
+          content:'困难';
+        }
+      }
+      .problem_detail {
+        color:rgba(255,255,255,0.6);
+        font-size:24px;
+        line-height: 45px;
+        display: -webkit-box;
+        /* autoprefixer: off */
+        -webkit-box-orient: vertical;
+        /* autoprefixer: on */
+        -webkit-line-clamp:4;
+        line-clamp:4;
+        word-break: break-all;
+        overflow: hidden;
+        overflow-wrap: break-word;
+      }
+      .showAll{
+        margin-top:10px;
+        line-height: 40px;
+      }
     }
 
     .problem.zh {
@@ -148,23 +198,32 @@ page {
 
     .ranking {
       line-height: 72px;
+      display: flex;
+      align-items: center;
+
+      >text {
+        margin-left: 13px;
+      }
     }
 
-    .share {
+    .share button {
       line-height: 72px;
+      display: flex;
+      align-items: center;
 
-      button {
-        &::after {
-          display: none;
-        }
+      &::after {
+        display: none;
+      }
 
-        line-height: 72px;
-        margin: 0;
-        padding: 0;
-        border: none;
-        background: transparent;
-        font-size: 22px;
-        color: rgba(94, 130, 245, 1);
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+      font-size: 22px;
+      color: rgba(94, 130, 245, 1);
+
+      >text {
+        margin-left: 13px;
       }
     }
   }
@@ -203,7 +262,6 @@ page {
     }
 
     .problem {
-      font-style: 48px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;

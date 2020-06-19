@@ -2,8 +2,8 @@ import Taro, { Component, Config } from "@tarojs/taro";
 import { Provider } from "@tarojs/mobx";
 import "./app.scss";
 
-import TabContainer from "./pages/tab-container";
 import counterStore from "./store/counter";
+import rankStore from "./store/dailyrank";
 import Day from "./pages/today";
 
 // 如果需要在 h5 环境中开启 React Devtools
@@ -13,7 +13,8 @@ import Day from "./pages/today";
 // }
 
 const store = {
-  counterStore
+  counterStore,
+  rankStore
 };
 
 class App extends Component {
@@ -29,7 +30,8 @@ class App extends Component {
       "pages/today/index",
       "pages/leetcode/index",
       "pages/index/index",
-      "pages/rank/index"
+      "pages/rank/index",
+      "pages/detail/index"
     ],
     window: {
       backgroundTextStyle: "light",
@@ -62,13 +64,13 @@ class App extends Component {
     // }
   };
 
-  componentDidMount() {}
+  componentDidMount() { }
 
-  componentDidShow() {}
+  componentDidShow() { }
 
-  componentDidHide() {}
+  componentDidHide() { }
 
-  componentDidCatchError() {}
+  componentDidCatchError() { }
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数

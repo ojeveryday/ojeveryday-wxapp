@@ -4,14 +4,16 @@ import "./index.scss";
 // import Statistical from "./statistical";
 import { NetworkManager } from "./../../network/network";
 import "taro-ui/dist/style/components/action-sheet.scss";
-import "taro-ui/dist/style/components/icon.scss";
+import IconFont from "../../iconfont";
 
-import { AtActionSheet, AtActionSheetItem } from "taro-ui"
+import { AtActionSheet, AtActionSheetItem, AtNoticebar } from "taro-ui";
+import { ProblemDetail } from "src/network/model";
 
 interface ITodayProblem {
+  problemID: number;
   indexNum?: string;
   name?: string;
-  questionTitleSlug?: string;
+  questionTitleSlug: string;
   cnUrl: string;
   enUrl?: string;
 }
@@ -33,20 +35,28 @@ interface ITodayProblemState {
   date: IDate;
   showShare: boolean;
   isOpened: boolean;
+  detail: ProblemDetail;
+  problemString: string;
 }
-
-class Day extends Component<ITodayProblem, ITodayProblemState> {
+class Day extends Component<{}, ITodayProblemState> {
   // 发送请求
   statistical: IStatistical;
   constructor() {
     super();
     Taro.showLoading({
-      title: '加载中...'
-    })
+      title: "加载中..."
+    });
     this.state = {
       todayProblem: {
-        cnUrl: '',
+        problemID: 0,
+        cnUrl: "",
+        questionTitleSlug: ""
       },
+      detail: {
+        content: "",
+        translatedContent: ""
+      },
+      problemString: "",
       isOpened: false,
       date: {},
       statistical: {
@@ -66,10 +76,11 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
   async componentDidShow() {
     this.setState({
       showShare: false
-    })
-    await this.getTodayProblem();
+    });
+    const questinTitleSlug = await this.getTodayProblem();
+    await this.getProblemDetail(questinTitleSlug);
     await this.getSummary();
-    Taro.hideLoading()
+    Taro.hideLoading();
   }
 
   /**
@@ -85,6 +96,20 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
    * 获取每日一题信息
    */
   async getTodayProblem() {
+    const MonthMap = {
+      "1": "Jan",
+      "2": "Feb",
+      "3": "Mar",
+      "4": "Apr",
+      "5": "May",
+      "6": "Jun",
+      "7": "Jul",
+      "8": "Aug",
+      "9": "Sep",
+      "10": "Oct",
+      "11": "Nov",
+      "12": "Dec"
+    };
     let res = await NetworkManager.getTodayProblem();
     res = res[0];
     const date = {
@@ -92,13 +117,27 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
       month: String(new Date(res.date).getMonth() + 1),
       day: String(new Date(res.date).getDate())
     };
-    date.month = date.month.length === 2 ? date.month : "0" + date.month;
+    date.month = MonthMap[date.month];
     this.setState({
       todayProblem: res,
       date
     });
+    return res.questionTitleSlug;
   }
-
+  /**
+   * 获取题目详细信息
+   */
+  async getProblemDetail(slug: string) {
+    const problemDetail = await NetworkManager.getProblem(undefined, slug);
+    // const content = problemDetail.translatedContent || problemDetail.content;
+    this.setState({
+      detail: problemDetail,
+      problemString: problemDetail.translatedContent.replace(
+        /\<\w+\>|\<\/\w+\>|\&\w+|\s|\;|\<img.*\/*>/g,
+        ""
+      )
+    });
+  }
   /**
    * 获取统计信息
    */
@@ -109,15 +148,19 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
     });
   }
   getProgressWidth() {
-    let width = Number(this.state.statistical.checkedCount) / Number(this.state.statistical.totalUserCount) * 100
-    width = width > 100 ? 100 : Number(width.toFixed(2))
-    return ({ width: width + "%" })
+    let width =
+      (Number(this.state.statistical.checkedCount) /
+        Number(this.state.statistical.totalUserCount)) *
+      100;
+    width = width > 100 ? 100 : Number(width.toFixed(2));
+    return { width: width + "%" };
   }
   componentDidHide() {
     setTimeout(() => {
       this.setState({
+        isOpened: false,
         showShare: false
-      })
+      });
     }, 0);
   }
   /**
@@ -126,40 +169,58 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
   onShareAppMessage() {
     this.setState({
       showShare: true
-    })
+    });
     return {
-      title: '每日一题'
-    }
+      title: "每日一题"
+    };
   }
 
   setClipboardData(url) {
     Taro.setClipboardData({
       data: url
-    })
+    });
   }
 
   render() {
+    const { indexNum, questionTitleSlug } = this.state.todayProblem;
+    const { translatedTitle, difficulty } = this.state.detail;
+    const { problemString } = this.state;
     return (
       <View className={this.state.showShare ? "today show_share" : "today"}>
+        {/* <AtNoticebar marquee={true} speed={80} customStyle={{ borderRadius: "18px", top: "0px" }}>
+          欢迎使用每日一题最新版，支持了题目详情查看和打卡用户绑定功能，详情中的图片因为力扣官网的限制不能使用后续会进行优化，敬请期待！
+        </AtNoticebar> */}
         <View className="banner">
           <View className="back">
             <View className="date">
               <View className="date_box">
-                <View className="day">
-                  {this.state.date.day}
-                </View>
+                <View className="day">{this.state.date.day}</View>
                 <View className="datetime">
                   <Text className="month">{this.state.date.month}.</Text>
                   <Text className="year">{this.state.date.year}</Text>
                 </View>
               </View>
-
             </View>
             {/* <View className="problem">
               {this.state.todayProblem.indexNum}. {this.state.todayProblem.questionTitleSlug}
             </View> */}
             <View className="problem">
-              {this.state.todayProblem.indexNum}. {this.state.todayProblem.name}
+              <View className="problem_name" data-diff={difficulty}>
+                {indexNum}. {translatedTitle}
+              </View>
+              <View className="problem_detail">{problemString}</View>
+              <View
+                className="showAll"
+                onClick={() => {
+                  if (questionTitleSlug) {
+                    Taro.navigateTo({
+                      url: `/pages/detail/index?slug=${questionTitleSlug}`
+                    });
+                  }
+                }}
+              >
+                全文
+              </View>
             </View>
             <View className="progress">
               <View className="bar" style={this.getProgressWidth()}></View>
@@ -188,35 +249,54 @@ class Day extends Component<ITodayProblem, ITodayProblemState> {
             前往打卡
           </View>
           <View className="bottom_r">
-            <View className="ranking"
+            <View
+              className="ranking"
               onClick={() => {
                 Taro.navigateTo({
                   url: "/pages/rank/index"
                 });
               }}
             >
-              <View className='at-icon at-icon-list'></View>
+              <IconFont
+                size={30}
+                name="icon_lc_ranking"
+                color="rgba(94, 130, 245, 1)"
+              />
               <Text>打卡排名</Text>
             </View>
-            <View className="share"
+            <View
+              className="share"
               onClick={() => {
                 this.setState({
                   showShare: true
-                })
+                });
               }}
             >
               <Button openType="share">
-                <View className='at-icon at-icon-upload'></View>
+                <IconFont
+                  size={30}
+                  name="icon_lc_share"
+                  color="rgba(94, 130, 245, 1)"
+                />
                 <Text>分享</Text>
               </Button>
             </View>
           </View>
         </View>
-        <AtActionSheet isOpened={this.state.isOpened} cancelText='取消' title='点击下列按钮，会自动复制题目链接，前往浏览器粘贴打开即可'>
-          <AtActionSheetItem onClick={() => this.setClipboardData(this.state.todayProblem.cnUrl)}>
+        <AtActionSheet
+          isOpened={this.state.isOpened}
+          cancelText="取消"
+          title="点击下列按钮，会自动复制题目链接，前往浏览器粘贴打开即可"
+          onClose={() => this.setState({ isOpened: false })}
+        >
+          <AtActionSheetItem
+            onClick={() => this.setClipboardData(this.state.todayProblem.cnUrl)}
+          >
             复制中文版力扣地址
           </AtActionSheetItem>
-          <AtActionSheetItem onClick={() => this.setClipboardData(this.state.todayProblem.enUrl)}>
+          <AtActionSheetItem
+            onClick={() => this.setClipboardData(this.state.todayProblem.enUrl)}
+          >
             复制英文版 LeetCode 地址
           </AtActionSheetItem>
         </AtActionSheet>
