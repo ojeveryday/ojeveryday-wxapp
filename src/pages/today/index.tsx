@@ -130,12 +130,17 @@ class Day extends Component<{}, ITodayProblemState> {
   async getProblemDetail(slug: string) {
     const problemDetail = await NetworkManager.getProblem(undefined, slug);
     // const content = problemDetail.translatedContent || problemDetail.content;
+    console.log(problemDetail.translatedContent)
+    console.log(problemDetail.translatedContent.replace(/&#39;/, "'"))
     this.setState({
       detail: problemDetail,
-      problemString: problemDetail.translatedContent.replace(
-        /\<\w+\>|\<\/\w+\>|\&\w+|\s|\;|\<img.*\/*>/g,
-        ""
-      )
+      problemString: problemDetail.translatedContent
+        .replace(/\&\#39\;/g, "'")
+        .replace(/\&\#34\;/g, '"')
+        .replace(
+          /\<\w+\>|\<\/\w+\>|\&\w+|\s|\;|\<img.*\/*>/g,
+          ""
+        )
     });
   }
   /**
