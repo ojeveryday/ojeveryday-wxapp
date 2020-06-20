@@ -132,10 +132,13 @@ class Day extends Component<{}, ITodayProblemState> {
     // const content = problemDetail.translatedContent || problemDetail.content;
     this.setState({
       detail: problemDetail,
-      problemString: problemDetail.translatedContent.replace(
-        /\<\w+\>|\<\/\w+\>|\&\w+|\s|\;|\<img.*\/*>/g,
-        ""
-      )
+      problemString: problemDetail.translatedContent
+        .replace(/\&\#39\;/g, "'")
+        .replace(/\&\#34\;/g, '"')
+        .replace(
+          /\<\w+\>|\<\/\w+\>|\&\w+|\s|\;|\<img.*\/*>/g,
+          ""
+        )
     });
   }
   /**
